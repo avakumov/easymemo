@@ -27,13 +27,16 @@ function App({ questions }: { questions: QuestionProps[] }) {
 
 	useEffect(() => {
 		if (typingText === activeQ.keys) {
-			const index = questions.indexOf(activeQ);
-			setTypingText('');
-			if (questions.length - 1 === index) {
-				setActiveQ(questions[0]);
-			} else {
-				setActiveQ(questions[index + 1]);
-			}
+			//Небольшая задержка после правильного ответа
+			setTimeout(() => {
+				const index = questions.indexOf(activeQ);
+				setTypingText('');
+				if (questions.length - 1 === index) {
+					setActiveQ(questions[0]);
+				} else {
+					setActiveQ(questions[index + 1]);
+				}
+			}, 500); //TODO Перенести в settings 
 		}
 	}, [typingText]);
 
@@ -52,7 +55,7 @@ function App({ questions }: { questions: QuestionProps[] }) {
 			{questions.map((q: QuestionProps) => (
 				<Question q={q} active={q.keys === activeQ.keys} key={q.keys} />
 			))}
-			<TypingView typingText={typingText} />
+			<TypingView typingText={typingText} highlightText={activeQ.keys}/>
 		</Root>
 	);
 }

@@ -4,11 +4,9 @@ import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
 import App from './components/App/App';
 import { QuestionProps } from './components/Question/Question';
+import data from '../data/nvim.json'
 
-const data: QuestionProps[] = [
-	{ question: 'Перейти на начало следующего слова', keys: 'w' },
-	{ question: 'Перейти на конец следующего слова', keys: 'e' },
-];
+
 
 const Root = styled.div`
 	margin: 0;

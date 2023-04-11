@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Question, { QuestionProps } from '../Question/Question';
 import TypingView from '../TypingView/TypingView';
@@ -19,14 +19,18 @@ const Root = styled.div`
 function App({ questions }: { questions: QuestionProps[] }) {
 	useEffect(() => {
 		document.addEventListener('keydown', keyDownHandler, true);
-		return () => document.removeEventListener('keydown', keyDownHandler, true);
+		document.addEventListener('keyup', keyUpHandler, true);
+		return () => {
+			document.removeEventListener('keydown', keyDownHandler, true);
+			document.removeEventListener('keyup', keyUpHandler, true);
+		};
 	}, []);
 
 	const [activeQ, setActiveQ] = useState(questions[0] ?? {});
 	const [typingText, setTypingText] = useState('');
 
 	useEffect(() => {
-		if (typingText === activeQ.keys) {
+		if (typingText === activeQ.answer) {
 			//Небольшая задержка после правильного ответа
 			setTimeout(() => {
 				const index = questions.indexOf(activeQ);
@@ -36,26 +40,39 @@ function App({ questions }: { questions: QuestionProps[] }) {
 				} else {
 					setActiveQ(questions[index + 1]);
 				}
-			}, 500); //TODO Перенести в settings 
+			}, 500); //TODO Перенести в settings
 		}
 	}, [typingText]);
 
+	function keyUpHandler(this: Document, e: globalThis.KeyboardEvent) {}
+
 	function keyDownHandler(this: Document, e: globalThis.KeyboardEvent) {
-		console.log('key: ', e.key);
-		const key = e.key;
-		if (key === 'Escape') {
-			setTypingText('');
-		} else {
-			setTypingText((prev) => prev + key);
+		const { key } = e;
+		//ignore keys
+		const ignoreKeys = ['Shift', 'Control'];
+		if (ignoreKeys.find((k) => k === e.key)) {
+			return;
 		}
+
+		if (key === 'Escape') {
+			return setTypingText('');
+		}
+		if (key === 'Backspace') {
+			return setTypingText((prev) => prev.slice(0, -1));
+		}
+
+		if (e.ctrlKey) {
+			return setTypingText((prev) => `${prev}<C-${key}>`);
+		}
+		setTypingText((prev) => prev + key);
 	}
 
 	return (
 		<Root>
 			{questions.map((q: QuestionProps) => (
-				<Question q={q} active={q.keys === activeQ.keys} key={q.keys} />
+				<Question q={q} active={q.answer === activeQ.answer} key={q.answer} />
 			))}
-			<TypingView typingText={typingText} highlightText={activeQ.keys}/>
+			<TypingView typingText={typingText} highlightText={activeQ.answer} />
 		</Root>
 	);
 }

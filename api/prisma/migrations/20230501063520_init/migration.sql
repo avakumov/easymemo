@@ -51,6 +51,9 @@ CREATE UNIQUE INDEX "Question_question_key" ON "Question"("question");
 CREATE UNIQUE INDEX "Question_answer_key" ON "Question"("answer");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Category_name_key" ON "Category"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "_CategoryToQuestion_AB_unique" ON "_CategoryToQuestion"("A", "B");
 
 -- CreateIndex

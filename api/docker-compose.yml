@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:13.5
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - postgres:/home/avakdev/postgres-data
+    ports:
+      - '7777:5432'
+
+volumes:
+  postgres:

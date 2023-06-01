@@ -7,7 +7,7 @@ export interface QuestionProps {
 
 const Root = styled.div`
 	/* color: ${(props: { active: boolean }) => (props.active ? 'blue' : 'inherit')}; */
-	display: ${(props: {active: boolean }) => (props.active ? 'flex': 'none')};
+	display: ${(props: { active: boolean }) => (props.active ? 'flex' : 'none')};
 	font-size: 30px;
 `;
 

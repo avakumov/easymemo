@@ -12,7 +12,7 @@ const Root = styled.div`
 	font-size: 70px;
 	font-weight: 600;
 	& .highlight {
-		color: green
+		color: green;
 	}
 `;
 

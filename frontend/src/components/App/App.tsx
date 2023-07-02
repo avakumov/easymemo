@@ -44,7 +44,7 @@ function App({ questions }: { questions: QuestionProps[] }) {
 		}
 	}, [typingText]);
 
-	function keyUpHandler(this: Document, e: globalThis.KeyboardEvent) {}
+	function keyUpHandler(this: Document, e: globalThis.KeyboardEvent): void {}
 
 	function keyDownHandler(this: Document, e: globalThis.KeyboardEvent) {
 		const { key } = e;

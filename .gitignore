@@ -1,5 +1,9 @@
-node_modules
 todo.md
+session.vim
+
+
+cli/node_modules
+
 
 api/dist
 api/node_modules

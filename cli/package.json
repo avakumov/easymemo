@@ -1,0 +1,18 @@
+{
+  "type": "module",
+  "name": "easymemo-cli",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vladimir Avakumov",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "clear": "^0.1.0",
+    "figlet": "^1.6.0",
+    "inquirer": "^9.2.7"
+  }
+}

@@ -6,10 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  Res,
 } from "@nestjs/common";
 import { QuestionsService } from "./questions.service";
 import { CreateQuestionDto } from "./dto/create-question.dto";
 import { UpdateQuestionDto } from "./dto/update-question.dto";
+import { Response } from "express";
 
 @Controller("questions")
 export class QuestionsController {
@@ -21,8 +23,12 @@ export class QuestionsController {
   }
 
   @Get()
-  findAll() {
-    return this.questionsService.findAll();
+  async findAll(@Res() res: Response) {
+    const data = await this.questionsService.findAll();
+    const count = data.length.toString();
+    res.append("X-Total-Count", count);
+    res.append("Access-Control-Expose-Headers", "X-Total-Count");
+    res.json(data);
   }
 
   @Get(":id")

@@ -6,6 +6,7 @@ import App from './components/App/App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QuestionProps } from './components/Question/Question';
 import data from '../data/nvim.json';
+import AdminPage from './components/AdminPage/AdminPage';
 
 const router = createBrowserRouter([
 	{
@@ -13,8 +14,8 @@ const router = createBrowserRouter([
 		element: <App questions={data} />,
 	},
 	{
-		path: '/admin',
-		element: <div>admin</div>,
+		path: '/admin/*',
+		element: <AdminPage />,
 	},
 ]);
 

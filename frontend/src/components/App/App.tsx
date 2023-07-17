@@ -42,7 +42,7 @@ function App({ questions }: { questions: QuestionProps[] }) {
 				}
 			}, 500); //TODO Перенести в settings
 		}
-	}, [activeQ, questions, typingText]);
+	}, [typingText]);
 
 	function keyUpHandler(this: Document, e: globalThis.KeyboardEvent): void {}
 

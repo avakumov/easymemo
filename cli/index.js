@@ -1,11 +1,10 @@
 #!/usr/bin/env node
-// import files f:rom "./lib/files";
 
-// const chalk = require("chalk");
 import chalk from "chalk";
 import clear from "clear";
 import figlet from "figlet";
-import { getQuestions } from "./lib/inquirer.js";
+import inquirer from "inquirer";
+import api from "./lib/api.js";
 
 clear();
 greeting();
@@ -16,7 +15,39 @@ function greeting() {
     chalk.green(figlet.textSync("Easymemo", { horizontalLayout: "full" }))
   );
 }
+
 async function run() {
-  const data = await getQuestions();
-  console.log(data);
+  const questionsNumber = await inquirer.prompt({
+    name: "questionsNumber",
+    type: "list",
+    message: "select the number of questions:",
+    choices: [10, 20, 50],
+    default: 0,
+  });
+  const questions = await getQuestions(questionsNumber);
+  const answersData = await inquirer.prompt(questions);
+  console.log(answersData);
+}
+
+async function getQuestions(count = 20) {
+  const { data: questions } = await api.getQuestions(count);
+  return prepQuestions(questions);
+}
+
+function prepQuestions(questions) {
+  const preparedQuestions = questions.map((i) => {
+    return {
+      name: i.question,
+      type: "input",
+      message: i.question + " :",
+      validate: function (value) {
+        if (value === i.answer) {
+          return true;
+        } else {
+          return i.answer;
+        }
+      },
+    };
+  });
+  return preparedQuestions;
 }

@@ -10,6 +10,7 @@
   "author": "Vladimir Avakumov",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.4.0",
     "chalk": "^5.3.0",
     "clear": "^0.1.0",
     "figlet": "^1.6.0",

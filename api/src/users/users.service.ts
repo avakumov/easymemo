@@ -13,12 +13,21 @@ export class UsersService {
     return this.prisma.user.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(obj: Record<string, any>) {
+    return this.prisma.user.findUnique({ where: obj });
+  }
+
+  findByEmail(email: string) {
+    return this.prisma.user.findUnique({ where: { email } });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    return this.prisma.user.update({
+      where: { id: id },
+      data: {
+        ...updateUserDto,
+      },
+    });
   }
 
   remove(id: number) {

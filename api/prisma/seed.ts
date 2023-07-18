@@ -10,6 +10,7 @@ async function main() {
     create: {
       name: "Vladimir Avakumov",
       email: "avakdev@gmail.com",
+      password: "1",
       questions: {
         create: [
           {

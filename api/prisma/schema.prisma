@@ -2,42 +2,43 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  email     String     @unique
-  name      String?
-  questions Question[]
+    id        Int        @id @default(autoincrement())
+    email     String     @unique
+    password  String
+    name      String?
+    questions Question[]
 }
 
 model Question {
-  id                 Int        @id @default(autoincrement())
-  description        String?
-  question           String     @unique
-  answer             String     @unique
-  published          Boolean    @default(false)
-  createdAt          DateTime   @default(now())
-  updateAt           DateTime   @updatedAt
-  viewCount          Int        @default(0)
-  successAnswerCount Int        @default(0)
-  failAnswerCount    Int        @default(0)
-  owner              User       @relation(fields: [ownerId], references: [id])
-  ownerId            Int
-  categories         Category[]
+    id                 Int        @id @default(autoincrement())
+    description        String?
+    question           String     @unique
+    answer             String     @unique
+    published          Boolean    @default(false)
+    createdAt          DateTime   @default(now())
+    updateAt           DateTime   @updatedAt
+    viewCount          Int        @default(0)
+    successAnswerCount Int        @default(0)
+    failAnswerCount    Int        @default(0)
+    owner              User       @relation(fields: [ownerId], references: [id])
+    ownerId            Int
+    categories         Category[]
 }
 
 model Category {
-  id          Int        @id @default(autoincrement())
-  published   Boolean    @default(false)
-  createdAt   DateTime   @default(now())
-  name        String     @unique
-  description String?
-  questions   Question[]
+    id          Int        @id @default(autoincrement())
+    published   Boolean    @default(false)
+    createdAt   DateTime   @default(now())
+    name        String     @unique
+    description String?
+    questions   Question[]
 }

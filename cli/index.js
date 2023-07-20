@@ -8,12 +8,28 @@ import api from "./lib/api.js";
 
 clear();
 greeting();
+await login();
 run();
 
 function greeting() {
   console.log(
     chalk.green(figlet.textSync("Easymemo", { horizontalLayout: "full" }))
   );
+}
+
+async function login() {
+  const { email, password } = await inquirer.prompt([
+    { name: "email", type: "input", message: "login: " },
+    { name: "password", type: "password", message: "password: " },
+  ]);
+  if (email && password) {
+    try {
+      await api.login(email, password);
+      console.log(chalk.green("Login access. Welcome " + email + "!"));
+    } catch (e) {
+      console.log(chalk.red("Error: ", e.message));
+    }
+  }
 }
 
 async function run() {

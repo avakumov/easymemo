@@ -4,9 +4,13 @@ import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
 import App from './components/App/App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AdminPage from './components/AdminPage/AdminPage';
 import { ThemeProvider } from '@mui/material';
-import { createTheme } from '@mui/system';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+import { mainTheme } from './themes/theme';
+import AdminPage from './pages/Admin';
+import { token } from './serivices/auth';
+import Login from './components/Login/Login';
 
 const Root = styled.div`
 	margin: 0;
@@ -16,7 +20,10 @@ const Root = styled.div`
 	min-height: 100vh;
 `;
 
-const theme = createTheme({});
+function getAdminPages() {
+	const auth = token.getToken() ? true : false;
+	return auth ? <AdminPage /> : <Login />;
+}
 
 const router = createBrowserRouter([
 	{
@@ -29,14 +36,16 @@ const router = createBrowserRouter([
 	},
 	{
 		path: '/admin/*',
-		element: <AdminPage />,
+		element: getAdminPages(),
 	},
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
-		<ThemeProvider theme={theme}>
-			<RouterProvider router={router} />
-		</ThemeProvider>
+		<Provider store={store}>
+			<ThemeProvider theme={mainTheme}>
+				<RouterProvider router={router} />
+			</ThemeProvider>
+		</Provider>
 	</React.StrictMode>
 );

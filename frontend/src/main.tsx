@@ -4,20 +4,9 @@ import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
 import App from './components/App/App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { QuestionProps } from './components/Question/Question';
-import data from '../data/nvim.json';
 import AdminPage from './components/AdminPage/AdminPage';
-
-const router = createBrowserRouter([
-	{
-		path: '/',
-		element: <App questions={data} />,
-	},
-	{
-		path: '/admin/*',
-		element: <AdminPage />,
-	},
-]);
+import { ThemeProvider } from '@mui/material';
+import { createTheme } from '@mui/system';
 
 const Root = styled.div`
 	margin: 0;
@@ -27,10 +16,27 @@ const Root = styled.div`
 	min-height: 100vh;
 `;
 
+const theme = createTheme({});
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: (
+			<Root>
+				<App questions={[]} />
+			</Root>
+		),
+	},
+	{
+		path: '/admin/*',
+		element: <AdminPage />,
+	},
+]);
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
-		<Root>
+		<ThemeProvider theme={theme}>
 			<RouterProvider router={router} />
-		</Root>
+		</ThemeProvider>
 	</React.StrictMode>
 );

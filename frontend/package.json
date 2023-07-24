@@ -10,14 +10,14 @@
 		"format": "npx prettier --write ."
 	},
 	"dependencies": {
-		"localforage": "^1.10.0",
-		"match-sorter": "^6.3.1",
-		"ra-data-json-server": "^4.12.0",
+		"@emotion/react": "^11.11.1",
+		"@emotion/styled": "^11.11.0",
+		"@mui/material": "^5.14.1",
+		"@mui/styled-engine-sc": "^5.12.0",
+		"@mui/system": "^5.14.1",
 		"react": "^18.2.0",
-		"react-admin": "^4.12.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.10.0",
-		"sort-by": "^1.2.0",
 		"styled-components": "^5.3.6"
 	},
 	"devDependencies": {

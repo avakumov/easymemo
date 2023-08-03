@@ -19,5 +19,14 @@ Content-Type: application/json
 "email":"avakdev@gmail.com"
 }
 
+POST http://localhost:8001/users/register
+Content-Type: application/json
+
+{
+"email": "hello@hello.ru",
+"password": "1",
+"name": "Vladimir"
+}
+
 GET http://localhost:8001/auth/profile
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoiYXZha2RldkBnbWFpbC5jb20iLCJpYXQiOjE2ODk4NDM0MjQsImV4cCI6MTY4OTkwMzQyNH0.iEjCMtLHOkWg4lbaADDci0EfcjA7_fjkYNUUjufIJ28

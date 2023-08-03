@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 const Questions2 = () => {
 	const { data: questions, error, isLoading } = api.useFetchQuestionsQuery();
 	return (
-		<TableContainer component={Paper}>
+		<TableContainer>
 			<Table sx={{ minWidth: 650 }} size='small'>
 				<TableHead>
 					<TableRow>

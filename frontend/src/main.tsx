@@ -4,12 +4,12 @@ import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
 import App from './components/App/App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { mainTheme } from './themes/theme';
 import AdminPage from './pages/Admin';
-import { token } from './serivices/auth';
+import { token } from './services/auth';
 import Login from './components/Login/Login';
 
 const Root = styled.div`
@@ -44,6 +44,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<ThemeProvider theme={mainTheme}>
+				<CssBaseline />
 				<RouterProvider router={router} />
 			</ThemeProvider>
 		</Provider>

@@ -1,8 +1,9 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { ILogin, ILoginAnswer } from '../models/ILogin';
 import { IQuestion } from '../models/IQuestion';
 import { token } from './auth';
 
+//функция запроса с токеном
 const baseQuery = fetchBaseQuery({
 	baseUrl: 'http://localhost:8001',
 	prepareHeaders: (headers, query) => {
@@ -13,6 +14,7 @@ const baseQuery = fetchBaseQuery({
 	},
 });
 
+//функция запроса с удалением токена при отсутствии авторизации
 const baseQueryWithLogout: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
 	args,
 	api,
@@ -39,6 +41,7 @@ const api = createApi({
 				params: {},
 			}),
 		}),
+		//TODO добавить переход по _url
 		postLogin: builder.mutation<ILoginAnswer, ILogin>({
 			query: ({ email, password }) => ({
 				url: `auth/login`,

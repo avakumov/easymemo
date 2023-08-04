@@ -1,6 +1,8 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
+import { ICategory } from '../models/ICategory';
 import { ILogin, ILoginAnswer } from '../models/ILogin';
 import { IQuestion } from '../models/IQuestion';
+import { IUser } from '../models/IUser';
 import { token } from './auth';
 
 //функция запроса с токеном
@@ -37,6 +39,18 @@ const api = createApi({
 		fetchQuestions: builder.query<IQuestion[], number>({
 			query: () => ({
 				url: `/questions`,
+				params: {},
+			}),
+		}),
+		getUsers: builder.query<IUser[], number>({
+			query: () => ({
+				url: `/users`,
+				params: {},
+			}),
+		}),
+		getCategories: builder.query<ICategory[], number>({
+			query: () => ({
+				url: `/categories`,
 				params: {},
 			}),
 		}),

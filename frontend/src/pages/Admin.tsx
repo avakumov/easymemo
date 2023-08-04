@@ -1,7 +1,9 @@
 import { Box } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
+import Categories from '../components/Categories/Categories';
 import AdminDrawer from '../components/Drawer/AdminDrawer';
 import Questions2 from '../components/Questions/Questions2';
+import Users from '../components/Users/Users';
 
 const AdminPage = () => {
 	const [params, setParams] = useSearchParams();
@@ -21,11 +23,11 @@ type ShowProps = {
 function Show({ entityName }: ShowProps) {
 	switch (entityName) {
 		case 'users':
-			return <Box>Users</Box>;
+			return <Users />;
 		case 'questions':
 			return <Questions2 />;
 		case 'categories':
-			return <Box>Categories</Box>;
+			return <Categories />;
 		default:
 			return <Box>Main</Box>;
 	}

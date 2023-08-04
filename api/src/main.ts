@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { AppModule } from "./app.module";
-
+import settings from "../settings";
 import { config } from "dotenv";
 config();
 
@@ -13,6 +13,6 @@ async function bootstrap() {
   SwaggerModule.setup("api", app, document);
 
   app.enableCors();
-  await app.listen(8001);
+  await app.listen(settings.port);
 }
 bootstrap();

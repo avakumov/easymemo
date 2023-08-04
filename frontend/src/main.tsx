@@ -11,6 +11,7 @@ import { mainTheme } from './themes/theme';
 import AdminPage from './pages/Admin';
 import { token } from './services/auth';
 import Login from './components/Login/Login';
+import Page404 from './pages/404';
 
 const Root = styled.div`
 	margin: 0;
@@ -35,8 +36,12 @@ const router = createBrowserRouter([
 		),
 	},
 	{
-		path: '/admin/*',
+		path: '/admin',
 		element: getAdminPages(),
+	},
+	{
+		path: '*',
+		element: <Page404 />,
 	},
 ]);
 

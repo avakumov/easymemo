@@ -8,7 +8,6 @@ const baseQuery = fetchBaseQuery({
 	baseUrl: 'http://localhost:8001',
 	prepareHeaders: (headers, query) => {
 		const jwtToken = token.getToken();
-		console.log('token: ', jwtToken);
 		jwtToken && headers.set('authorization', 'Bearer ' + jwtToken);
 		return headers;
 	},
@@ -36,7 +35,7 @@ const api = createApi({
 
 	endpoints: (builder) => ({
 		fetchQuestions: builder.query<IQuestion[], number>({
-			query: (limit) => ({
+			query: () => ({
 				url: `/questions`,
 				params: {},
 			}),

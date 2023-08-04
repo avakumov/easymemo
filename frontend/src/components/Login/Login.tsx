@@ -7,8 +7,8 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import api from '../../serivices/ApiService';
-import { token } from '../../serivices/auth';
+import api from '../../services/ApiService';
+import { token } from '../../services/auth';
 
 export default function Login() {
 	const [login, { data }] = api.usePostLoginMutation();

@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import api from '../serivices/ApiService';
+import api from '../services/ApiService';
 import questionsReducer from './reducers/QuestionsSlice';
 
 const rootReducer = combineReducers({

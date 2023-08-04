@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import api from '../services/ApiService';
 import questionsReducer from './reducers/QuestionsSlice';
+import editModalReducer from './reducers/EditModalReducer';
 
 const rootReducer = combineReducers({
 	questionsReducer,
+	editModalReducer,
 	[api.reducerPath]: api.reducer,
 });
 

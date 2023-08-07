@@ -4,12 +4,6 @@ import Question, { QuestionProps } from '../Question/Question';
 import TypingView from '../TypingView/TypingView';
 
 const Root = styled.div`
-	@font-face {
-		font-family: 'Iosevka';
-		font-style: normal;
-		src: url('fonts/iosevka') format('truetype');
-	}
-	font-family: 'Iosevka';
 	display: flex;
 	align-items: center;
 	justify-content: center;

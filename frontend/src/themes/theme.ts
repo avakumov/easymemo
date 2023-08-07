@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 export const mainTheme = createTheme({
 	typography: {
-		fontFamily: ['"Mononoki Nerd"', 'Iosevka', 'Roboto'].join(','),
+		fontSize: 14,
 	},
 	palette: {
 		mode: 'dark',

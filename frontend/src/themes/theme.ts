@@ -13,4 +13,20 @@ export const mainTheme = createTheme({
 			primary: '#b8bb26',
 		},
 	},
+	components: {
+		MuiPaper: {
+			styleOverrides: {
+				root: {
+					border: '#111 2px solid',
+				},
+			},
+		},
+		MuiTableCell: {
+			styleOverrides: {
+				head: {
+					fontWeight: 600,
+				},
+			},
+		},
+	},
 });

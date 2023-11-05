@@ -1,13 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ICategory } from '../../models/ICategory';
-import { IQuestion } from '../../models/IQuestion';
-import { IUser } from '../../models/IUser';
-type EditModalData = IQuestion | IUser | ICategory | undefined;
+import { EntityName, IEntity } from '../../types';
 
 interface EditModalState {
 	open: boolean;
-	name: 'user' | 'category' | 'question' | undefined;
-	data: EditModalData;
+	name: EntityName;
+	data: IEntity;
 }
 
 const initialState: EditModalState = {

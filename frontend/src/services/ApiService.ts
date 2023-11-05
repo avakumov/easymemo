@@ -1,8 +1,5 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { ICategory } from '../models/ICategory';
-import { ILogin, ILoginAnswer } from '../models/ILogin';
-import { IQuestion } from '../models/IQuestion';
-import { IUser } from '../models/IUser';
+import { ICategory, ILoginAnswer, IQuestion, IUser } from '../types';
 import { token } from './auth';
 
 //функция запроса с токеном

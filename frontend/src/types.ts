@@ -1,3 +1,29 @@
+export enum EntityNames {
+	USER = 'user',
+	CATEGORY = 'category',
+	QUESTION = 'question',
+}
+export type EntityKey = keyof typeof EntityNames;
+export type EntityName = (typeof EntityNames)[EntityKey] | undefined | null | string;
+
+export interface ICategory {
+	id: number;
+	name: string;
+	description?: string;
+
+	published: boolean;
+	createdAt: string;
+}
+
+export interface ILogin {
+	email: string;
+	password: string;
+}
+
+export interface ILoginAnswer {
+	access_token: string;
+}
+
 export interface IQuestion {
 	id: number;
 	description: string;
@@ -17,3 +43,12 @@ export interface IQuestion {
 	// ownerId            Int
 	// categories         Category[]
 }
+
+export interface IUser {
+	id: number;
+	name: string;
+	email: string;
+	password: string;
+}
+
+export type IEntity = IQuestion | IUser | ICategory | undefined;

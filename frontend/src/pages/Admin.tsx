@@ -1,35 +1,47 @@
-import { Box } from '@mui/material';
+import { Box, Grid, Paper } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import Categories from '../components/Categories/Categories';
-import AdminDrawer from '../components/Drawer/AdminDrawer';
+import TableInfo from '../components/info/TableInfo';
+import AdminLeftMenu from '../components/menu/AdminLeftMenu';
 import EditModal from '../components/modals/EditModal';
 import Questions2 from '../components/Questions/Questions2';
 import Users from '../components/Users/Users';
+import { EntityName, EntityNames } from '../types';
 
 const AdminPage = () => {
 	const [params] = useSearchParams();
 	const name = params.get('show');
 
 	return (
-		<Box sx={{ display: 'flex' }}>
-			<AdminDrawer />
-			<Show entityName={name} />
+		<>
+			<Grid container spacing={2} margin='auto'>
+				<Grid item xs='auto'>
+					<Paper>
+						<AdminLeftMenu />
+					</Paper>
+				</Grid>
+				<Grid item xs={10}>
+					<Paper>
+						<TableInfo name={name} handlePlus={() => {}} />
+					</Paper>
+					<Paper sx={{ mt: 1 }}>
+						<Show entityName={name} />
+					</Paper>
+				</Grid>
+			</Grid>
 
 			<EditModal />
-		</Box>
+		</>
 	);
 };
 
-type ShowProps = {
-	entityName: string | null;
-};
-function Show({ entityName }: ShowProps) {
+function Show({ entityName }: { entityName: EntityName }) {
 	switch (entityName) {
-		case 'users':
+		case EntityNames.USER:
 			return <Users />;
-		case 'questions':
+		case EntityNames.QUESTION:
 			return <Questions2 />;
-		case 'categories':
+		case EntityNames.CATEGORY:
 			return <Categories />;
 		default:
 			return <Box>Main</Box>;

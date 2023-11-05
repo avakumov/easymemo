@@ -11,11 +11,12 @@ datasource db {
 }
 
 model User {
-    id        Int        @id @default(autoincrement())
-    email     String     @unique
-    password  String
-    name      String?
-    questions Question[]
+    id         Int        @id @default(autoincrement())
+    email      String     @unique
+    password   String
+    name       String?
+    questions  Question[]
+    categories Category[]
 }
 
 model Question {
@@ -40,5 +41,7 @@ model Category {
     createdAt   DateTime   @default(now())
     name        String     @unique
     description String?
+    owner       User       @relation(fields: [ownerId], references: [id])
+    ownerId     Int
     questions   Question[]
 }

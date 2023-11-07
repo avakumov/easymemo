@@ -10,7 +10,7 @@ import { map } from '../../utils';
 import Loading from '../Loading/Loading';
 import BasicAlert from '../BasicAlert.tsx/BasicAlert';
 import { useDispatch } from 'react-redux';
-import { editModalOpen } from '../../store/reducers/EditModalReducer';
+import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import EditIcon from '@mui/icons-material/Edit';
 
 const Users = () => {
@@ -44,7 +44,7 @@ const Users = () => {
 								<IconButton
 									sx={{ color: 'text.primary' }}
 									size='small'
-									onClick={() => dispatch(editModalOpen({ name: 'user', data: row, open: true }))}>
+									onClick={() => dispatch(entityModalOpen({ name: 'user', data: row, open: true }))}>
 									<EditIcon fontSize='inherit' />
 								</IconButton>
 							</TableCell>

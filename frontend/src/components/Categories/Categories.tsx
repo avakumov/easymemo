@@ -11,7 +11,7 @@ import Loading from '../Loading/Loading';
 import BasicAlert from '../BasicAlert.tsx/BasicAlert';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from 'react-redux';
-import { editModalOpen } from '../../store/reducers/EditModalReducer';
+import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 
 const Categories = () => {
 	const { data: categories, error, isLoading } = api.useGetCategoriesQuery();
@@ -48,7 +48,7 @@ const Categories = () => {
 									sx={{ color: 'text.primary' }}
 									size='small'
 									onClick={() =>
-										dispatch(editModalOpen({ name: 'category', data: row, open: true }))
+										dispatch(entityModalOpen({ name: 'category', data: row, open: true }))
 									}>
 									<EditIcon fontSize='inherit' />
 								</IconButton>

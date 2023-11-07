@@ -3,9 +3,8 @@ import { useSearchParams } from 'react-router-dom';
 import Categories from '../components/Categories/Categories';
 import TableInfo from '../components/info/TableInfo';
 import AdminLeftMenu from '../components/menu/AdminLeftMenu';
-import CreateModal from '../components/modals/CreateModal';
-import EditModal from '../components/modals/EditModal';
-import Questions2 from '../components/Questions/Questions2';
+import FormEntityModal from '../components/modals/FormEntityModal';
+import Questions from '../components/Questions/Questions';
 import Users from '../components/Users/Users';
 import { EntityName, EntityNames } from '../types';
 
@@ -31,8 +30,7 @@ const AdminPage = () => {
 				</Grid>
 			</Grid>
 
-			<EditModal />
-			<CreateModal />
+			<FormEntityModal />
 		</>
 	);
 };
@@ -42,7 +40,7 @@ function Show({ entityName }: { entityName: EntityName }) {
 		case EntityNames.USER:
 			return <Users />;
 		case EntityNames.QUESTION:
-			return <Questions2 />;
+			return <Questions />;
 		case EntityNames.CATEGORY:
 			return <Categories />;
 		default:

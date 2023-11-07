@@ -9,21 +9,20 @@ import { IQuestion } from '../../types';
 import api from '../../services/ApiService';
 import { MenuItem, OutlinedInput, Select } from '@mui/material';
 
-export default function QuestionForm({ data }: { data?: IQuestion }) {
+export default function FormQuestion({ data }: { data?: IQuestion }) {
 	const [createQuestion, status] = api.useCreateQuestionMutation();
 	const { data: categories } = api.useGetCategoriesQuery();
 
 	const { handleSubmit, control } = useForm<IQuestion>({
 		defaultValues: {
-			question: '',
-			answer: '',
-			categories: [],
+			question: data?.question ?? '',
+			answer: data?.answer ?? '',
+			categories: data?.categories ?? [],
+			id: data?.id ?? undefined,
 		},
 	});
 
 	const submit: SubmitHandler<IQuestion> = async (data) => {
-		console.log('data: ', data);
-		debugger;
 		try {
 			const question = await createQuestion(data).unwrap();
 			console.log('answer: ', question);

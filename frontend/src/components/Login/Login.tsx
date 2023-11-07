@@ -11,7 +11,7 @@ import api from '../../services/ApiService';
 import { token } from '../../services/auth';
 
 export default function Login() {
-	const [login, { data }] = api.usePostLoginMutation();
+	const [login, status] = api.usePostLoginMutation();
 	const handleSubmit = async (event: any) => {
 		event.preventDefault();
 		const formData = new FormData(event.currentTarget);

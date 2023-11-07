@@ -33,19 +33,19 @@ const api = createApi({
 	baseQuery: baseQueryWithLogout,
 
 	endpoints: (builder) => ({
-		fetchQuestions: builder.query<IQuestion[], number>({
+		fetchQuestions: builder.query<IQuestion[], void>({
 			query: () => ({
 				url: `/questions`,
 				params: {},
 			}),
 		}),
-		getUsers: builder.query<IUser[], number>({
+		getUsers: builder.query<IUser[], void>({
 			query: () => ({
 				url: `/users`,
 				params: {},
 			}),
 		}),
-		getCategories: builder.query<ICategory[], number>({
+		getCategories: builder.query<ICategory[], void>({
 			query: () => ({
 				url: `/categories`,
 				params: {},
@@ -57,6 +57,13 @@ const api = createApi({
 				url: `auth/login`,
 				method: 'POST',
 				body: { email, password },
+			}),
+		}),
+		createQuestion: builder.mutation<IQuestion, Partial<IQuestion>>({
+			query: (question) => ({
+				url: '/questions',
+				method: 'POST',
+				body: question,
 			}),
 		}),
 	}),

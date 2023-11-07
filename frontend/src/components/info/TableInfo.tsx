@@ -1,9 +1,9 @@
 import Box from '@mui/material/Box';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { IconButton, Paper } from '@mui/material';
-import { editModalOpen } from '../../store/reducers/EditModalReducer';
+import { IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { EntityName } from '../../types';
+import { createEntityModalOpen } from '../../store/reducers/CreateModalReducer';
 
 interface TableInfoProps {
 	name: EntityName;
@@ -24,7 +24,7 @@ const TableInfo: React.FC<TableInfoProps> = ({ name }) => {
 			<IconButton
 				sx={{ color: 'text.primary' }}
 				size='small'
-				onClick={() => dispatch(editModalOpen({ name, data: undefined, open: true }))}>
+				onClick={() => dispatch(createEntityModalOpen({ name, open: true }))}>
 				<AddCircleOutlineIcon />
 			</IconButton>
 		</Box>

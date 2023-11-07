@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import Categories from '../components/Categories/Categories';
 import TableInfo from '../components/info/TableInfo';
 import AdminLeftMenu from '../components/menu/AdminLeftMenu';
+import CreateModal from '../components/modals/CreateModal';
 import EditModal from '../components/modals/EditModal';
 import Questions2 from '../components/Questions/Questions2';
 import Users from '../components/Users/Users';
@@ -31,6 +32,7 @@ const AdminPage = () => {
 			</Grid>
 
 			<EditModal />
+			<CreateModal />
 		</>
 	);
 };

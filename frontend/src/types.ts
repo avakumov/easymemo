@@ -25,10 +25,11 @@ export interface ILoginAnswer {
 }
 
 export interface IQuestion {
-	id: number;
-	description: string;
+	id?: number;
+	description?: string;
 	question: string;
 	answer: string;
+	categories: ICategory[];
 	// id                 Int        @id @default(autoincrement())
 	// description        String?
 	// question           String     @unique

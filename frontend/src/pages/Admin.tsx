@@ -11,7 +11,7 @@ import { EntityName, EntityNames } from '../types';
 const AdminPage = () => {
 	const [params] = useSearchParams();
 	const name = params.get('show');
-
+	const isExistEntity = name === EntityNames.QUESTION || name === EntityNames.CATEGORY || name === EntityNames.USER;
 	return (
 		<>
 			<Grid container spacing={2} margin='auto'>
@@ -21,9 +21,11 @@ const AdminPage = () => {
 					</Paper>
 				</Grid>
 				<Grid item xs={10}>
-					<Paper>
-						<TableInfo name={name} handlePlus={() => {}} />
-					</Paper>
+					{isExistEntity && (
+						<Paper>
+							<TableInfo name={name} handlePlus={() => {}} />
+						</Paper>
+					)}
 					<Paper sx={{ mt: 1 }}>
 						<Show entityName={name} />
 					</Paper>
@@ -35,7 +37,7 @@ const AdminPage = () => {
 	);
 };
 
-function Show({ entityName }: { entityName: EntityName }) {
+function Show({ entityName }: { entityName: EntityName | undefined | null | string }) {
 	switch (entityName) {
 		case EntityNames.USER:
 			return <Users />;

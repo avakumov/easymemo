@@ -1,10 +1,10 @@
 export enum EntityNames {
-	USER = 'user',
-	CATEGORY = 'category',
-	QUESTION = 'question',
+	USER = 'users',
+	CATEGORY = 'categories',
+	QUESTION = 'questions',
 }
 export type EntityKey = keyof typeof EntityNames;
-export type EntityName = (typeof EntityNames)[EntityKey] | undefined | null | string;
+export type EntityName = (typeof EntityNames)[EntityKey] | undefined | null;
 
 export interface ICategory {
 	id: number;
@@ -50,6 +50,13 @@ export interface IUser {
 	name: string;
 	email: string;
 	password: string;
+}
+export interface IQuestionForm {
+	id?: number;
+	description?: string;
+	question: string;
+	answer: string;
+	categories: number[];
 }
 
 export type IEntity = IQuestion | IUser | ICategory | undefined;

@@ -5,29 +5,31 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
-import { IQuestion } from '../../types';
+import { IQuestion, IQuestionForm } from '../../types';
 import api from '../../services/ApiService';
 import { MenuItem, OutlinedInput, Select } from '@mui/material';
 
-export default function FormQuestion({ data }: { data?: IQuestion }) {
-	const [createQuestion, status] = api.useCreateQuestionMutation();
+export default function FormQuestion({ data, exit }: { exit: () => void; data?: IQuestion }) {
+	const [createQuestion] = api.useCreateQuestionMutation();
+	const [updateQuestion] = api.useUpdateQuestionMutation();
 	const { data: categories } = api.useGetCategoriesQuery();
 
-	const { handleSubmit, control } = useForm<IQuestion>({
+	const { handleSubmit, control } = useForm<IQuestionForm>({
 		defaultValues: {
 			question: data?.question ?? '',
 			answer: data?.answer ?? '',
-			categories: data?.categories ?? [],
+			categories: data?.categories?.map((c) => c.id) ?? [],
 			id: data?.id ?? undefined,
 		},
 	});
 
-	const submit: SubmitHandler<IQuestion> = async (data) => {
+	const submit: SubmitHandler<IQuestionForm> = async (q) => {
 		try {
-			const question = await createQuestion(data).unwrap();
-			console.log('answer: ', question);
+			const operation = q.id ? updateQuestion : createQuestion;
+			const question = await operation(q).unwrap();
+			exit();
 		} catch (e) {
-			console.error('ошибка запроса:', e);
+			console.error('ошибка соединения:', e);
 		}
 	};
 	return (
@@ -71,7 +73,7 @@ export default function FormQuestion({ data }: { data?: IQuestion }) {
 							<Select multiple input={<OutlinedInput label='Name' />} {...field}>
 								{Array.isArray(categories) &&
 									categories.map((category) => (
-										<MenuItem key={category.id} value={category.name}>
+										<MenuItem key={category.id} value={category.id}>
 											{category.name}
 										</MenuItem>
 									))}

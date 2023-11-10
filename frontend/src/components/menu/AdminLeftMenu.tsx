@@ -12,17 +12,17 @@ import { EntityNames } from '../../types';
 
 const entities = [
 	{
-		name: 'Users',
+		name: EntityNames.USER.toUpperCase(),
 		path: `?show=${EntityNames.USER}`,
 		icon: <GroupIcon sx={{ color: 'text.primary' }} />,
 	},
 	{
-		name: 'Question',
+		name: EntityNames.QUESTION.toUpperCase(),
 		path: `?show=${EntityNames.QUESTION}`,
 		icon: <QuestionMarkIcon sx={{ color: 'text.primary' }} />,
 	},
 	{
-		name: 'Categories',
+		name: EntityNames.CATEGORY.toUpperCase(),
 		path: `?show=${EntityNames.CATEGORY}`,
 		icon: <CategoryIcon sx={{ color: 'text.primary' }} />,
 	},

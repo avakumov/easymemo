@@ -12,19 +12,23 @@ import BasicAlert from '../BasicAlert.tsx/BasicAlert';
 import { useDispatch } from 'react-redux';
 import EditIcon from '@mui/icons-material/Edit';
 import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
+import { EntityNames } from '../../types';
 
 const Questions = () => {
-	const { data: questions, error, isLoading } = api.useFetchQuestionsQuery();
+	const { data: questions, error, isLoading } = api.useGetQuestionsQuery();
+	console.log(error);
 	const dispatch = useDispatch();
 
 	if (isLoading) return <Loading />;
-	if (error) return <BasicAlert type='error' message={error?.error} />;
+
+	if (error && 'status' in error) return <BasicAlert type='error' message={JSON.stringify(error.status)} />;
 	return (
 		<TableContainer>
 			<Table size='small'>
 				<TableHead>
 					<TableRow>
 						<TableCell>id</TableCell>
+						<TableCell>categoies</TableCell>
 						<TableCell align='right'>Question</TableCell>
 						<TableCell>Answer</TableCell>
 						<TableCell>edit</TableCell>
@@ -36,6 +40,7 @@ const Questions = () => {
 							<TableCell component='th' scope='row'>
 								{row.id}
 							</TableCell>
+							<TableCell>{row.categories?.map((c) => c.name).join(', ') ?? 'not found'}</TableCell>
 							<TableCell align='right'>{row.question}</TableCell>
 							<TableCell>{row.answer}</TableCell>
 							<TableCell>
@@ -43,7 +48,7 @@ const Questions = () => {
 									sx={{ color: 'text.primary' }}
 									size='small'
 									onClick={() =>
-										dispatch(entityModalOpen({ name: 'question', data: row, open: true }))
+										dispatch(entityModalOpen({ name: EntityNames.QUESTION, data: row, open: true }))
 									}>
 									<EditIcon fontSize='inherit' />
 								</IconButton>

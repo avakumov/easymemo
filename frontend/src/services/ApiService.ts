@@ -1,5 +1,5 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { ICategory, ILoginAnswer, IQuestion, IUser } from '../types';
+import { ICategory, ILogin, ILoginAnswer, IQuestion, IUser } from '../types';
 import { token } from './auth';
 
 //функция запроса с токеном
@@ -31,13 +31,14 @@ const baseQueryWithLogout: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 const api = createApi({
 	reducerPath: 'mainApi',
 	baseQuery: baseQueryWithLogout,
-
+	tagTypes: ['questions', 'users', 'categories'],
 	endpoints: (builder) => ({
-		fetchQuestions: builder.query<IQuestion[], void>({
+		getQuestions: builder.query<IQuestion[], void>({
 			query: () => ({
 				url: `/questions`,
 				params: {},
 			}),
+			providesTags: ['questions'],
 		}),
 		getUsers: builder.query<IUser[], void>({
 			query: () => ({
@@ -63,6 +64,13 @@ const api = createApi({
 			query: (question) => ({
 				url: '/questions',
 				method: 'POST',
+				body: question,
+			}),
+		}),
+		updateQuestion: builder.mutation<IQuestion, Partial<IQuestion>>({
+			query: (question) => ({
+				url: `/questions/${question.id}`,
+				method: 'PATCH',
 				body: question,
 			}),
 		}),

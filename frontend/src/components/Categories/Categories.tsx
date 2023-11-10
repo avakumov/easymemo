@@ -12,13 +12,14 @@ import BasicAlert from '../BasicAlert.tsx/BasicAlert';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from 'react-redux';
 import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
+import { EntityNames } from '../../types';
 
 const Categories = () => {
 	const { data: categories, error, isLoading } = api.useGetCategoriesQuery();
 	const dispatch = useDispatch();
 
 	if (isLoading) return <Loading />;
-	if (error) return <BasicAlert type='error' message={error?.error} />;
+	if (error && 'status' in error) return <BasicAlert type='error' message={JSON.stringify(error.status)} />;
 
 	return (
 		<TableContainer>
@@ -48,7 +49,7 @@ const Categories = () => {
 									sx={{ color: 'text.primary' }}
 									size='small'
 									onClick={() =>
-										dispatch(entityModalOpen({ name: 'category', data: row, open: true }))
+										dispatch(entityModalOpen({ name: EntityNames.CATEGORY, data: row, open: true }))
 									}>
 									<EditIcon fontSize='inherit' />
 								</IconButton>

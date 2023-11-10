@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IQuestion } from '../../models/IQuestion';
+import { IQuestion } from '../../types';
 
 interface QuestionsState {
 	questions: IQuestion[];

@@ -6,8 +6,17 @@ import { UpdateCategoryDto } from "./dto/update-category.dto";
 @Injectable()
 export class CategoriesService {
   constructor(private prisma: PrismaService) {}
-  create(createCategoryDto: CreateCategoryDto) {
-    return "This action adds a new category";
+  create(c: CreateCategoryDto) {
+    return this.prisma.category.create({
+      data: {
+        name: c.name,
+        owner: {
+          connect: {
+            id: c.ownerId,
+          },
+        },
+      },
+    });
   }
 
   findAll() {

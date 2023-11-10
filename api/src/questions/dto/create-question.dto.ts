@@ -1,2 +1,12 @@
 import { ApiProperty } from "@nestjs/swagger";
-export class CreateQuestionDto {}
+import { IsNotEmpty } from "class-validator";
+export class CreateQuestionDto {
+  @IsNotEmpty()
+  question: string;
+  @IsNotEmpty()
+  answer: string;
+  @IsNotEmpty()
+  ownerId: number;
+  categories: string[];
+  id: number;
+}

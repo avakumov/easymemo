@@ -1,26 +1,55 @@
 import { Injectable } from "@nestjs/common";
 import { CreateQuestionDto } from "./dto/create-question.dto";
-import { UpdateQuestionDto } from "./dto/update-question.dto";
 import { PrismaService } from "src/prisma/prisma.service";
 
 @Injectable()
 export class QuestionsService {
   constructor(private prisma: PrismaService) {}
 
-  create(createQuestionDto: CreateQuestionDto) {
-    return "This action adds a new question";
+  create(q: CreateQuestionDto) {
+    return this.prisma.question.create({
+      data: {
+        question: q.question,
+        answer: q.answer,
+        categories: {
+          connect: q.categories.map((c) => ({ id: +c })) ?? [],
+        },
+        owner: {
+          connect: {
+            id: q.ownerId,
+          },
+        },
+      },
+    });
   }
 
   findAll() {
-    return this.prisma.question.findMany();
+    return this.prisma.question.findMany({
+      include: {
+        categories: true,
+      },
+    });
   }
 
   findOne(id: number) {
     return this.prisma.question.findUnique({ where: { id } });
   }
 
-  update(id: number, updateQuestionDto: UpdateQuestionDto) {
-    return `This action updates a #${id} question`;
+  update(id: number, q: CreateQuestionDto) {
+    return this.prisma.question.update({
+      where: { id },
+      data: {
+        question: q.question,
+        answer: q.answer,
+        categories: {
+          set: q.categories?.map((c) => ({ id: +c })) ?? [],
+        },
+      },
+      include: {
+        categories: true,
+        owner: true,
+      },
+    });
   }
 
   remove(id: number) {

@@ -6,18 +6,22 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
 } from "@nestjs/common";
 import { CategoriesService } from "./categories.service";
 import { CreateCategoryDto } from "./dto/create-category.dto";
 import { UpdateCategoryDto } from "./dto/update-category.dto";
+import { RequestExtended } from "src/entities/request";
 
 @Controller("categories")
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoriesService.create(createCategoryDto);
+  create(@Body() category: CreateCategoryDto, @Req() request: RequestExtended) {
+    const userId = request.user.userId;
+    category.ownerId = userId;
+    return this.categoriesService.create(category);
   }
 
   @Get()

@@ -5,6 +5,7 @@ import { PrismaService } from "src/prisma/prisma.service";
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
+
   create(user: CreateUserDto) {
     return this.prisma.user.create({
       data: user,
@@ -12,7 +13,11 @@ export class UsersService {
   }
 
   findAll() {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({
+      include: {
+        questions: {},
+      },
+    });
   }
 
   findOne(obj: Record<string, any>) {

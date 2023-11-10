@@ -53,6 +53,10 @@ export class QuestionsService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} question`;
+    return this.prisma.question.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

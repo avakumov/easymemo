@@ -11,17 +11,24 @@ import Loading from '../Loading/Loading';
 import BasicAlert from '../BasicAlert.tsx/BasicAlert';
 import { useDispatch } from 'react-redux';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import { EntityNames } from '../../types';
 
 const Questions = () => {
 	const { data: questions, error, isLoading } = api.useGetQuestionsQuery();
-	console.log(error);
 	const dispatch = useDispatch();
+	const [removeEntity] = api.useRemoveEntityMutation();
 
 	if (isLoading) return <Loading />;
 
 	if (error && 'status' in error) return <BasicAlert type='error' message={JSON.stringify(error.status)} />;
+
+	function removeElement(id: number) {
+		removeEntity({ entityName: EntityNames.QUESTION, id });
+		dispatch(api.util.invalidateTags([EntityNames.QUESTION]));
+	}
+
 	return (
 		<TableContainer>
 			<Table size='small'>
@@ -31,7 +38,7 @@ const Questions = () => {
 						<TableCell>categoies</TableCell>
 						<TableCell align='right'>Question</TableCell>
 						<TableCell>Answer</TableCell>
-						<TableCell>edit</TableCell>
+						<TableCell align='center'>edit</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -43,7 +50,7 @@ const Questions = () => {
 							<TableCell>{row.categories?.map((c) => c.name).join(', ') ?? 'not found'}</TableCell>
 							<TableCell align='right'>{row.question}</TableCell>
 							<TableCell>{row.answer}</TableCell>
-							<TableCell>
+							<TableCell align='center'>
 								<IconButton
 									sx={{ color: 'text.primary' }}
 									size='small'
@@ -51,6 +58,12 @@ const Questions = () => {
 										dispatch(entityModalOpen({ name: EntityNames.QUESTION, data: row, open: true }))
 									}>
 									<EditIcon fontSize='inherit' />
+								</IconButton>
+								<IconButton
+									sx={{ color: 'text.primary' }}
+									size='small'
+									onClick={() => removeElement(row.id)}>
+									<DeleteOutlineIcon fontSize='inherit' />
 								</IconButton>
 							</TableCell>
 						</TableRow>

@@ -1,5 +1,5 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { ICategory, ILogin, ILoginAnswer, IQuestion, IUser } from '../types';
+import { EntityName, EntityNames, ICategory, ILogin, ILoginAnswer, IQuestion, IUser } from '../types';
 import { token } from './auth';
 
 //функция запроса с токеном
@@ -45,12 +45,14 @@ const api = createApi({
 				url: `/users`,
 				params: {},
 			}),
+			providesTags: ['users'],
 		}),
 		getCategories: builder.query<ICategory[], void>({
 			query: () => ({
 				url: `/categories`,
 				params: {},
 			}),
+			providesTags: ['categories'],
 		}),
 		//TODO добавить переход по _url
 		postLogin: builder.mutation<ILoginAnswer, ILogin>({
@@ -72,6 +74,12 @@ const api = createApi({
 				url: `/questions/${question.id}`,
 				method: 'PATCH',
 				body: question,
+			}),
+		}),
+		removeEntity: builder.mutation<boolean, { id: number; entityName: EntityName }>({
+			query: ({ id, entityName }) => ({
+				url: `/${entityName}/${id}`,
+				method: 'DELETE',
 			}),
 		}),
 	}),

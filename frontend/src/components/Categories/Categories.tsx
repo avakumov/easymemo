@@ -10,16 +10,24 @@ import { map } from '../../utils';
 import Loading from '../Loading/Loading';
 import BasicAlert from '../BasicAlert.tsx/BasicAlert';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useDispatch } from 'react-redux';
 import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import { EntityNames } from '../../types';
 
 const Categories = () => {
 	const { data: categories, error, isLoading } = api.useGetCategoriesQuery();
+	const [removeEntity] = api.useRemoveEntityMutation();
+
 	const dispatch = useDispatch();
 
 	if (isLoading) return <Loading />;
 	if (error && 'status' in error) return <BasicAlert type='error' message={JSON.stringify(error.status)} />;
+
+	function removeElement(id: number) {
+		removeEntity({ entityName: EntityNames.CATEGORY, id });
+		dispatch(api.util.invalidateTags([EntityNames.CATEGORY]));
+	}
 
 	return (
 		<TableContainer>
@@ -31,7 +39,7 @@ const Categories = () => {
 						<TableCell>description</TableCell>
 						<TableCell>published</TableCell>
 						<TableCell>createdAt</TableCell>
-						<TableCell>edit</TableCell>
+						<TableCell align='center'>edit</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -44,7 +52,7 @@ const Categories = () => {
 							<TableCell>{row.description ?? '-'}</TableCell>
 							<TableCell>{row.published ? 'true' : 'false'}</TableCell>
 							<TableCell>{row.createdAt}</TableCell>
-							<TableCell>
+							<TableCell align='center'>
 								<IconButton
 									sx={{ color: 'text.primary' }}
 									size='small'
@@ -52,6 +60,12 @@ const Categories = () => {
 										dispatch(entityModalOpen({ name: EntityNames.CATEGORY, data: row, open: true }))
 									}>
 									<EditIcon fontSize='inherit' />
+								</IconButton>
+								<IconButton
+									sx={{ color: 'text.primary' }}
+									size='small'
+									onClick={() => removeElement(row.id)}>
+									<DeleteOutlineIcon fontSize='inherit' />
 								</IconButton>
 							</TableCell>
 						</TableRow>

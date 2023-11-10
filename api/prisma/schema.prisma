@@ -42,6 +42,6 @@ model Category {
     name        String     @unique
     description String?
     owner       User       @relation(fields: [ownerId], references: [id])
-    ownerId     Int
+    ownerId     Int        @default(1)
     questions   Question[]
 }

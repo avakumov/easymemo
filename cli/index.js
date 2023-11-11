@@ -15,6 +15,13 @@ function greeting() {
   console.log(
     chalk.green(figlet.textSync("Easymemo", { horizontalLayout: "full" }))
   );
+
+  console.log(chalk.green("Press ESCAPE to exit"));
+  process.stdin.on("keypress", (_, key) => {
+    if (key.name === "escape") {
+      inquirer.prompt.ui.close();
+    }
+  });
 }
 
 async function login() {

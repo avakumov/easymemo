@@ -15,7 +15,7 @@ const api = {
     axios.defaults.headers.common["Authorization"] =
       "Bearer " + data.access_token;
   },
-  logour: () => {
+  logout: () => {
     delete axios.defaults.headers.common["Authorization"];
   },
   getQuestions: (numberQuestions) => axios.get("questions"),

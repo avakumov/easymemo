@@ -1,0 +1,804 @@
+[
+  {
+    "question": "delete character under the cursor",
+    "answer": "x",
+    "answer2": "dl"
+  },
+  {
+    "question": "delete character left of the cursor",
+    "answer": "X",
+    "answer2": "dh"
+  },
+  { "question": "delete to end of the line", "answer": "D", "answer2": "d$" },
+  { "question": "change to end of the line", "answer": "C", "answer2": "c$" },
+  { "question": "change one character", "answer": "s", "answer2": "cl" },
+  { "question": "change a whole line", "answer": "S", "answer2": "cc" },
+  { "question": "switch to visual mode", "answer": "v" },
+  { "question": "switch to visual mode with select lines", "answer": "V" },
+  {
+    "question": "start visual mode with rectangular block",
+    "answer": "Ctrl-v"
+  },
+  { "question": "go to end, start selection text", "answer": "o" },
+  { "question": "quit from editor discard changes", "answer": ":q!" },
+  { "question": "start insert mode in prev corsor", "answer": "i" },
+  { "question": "start insert mode after cursor", "answer": "a" },
+  { "question": "start insert mode end of line", "answer": "A" },
+  { "question": "start insert mode start of line", "answer": "I" },
+  { "question": "delete from cursor a word with space", "answer": "dw" },
+  { "question": "delete whole current word", "answer": "daw" },
+  { "question": "delete from cursor to end of line", "answer": "d$" },
+  { "question": "delete from current to start of line", "answer": "d^" },
+  { "question": "delete from current to end word", "answer": "de" },
+  { "question": "delete line", "answer": "dd" },
+  { "question": "delete 2 lines", "answer": "2dd" },
+  { "question": "undo", "answer": "u" },
+  { "question": "undo to whole line", "answer": "U" },
+  { "question": "redo", "answer": "Ctrl-r" },
+  { "question": "paste text from register", "answer": "p" },
+  { "question": "start replace character mode", "answer": "r" },
+  { "question": "start replace sequence mode", "answer": "R" },
+  { "question": "change operator", "answer": "c" },
+  { "question": "search to down", "answer": "/" },
+  { "question": "search to up", "answer": "?" },
+  { "question": "subtitute first match old to new", "answer": ":s/old/new" },
+  {
+    "question": "subtitude in all matchs in line old to new",
+    "answer": ":s/old/new/g"
+  },
+  {
+    "question": "subtitude from 5 to 10 line old to new",
+    "answer": ":5,10s/old/new/g"
+  },
+  {
+    "question": "subtitude in whole file old to new",
+    "answer": ":%s/old/new/g"
+  },
+  {
+    "question": "subtitude in whole file old to new with prompt",
+    "answer": ":%s/old/new/gc"
+  },
+  { "question": "move to first line", "answer": "gg" },
+  { "question": "jump between braces", "answer": "%" },
+  { "question": "save as test.txt", "answer": ":w test.txt" },
+  { "question": "execute external commad ls", "answer": ":!ls" },
+  {
+    "question": "get data from file test.txt and insert",
+    "answer": ":r test.txt"
+  },
+  { "question": "insert output from command dir", "answer": ":r !dir" },
+  { "question": "insert below line and insert mode", "answer": "o" },
+  { "question": "insert above line and insert mode", "answer": "O" },
+  { "question": "go to srart document", "answer": "gg" },
+  { "question": "go to end document", "answer": "G" },
+  {
+    "question": "insert the word dir/ at the beginning of the next three lines from current line",
+    "answer": "<C-v>jjI/dir<Esc>"
+  },
+  { "question": "go to cursor to prev editing", "answer": "" },
+  {
+    "question": "Print global settings",
+    "answer": "git config --global --list"
+  },
+  {
+    "question": "Edit global settings file",
+    "answer": "git config --global --edit"
+  },
+  { "question": "show buffers", "answer": ":ls" },
+  { "question": "go to next buffer", "answer": ":bnext", "answer2": "<C-^>" },
+  { "question": "go to buffer 1", "answer": ":b 1", "answer2": ":buffer 1" },
+  {
+    "question": "open to buffers all js files in construct folder",
+    "answer": "**/consturct/**/*.js"
+  },
+  { "question": "save all buffers", "answer": ":wall!", "answer2": ":wa!" },
+  {
+    "question": "quit with no write all buffers",
+    "answer": ":qall!",
+    "answer2": ":qa!"
+  },
+  {
+    "question": "add window horizontal with current buffer",
+    "answer": "<C-w>s"
+  },
+  { "question": "add window vertical with current buffer", "answer": "<C-w>v" },
+  {
+    "question": "add buffer horizontal split with file foo.txt",
+    "answer": ":split foo.txt",
+    "answer2": ":sp foo.txt"
+  },
+  {
+    "question": "add buffer vertical split with file foo.txt",
+    "answer": ":vsplit foo.txt",
+    "answer2": ":vsp foo.txt"
+  },
+  { "question": "Jump to right buffer window", "answer": "<C-w>l" },
+  { "question": "Jump to left buffer window", "answer": "" },
+  { "question": "Print current directory path", "answer": ":pwd" },
+  {
+    "question": "open to edit file from current buffer path boilerplate",
+    "answer": ":edit %:h<Tab>"
+  },
+  {
+    "question": "open netrw относительно текущего буффера",
+    "answer": ":Explore",
+    "answer2": ":E"
+  },
+  {
+    "question": "открыть netrw относительно текущего рабочего каталога",
+    "answer": ":edit .",
+    "answer2": ":e."
+  },
+  {
+    "question": "open netrw относительно текущего буффера в новом окне справа",
+    "answer": ":Vexplore",
+    "answer2": ":Ve."
+  },
+  {
+    "question": "Переключение между буффером с файлом и netrw",
+    "answer": "<C-^>."
+  },
+  {
+    "question": "Для текущего буффера создать каталоги которые не существуют",
+    "answer": ":!mkdir -p %:h"
+  },
+  {
+    "question": "Сохранить текущий буффер от суперпользователя",
+    "answer": ":w !sudo tee % > /dev/null"
+  },
+  { "question": "Назад, к концу предыдущего слова", "answer": "ge" },
+  { "question": "Вперед, к концу текущего/следующего слова", "answer": "e" },
+  { "question": "Назад, к началу текущего/предыдущего слова", "answer": "b" },
+  { "question": "Вперед, к началу следующего слова", "answer": "w" },
+  { "question": "Переместить курсор ко второму символу m", "answer": "fm;" },
+  {
+    "question": "Повторить последнюю команду поиска символа {char} в обратном направлении {char}",
+    "answer": ","
+  },
+  {
+    "question": "Повторить последнюю команду поиска символа {char}",
+    "answer": ";"
+  },
+  { "question": "Поиск назад, до предыдущего вхождения m", "answer": "Fm" },
+  { "question": "Удалить от текущего до символа x", "answer": "dtx" },
+  {
+    "question": "Выделить облатьс от текущей до foo",
+    "answer": "v/foo<Enter>h"
+  },
+  {
+    "question": "Выделить текст в текущих скобках {} находясь в них",
+    "answer": "vi{"
+  },
+  {
+    "question": "Выделить текст в текущих скобках [] находясь в них",
+    "answer": "vi["
+  },
+  {
+    "question": "Выделить текст вместе со скобками {} находясь в них",
+    "answer": "va{"
+  },
+  {
+    "question": "Выделить текст вместе со скобками <> находясь в них",
+    "answer": "va>"
+  },
+  { "question": "Выделить область внутри xml тегов ", "answer": "vit" },
+  {
+    "question": "Выделить область внутри xml тегов включая теги",
+    "answer": "vat"
+  },
+  { "question": "Изменить текст внутри `` на foo", "answer": "ci`foo" },
+  { "question": "Поставить метку с названием m", "answer": "mm" },
+  { "question": "Перейти к метке с названием m", "answer": "`m" },
+  { "question": "replace character under cursor on `", "answer": "r`" },
+  { "question": "execute current buffer with node", "answer": ":w !node" },
+  { "question": "show tabs", "answer": ":set invlist" },
+  { "question": "save session", "answer": ":mksession! path_to_file" },
+  { "question": "load session", "answer": ":source path_to_file" },
+  { "question": "open vim with session", "answer": "nvim -S paath_to_file" },
+  { "question": "remove 2 lines upwords", "answer": "dk" },
+  {
+    "question": "delete in all file console.log",
+    "answer": ":g/console.log/d"
+  },
+  { "question": "show history vim command", "answer": ":<C-f>" },
+  {
+    "question": "copy 15-th string to current position",
+    "answer": ":15t.<Enter>"
+  },
+  { "question": "repeat ex prev ex command", "answer": "@:" },
+  { "question": "move 3 line to end of file", "answer": "Vjj:m$" },
+  {
+    "question": "insert /hello/ to start in lines 2 to 5",
+    "answer": ":2,5normal I/hello/"
+  },
+  {
+    "question": "insert in all starts line start/",
+    "answer": ":%normal Istart/"
+  },
+  { "question": "exucute current js file in node", "answer": ":!node %" },
+  {
+    "question": "execute 'ls -la' and output insert in current bufffer",
+    "answer": ":read !ls -la"
+  },
+  {
+    "question": "execute command 'grep username'  with input current file",
+    "answer": ":write grep username",
+    "answer2": ":!grep username %"
+  },
+  {
+    "question": "sort from 2 line current csv file by 2 column, separator ','",
+    "answer": ":2,$!sort -t',' -k2"
+  },
+  { "question": "from 2 to 10 lines 'grep root'", "answer": ":2,10!grep root" },
+  {
+    "question": "show messages error prev ex command",
+    "answer": ":messages",
+    "answer2": ":mess"
+  },
+  { "question": "show all opened files", "answer": ":browse oldfiles" },
+  {
+    "question": "show variable current value example 'history'",
+    "answer": ":echo &history"
+  },
+  { "question": "enable english syntax highlight", "answer": ":set spell" },
+  { "question": "disable english syntax highlight", "answer": ":set nospell" },
+  { "question": "close buffer", "answer": ":bd" },
+  { "question": "Применить текущий файл настроек vim", "answer": ":source %" },
+  {
+    "question": "get [0, 1, 4, 9, 16]",
+    "answer": "Array.from(Array(5)).map((v,i)=> i*i)"
+  },
+  {
+    "quesion": "Open zsh history by nvim",
+    "answer": "nvim /home/avakdev/.zhistory"
+  },
+  { "quesion": "Show path to history file", "answer": "echo $HISTFILE" },
+  { "quesion": "Show history size", "answer": "echo $HISTSIZE" },
+  {
+    "quesion": "Find .viminfo in / path",
+    "answer": "find / -name .viminfo 2> /dev/null"
+  },
+  {
+    "quesion": "Add alias to zsh ll -> ls -la and apply to current terminal",
+    "answer": "echo \"alias ll='ls -la'\" >> ~/.zshrc && source ~/.zshrc"
+  },
+  {
+    "quesion": "Start command 'screenkey' and detach from current console",
+    "answer": "screenkey & disown"
+  },
+  {
+    "quesion": "Show diff file1.txt and file2.txt with color, two columns",
+    "answer": "diff --color -y file1.txt file2.txt"
+  },
+  { "quesion": "Существенный, сущность", "answer": "Essential" },
+  { "quesion": "Довольно просто", "answer": "Quite simple" },
+  { "quesion": "Надежный", "answer": "Reliable" },
+  { "quesion": "Масштабируемый", "answer": "Scalable" },
+  { "quesion": "Таким образом", "answer": "Thus" },
+  { "quesion": "Аккуратный", "answer": "Neat" },
+  { "quesion": "Несущий ответственность", "answer": "Responsible" },
+  {
+    "quesion": "... are responsible for handling incoming requests and returning responses to the client",
+    "answer": "Controllers"
+  },
+  { "quesion": "Соответствующий", "answer": "Corresponding" },
+  { "quesion": "Совет", "answer": "Hint" },
+  { "quesion": "Через", "answer": "Throughout" },
+  { "quesion": "Продолжительность жизни", "answer": "Life span" },
+  { "quesion": "DTO", "answer": "Data transfer objects" },
+  {
+    "quesion": "Generate CRUD nestjs entities 'users' without tests",
+    "answer": "nest g resource users --no-spec"
+  },
+  { "quesion": "Install global nest cli", "answer": "npm i -g @nestjs/cli" },
+  { "quesion": "Произвольный", "answer": "Arbitrary" },
+  { "quesion": "Звездочка", "answer": "Asterisk" },
+  { "quesion": "Дефис", "answer": "Hyphen" },
+  { "quesion": "Пропускать", "answer": "Omit" },
+  {
+    "quesion": "Decorator in nestjs, which declared class that can be managed by the Nest IoC container",
+    "answer": "@Injectable()"
+  },
+  {
+    "quesion": "replace in file input.txt hello->world to out.txt",
+    "answer": "sed 's/hello/world/' input.txt > out.txt"
+  },
+  {
+    "quesion": "show all global installed npm packages",
+    "answer": "npm list -g"
+  },
+  {
+    "quesion": "what is path key in .eslintrc.json module value",
+    "answer": "parserOptions.sourceType"
+  },
+  {
+    "quesion": "add execute permission to file start.sh",
+    "answer": "chmod +x start.sh"
+  },
+  { "quesion": "Which browsers support modules", "answer": "ES modules" },
+  {
+    "quesion": "Which node support modules to 13 version",
+    "answer": "CommonJS"
+  },
+  { "quesion": "По меньшей мере", "answer": "At least" },
+  {
+    "quesion": "In this decorator pass object with props: providers, controllers, imports, exports.",
+    "answer": "@Module"
+  },
+  {
+    "quesion": "Module with decorator @Global not need imports (yes,no)",
+    "answer": "yes"
+  },
+  {
+    "quesion": "change owner to avakdev \"myfile\"",
+    "answer": "chown avakdev myfile"
+  },
+  {
+    "quesion": "change group to root file \"myfile\"",
+    "answer": "chgrp root myfile"
+  },
+  {
+    "quesion": "install nerd fonts meta (arch aur)",
+    "answer": "pamac build nerd-fonts-meta"
+  },
+  { "quesion": "show help events nvim", "answer": ":help events" },
+  { "quesion": "show listeners on BufEnter", "answer": ":autocmd BufEnter" },
+  {
+    "quesion": "typing compose function on js",
+    "answer": "compose = (...fns) => (initialVal) => fns.reduceRight((val, fn) => fn(val), initialVal)"
+  },
+  {
+    "quesion": "set text editor \"nvim\" for git",
+    "answer": "git config --global core.editor=\"nvim\""
+  },
+  { "quesion": "show git config", "answer": "git config --list" },
+  { "quesion": "update pacman packages", "answer": "sudo pacman -Syu" },
+  { "quesion": "show folder 'foo' size", "answer": "du -hs foo" },
+  {
+    "quesion": "rename file in neovim to new_name",
+    "answer": ":saveas new_name"
+  },
+  { "quesion": "Страдать пер.", "answer": "suffer" },
+  { "quesion": "Уверенный пер.", "answer": "confident" },
+  { "quesion": "Оценивать пер.", "answer": "evaluate" },
+  { "quesion": "get args in node app", "answer": "process.argv" },
+  { "quesion": "get env vars in node app", "answer": "process.env" },
+  { "quesion": "exit from program node app", "answer": "process.exit()" },
+  {
+    "quesion": "ignore ctrl-c in node app",
+    "answer": "process.on(\"SIGINT\", ()=>{})"
+  },
+  {
+    "quesion": "set global exception handler",
+    "answer": "process.setUncaughtExceptionCaptureCallBack(e=>{})"
+  },
+  {
+    "quesion": "set global rejections in node app",
+    "answer": "process.on(\"unhandledRejection\", (reason, promise)=>{})"
+  },
+  { "quesion": "commonJS file extension", "answer": "cjs" },
+  { "quesion": "ES6 file extension", "answer": "mjs" },
+  {
+    "quesion": "change commonJS to ES6 in package.json",
+    "answer": "\"type\": \"module\""
+  },
+  {
+    "quesion": "import fs based on promises as simple fs in nodejs",
+    "answer": "import { promises as fs } from 'fs'"
+  },
+  {
+    "quesion": "Set to que async function callback without tick",
+    "answer": "setImmefiate(callback)"
+  },
+  { "quesion": "get current pid nodejs", "answer": "process.pid" },
+  { "quesion": "get parent pid", "answer": "process.ppid" },
+  {
+    "quesion": "... is an experimental tool to help with managing versions of your nodejs package managers",
+    "answer": "corepack"
+  },
+  {
+    "quesion": "add yarn, pnpm links command from node v14.19.0",
+    "answer": "corepack enable"
+  },
+  { "quesion": "remove untracked files in git repo", "answer": "git clean -f" },
+  {
+    "quesion": "remove untracked files and folders in git repo",
+    "answer": "git clean -fd"
+  },
+  { "quesion": "revert changes files in git repo", "answer": "git checkout ." },
+  {
+    "quesion": "run start init migrate prisma",
+    "answer": "npx prisma migrate dev --name \"init\""
+  },
+  {
+    "quesion": "start tmux session with name 'main'",
+    "answer": "tmux attach -tmain"
+  },
+  { "quesion": "tmux kill server", "answer": "tmux kill-server" },
+  { "quesion": "tmux reload settings", "answer": "tmux source ~/.tmux.conf" },
+  { "quesion": "modern terminal command du", "answer": "ncdu" },
+  {
+    "quesion": "super alternatative cat with syntax highlights",
+    "answer": "bat"
+  },
+  { "quesion": "clever find command tool, alternative Find", "answer": "fd" },
+  {
+    "quesion": "clever alternative ls command with highlight, tree, other",
+    "answer": "exa"
+  },
+  {
+    "quesion": "cool alternative curl is ... command which use hightlight, POST req, PATCH req and other features",
+    "answer": "http"
+  },
+  {
+    "quesion": "Сделать локальную ветку такую же как и удаленная. Все изменения будут потеряны",
+    "answer": "git reset --hard origin/master"
+  },
+  {
+    "quesion": "Установить ssh server manjaro",
+    "answer": "sudo pacman -S openssh"
+  },
+  { "quesion": "path sshd config", "answer": "/etc/ssh/sshd_config" },
+  {
+    "quesion": "status sshd by systemctl",
+    "answer": "sudo systemctl status sshd.service"
+  },
+  {
+    "quesion": "enable port(default 22) to ssh in ufw",
+    "answer": "sudo ufw allow ssh"
+  },
+  { "quesion": "open port 8080 in ufw", "answer": "sudo ufw allow 8080" },
+  {
+    "quesion": "connect by ssh user 'ava' host 'local' port 55",
+    "answer": "ssh ava@local -p 55"
+  },
+  { "quesion": "show opened ports in ufw", "answer": "sudo ufw status" },
+  { "quesion": "show git diff only staged", "answer": "git diff --staged" },
+  { "quesion": "show diff staged and unstaged", "answer": "git diff HEAD" },
+  {
+    "quesion": "compare branch1 and branch2",
+    "answer": "git diff branch1 branch2"
+  },
+  {
+    "quesion": "revert file 'api/todo.md' from commit with hash 65gg25",
+    "answer": "git chechout 65gg25 -- api/todo.md"
+  },
+  {
+    "quesion": "unstage \"api/todo.md\" file",
+    "answer": "git reset HEAD -- api/todo.md"
+  },
+  {
+    "quesion": "discard changes \"api/todo.md\" file",
+    "answer": "git checkout -- api/todo.md"
+  },
+  {
+    "quesion": "git revert commit D without commit",
+    "answer": "git revert --no-commit D"
+  },
+  {
+    "quesion": "Выполнить script.sh в текущем shell",
+    "answer": "source script.sh"
+  },
+  { "quesion": "Перезапустить lsp в neovim", "answer": ":LspRestart" },
+  {
+    "quesion": "Сделать файл server исполняемым",
+    "answer": "chmod 755 server",
+    "answer2": "chmod +x server"
+  },
+  { "quesion": "Вывести все процессы", "answer": "ps -uax" },
+  { "quesion": "Какой файл использует команда make", "answer": "Makefile" },
+  {
+    "quesion": "Какая команда позволяет копировать файлы по ssh",
+    "answer": "rsync"
+  },
+  {
+    "quesion": "Написать через test sentence.includes('is')",
+    "answer": "/is/.test(sentence)"
+  },
+  {
+    "quesion": "Дан массив arr со строками. Есть ли в каждой строке буква r",
+    "answer": "arr.every(i => /r/.test(i))"
+  },
+  {
+    "quesion": "Дан массив arr со строками. Есть ли хоть в одной строке выражение att",
+    "answer": "arr.some(i => /att/.test(i))"
+  },
+  {
+    "quesion": "Дан массив arr со строками. Отфильтровать где есть слово home",
+    "answer": "arr.filter(i => /home/.test(i))"
+  },
+  {
+    "quesion": "Дан массив arr со строками. Отфильтровать где есть слово home без учета регистра",
+    "answer": "arr.filter(i => /home/i.test(i))"
+  },
+  {
+    "quesion": "Создать регулярку с переменной: hello ${name}",
+    "answer": "new RegExp(`hello ${name}`)"
+  },
+  {
+    "quesion": "Дана строка str. Получить новую строку и заменить запятые на точки",
+    "answer": "str.replace(/,/g, '.')"
+  },
+  {
+    "quesion": "Дана строка str с переносами строк. Добавить в начало каждой строки '_ '",
+    "answer": "str.replace(/^/gm, '_ ')"
+  },
+  {
+    "quesion": "Дана строка str с переносами строк. Добавить в конец каждой строки '.'",
+    "answer": "str.replace(/$/gm, '.')"
+  },
+  {
+    "quesion": "Дана строка str. Обернуть все слова в двойные кавычкию",
+    "answer": "str.replace(/\\b/g, '\"')"
+  },
+  {
+    "quesion": "Дана строка str. Заменить начало слова pre на pro",
+    "answer": "str.replace(/\\bpre/g, 'pro')"
+  },
+  {
+    "quesion": "Дана строка str. Заменить слова dog и cat на X",
+    "answer": "str.replace(/\\b(dog|cat)\\b/g, 'X')"
+  },
+  {
+    "quesion": "Переключиться на ветку feat новой командой",
+    "answer": "git switch feat"
+  },
+  {
+    "quesion": "Создать ветку feat и переключиться на нее новой командой",
+    "answer": "git switch -c feat"
+  },
+  {
+    "quesion": "Показать ветки с id на которые они указывают",
+    "answer": "git branch -v"
+  },
+  {
+    "quesion": "Если при слиянии веток не будет накладывающихся коммитов. Как будет тип слияния",
+    "answer": "fast-forward"
+  },
+  { "quesion": "Показать ветки", "answer": "git branch" },
+  { "quesion": "Удалить ветку feat", "answer": "git branch -d feat" },
+  {
+    "quesion": "Создать ветку feat на основе id коммита 6dke555 (например если случайно удалили ветку)",
+    "answer": "git branch feat 6dke555"
+  },
+  {
+    "quesion": "Вывести все коммиты с графом в строку (строка, все, граф)",
+    "answer": "git log --oneline --all --graph"
+  },
+  {
+    "quesion": "Вывести изменения в текущей файловой системе git",
+    "answer": "git diff"
+  },
+  {
+    "quesion": "Вывести изменения в файловой системе git репозитория в словах а не построчно",
+    "answer": "git diff --word-diff"
+  },
+  {
+    "quesion": "Вывести измения в файлах внесенных в индекс в сравнении с закомитенными по строкам",
+    "answer": "git diff --cached",
+    "answer2": "git diff --staged"
+  },
+  {
+    "quesion": "Вывести различия между веткой master и feat",
+    "answer": "git diff master feat"
+  },
+  {
+    "quesion": "Распечать ветки в текущую консоль",
+    "answer": "git branch | cat"
+  },
+  {
+    "quesion": "Отменить все изменения в файле index.js до индекса git",
+    "answer": "git restore index.js"
+  },
+  {
+    "quesion": "Убрать файл index.js из индекса git",
+    "answer": "git restore --staged index.js"
+  },
+  {
+    "quesion": "Удалить отслеживаемый файл git head.js и внести изменения в индекс",
+    "answer": "git rm head.js"
+  },
+  {
+    "quesion": "Переименовать файл в git ind.js в index.js и внести изменения в индекс",
+    "answer": "git mv ind.js index.js"
+  },
+  {
+    "quesion": "Измените сообщение последнего коммита на new message (в индексе ничего нет)",
+    "answer": "git commit --amend -m \"new message\""
+  },
+  {
+    "quesion": "Переименовать ветку master в main",
+    "answer": "git branch --move master main"
+  },
+  {
+    "quesion": "Сравнить предыдущий коммит с текущим через HEAD",
+    "answer": "git diff HEAD~1 HEAD"
+  },
+  {
+    "quesion": "Напиши ссылку на коммит после слияния для второй ветки назад на 2 коммита",
+    "answer": "HEAD^2~2"
+  },
+  {
+    "quesion": "Отменить два последних коммита и изменения из них поместить в индекс и в рабочий каталог",
+    "answer": "git reset --soft HEAD~2"
+  },
+  {
+    "quesion": "Отменить два последних коммита и изменения поместить в рабочий каталог",
+    "answer": "git reset HEAD~2",
+    "answer2": "git reset --mixed HEAD~2"
+  },
+  {
+    "quesion": "Удалить последний коммит из истории",
+    "answer": "git reset --hard HEAD~1"
+  },
+  { "quesion": "Отменить коммит с id fe55s", "answer": "git revert fe55sk" },
+  {
+    "quesion": "При клонировании репозиторияя по умолчанию ветку будет на которую указавает ...",
+    "answer": "HEAD"
+  },
+  {
+    "quesion": "При клонировании репозитория копируются все ветки?",
+    "answer": "yes"
+  },
+  {
+    "quesion": "Установка в настройках git на push simple",
+    "answer": "git config --global push.default simple"
+  },
+  {
+    "quesion": "Посметреть настройки git на push. Если ничего не установлено будет использовано simple",
+    "answer": "git config push.defalult"
+  },
+  {
+    "quesion": "Вывести url удаленного репозитория",
+    "answer": "git remote --verbose",
+    "answer2": "git remote -v"
+  },
+  {
+    "quesion": "Добавить ветку feat в origin",
+    "answer": "git push -u origin feat",
+    "answer2": "git push ---set-upstream origin feat"
+  },
+  {
+    "quesion": "Показать подробную информацию о ветках в git",
+    "answer": "git branch -vv"
+  },
+  {
+    "quesion": "Показать все ветки",
+    "answer": "git branch --all",
+    "answer2": "git branch -a"
+  },
+  {
+    "quesion": "Извлечь все коммиты и ветки из удаленного репозитория",
+    "answer": "git fetch"
+  },
+  {
+    "quesion": "Переключиться на удаленную ветку feat(создаст такую же локальную)",
+    "answer": "git switch feat"
+  },
+  {
+    "quesion": "При расхождении веток master и origin/master. Находимся в master",
+    "answer": "git merge origin/master"
+  },
+  {
+    "quesion": "Влить все изменения в текущую рабочую ветку из origin/master",
+    "answer": "git fetch; git merge origin/master"
+  },
+  {
+    "quesion": "Удаление ветки слежения feat",
+    "answer": "git push -d origin feat"
+  },
+  {
+    "quesion": "Очистить ветки слежения которые были удалены на сервере",
+    "answer": "git fetch --prune",
+    "answer2": "git fetch -p"
+  },
+  {
+    "quesion": "Посмотреть изменения построчно файла main.js в git",
+    "answer": "git blame main.js"
+  },
+  {
+    "quesion": "Искать строку mail в репозитории с выводом строк",
+    "answer": "git grep -n mail",
+    "answer2": "git grep --line-number mail"
+  },
+  {
+    "quesion": "Искать строку mail в репозитории. Вывести только названия файлов",
+    "answer": "git grep -l mail",
+    "answer2": "git grep --name-only mail"
+  },
+  {
+    "quesion": "Искать строку mail в репозитории без учета регистра",
+    "answer": "git grep -i mail"
+  },
+  {
+    "quesion": "Искать через логи строку mail в репозитории",
+    "answer": "git log -S mail"
+  },
+  {
+    "quesion": "Вывести историю коммитов с информацией о внеснныех изменениях",
+    "answer": "git log -p"
+  },
+  {
+    "quesion": "Вывести из логов репозитория каким комитом вносилась или удалялать строка \"new line\"",
+    "answer": "git log -p -S \"new line\""
+  },
+  {
+    "quesion": "Отобразить коммиты в которых было изменения в строке содержащую строку \"add to\"",
+    "answer": "git log -G \"add to\""
+  },
+  {
+    "quesion": "С помощью какой команды удобно искать коммит вызвавший ошибку",
+    "answer": "bisect"
+  },
+  { "quesion": "Запустить поиск ошибки в git", "answer": "git bisect start" },
+  {
+    "quesion": "При запущенном bisect git указать на то что ошибка еще есть",
+    "answer": "git bisect bad"
+  },
+  {
+    "quesion": "При запущенном git bisect указать на то что ошибки в данный момент нет",
+    "answer": "git bisect good"
+  },
+  {
+    "quesion": "Остановить поиск ошибки конадной git bisect",
+    "answer": "git bisect reset"
+  },
+  {
+    "quesion": "Просмотреть настройка для репозитория git",
+    "answer": "git config --list"
+  },
+  {
+    "quesion": "Посмотреть настрой для репозитория с указанием их источника",
+    "answer": "git config --list --show-origin",
+    "answer2": "git config --show-origin --list"
+  },
+  {
+    "quesion": "Задай для команды git алиас глобально commit -> c",
+    "answer": "git config --global alias.c commit"
+  },
+  {
+    "quesion": "Напиши название ветки тикет 214, тема \"update config file\", автор Авакумов Владимир",
+    "answer": "av/214/update-congig-file"
+  },
+  {
+    "quesion": "Повесить на коммит 23gsd тег v1.0.0",
+    "answer": "git tag v.1.0.0 23gsd"
+  },
+  {
+    "quesion": "Вывести теги в репозитории",
+    "answer": "git tag --list",
+    "answer2": "git tag -l"
+  },
+  {
+    "quesion": "Вывести информацию по перемещению HEAD",
+    "answer": "git reflog"
+  },
+  {
+    "quesion": "Перенести коммиты из ветки feat в master. Находимся в ветке feat",
+    "answer": "git rebase master"
+  },
+  {
+    "quesion": "Какие команды позволяют зафиксировать время выполнения операции oper1. Результат вывести в консоль.",
+    "answer": "console.time(\"oper1\"); console.timeEnd(\"oper1\")"
+  },
+  {
+    "quesion": "function m(value){ return value-1}; m(26); Напиши параметри ф-и и через пробел аргумент ф-и",
+    "answer": "value 26"
+  },
+  {
+    "quesion": "Path to file where save hostname(name of computer)",
+    "answer": "/etc/hostname"
+  },
+  {
+    "quesion": "Check host ava.ru port 443 by command nmap",
+    "answer": "nmap -p 443 ava.ru"
+  },
+  {
+    "quesion": "Сделать запрос ava.ru и открыть содержимое в neovim",
+    "answer": "curl https://avakumov.ru | nvim"
+  },
+  {
+    "quesion": "Где можно сделать просто сертификат ssl для https. Название сайта",
+    "answer": "letsencrypt.org"
+  }
+]

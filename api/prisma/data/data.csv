@@ -1,0 +1,117 @@
+--,question,answer1,aswer2,mode
+,delete character under the cursor,x,dl,n
+,delete character left of the cursor,X,dh,n
+,delete to end of the line,D,d$,n
+,change to end of the line,C,c$,n
+,change one character,s,cl,n
+,change a whole line,S,cc,n
+,switch to visual mode,v,,n
+,switch to visual mode with select lines,V,,n
+,start visual mode with rectangular block,Ctrl-v,,n
+,"go to end, start selection text",o,,v
+,quit from editor discard changes,:q!,,
+,start insert mode in prev corsor,i,,n
+,start insert mode after cursor,a,,n
+,start insert mode end of line,A,,n
+,start insert mode start of line,I,,n
+,delete from cursor a word with space,dw,,n
+,delete whole current word,daw,,n
+,delete from cursor to end of line,d$,,n
+,delete from current to start of line,d^,,n
+,delete from current to end word,de,,n
+,delete line,dd,,n
+,delete 2 lines,2dd,,n
+,undo,u,,n
+,undo to whole line,U,,n
+,redo,Ctrl-r,,n
+,paste text from register,p,,n
+,start replace character mode,r,,n
+,start replace sequence mode,R,,n
+,change operator,c,,n
+,search to down,/,,
+,search to up,?,,
+,subtitute first match old to new,:s/old/new,,
+,subtitude in all matchs in line old to new,:s/old/new/g,,
+,subtitude from 5 to 10 line old to new,":5,10s/old/new/g",,
+,subtitude in whole file old to new,:%s/old/new/g,,
+,subtitude in whole file old to new with prompt,:%s/old/new/gc,,
+,move to first line,gg,,
+,jump between braces,%,,
+,save as test.txt,:w test.txt,,
+,execute external commad ls,:!ls,,
+,get data from file test.txt and insert,:r test.txt,,
+,insert output from command dir,:r !dir,,
+,insert below line and insert mode,o,,n
+,insert above line and insert mode,O,,
+,go to srart document,gg,,
+,go to end document,G,,
+,insert the word dir/ at the beginning of the next three lines from current line,<C-v>jjI/dir<Esc>,,
+,go to cursor to prev editing,,,
+git,Print global settings,git config --global --list,,
+git,Edit global settings file,git config --global --edit,,
+,show buffers,:ls,,
+,go to next buffer,:bnext,<C-^>,
+,go to buffer 1,:b 1,:buffer 1,
+,open to buffers all js files in construct folder,**/consturct/**/*.js,,
+,save all buffers,:wall!,:wa!,
+,quit with no write all buffers,:qall!,:qa!,
+,add window horizontal with current buffer,<C-w>s,,
+,add window vertical with current buffer,<C-w>v,,
+,add buffer horizontal split with file foo.txt,:split foo.txt,:sp foo.txt,
+,add buffer vertical split with file foo.txt,:vsplit foo.txt,:vsp foo.txt,
+,Jump to right buffer window,<C-w>l,,
+,Jump to left buffer window,,,
+,Print current directory path,:pwd,,
+,open to edit file from current buffer path boilerplate,:edit %:h<Tab>,,
+,open netrw относительно текущего буффера,:Explore,:E,
+,открыть netrw относительно текущего рабочего каталога,:edit .,:e.,
+,open netrw относительно текущего буффера в новом окне справа,:Vexplore,:Ve.,
+,Переключение между буффером с файлом и netrw,<C-^>.,,
+,Для текущего буффера создать каталоги которые не существуют,:!mkdir -p %:h,,
+,Сохранить текущий буффер от суперпользователя,:w !sudo tee % > /dev/null,,
+,"Назад, к концу предыдущего слова",ge,,
+,"Вперед, к концу текущего/следующего слова",e,,
+,"Назад, к началу текущего/предыдущего слова",b,,
+,"Вперед, к началу следующего слова",w,,
+,Переместить курсор ко второму символу m,fm;,,
+,Повторить последнюю команду поиска символа {char} в обратном направлении {char},",",,
+,Повторить последнюю команду поиска символа {char},;,,
+,"Поиск назад, до предыдущего вхождения m",Fm,,
+,Удалить от текущего до символа x,dtx,,
+,Выделить облатьс от текущей до foo,v/foo<Enter>h,,
+,Выделить текст в текущих скобках {} находясь в них,vi{,,
+,Выделить текст в текущих скобках [] находясь в них,vi[,,
+,Выделить текст вместе со скобками {} находясь в них,va{,,
+,Выделить текст вместе со скобками <> находясь в них,va>,,
+,Выделить область внутри xml тегов ,vit,,
+,Выделить область внутри xml тегов включая теги,vat,,
+,Изменить текст внутри `` на foo,ci`foo,,
+,Поставить метку с названием m,mm,,
+,Перейти к метке с названием m,`m,,
+,replace character under cursor on `,r`,,
+,execute current buffer with node,:w !node,,
+,show tabs,:set invlist,,
+,save session,:mksession! path_to_file,,
+,load session,:source path_to_file,,
+,open vim with session,nvim -S paath_to_file,,
+,remove 2 lines upwords,dk,,
+,delete in all file console.log,:g/console.log/d,,
+,show history vim command,:<C-f>,,
+,copy 15-th string to current position,:15t.<Enter>,,
+,repeat ex prev ex command,@:,,
+,move 3 line to end of file,Vjj:m$,,
+,insert /hello/ to start in lines 2 to 5,":2,5normal I/hello/",,
+,insert in all starts line start/,:%normal Istart/,,
+,exucute current js file in node,:!node %,,
+,execute 'ls -la' and output insert in current bufffer,:read !ls -la,,
+,execute command 'grep username'  with input current file,:write grep username,:!grep username %,
+,"sort from 2 line current csv file by 2 column, separator ','",":2,$!sort -t',' -k2",,
+,from 2 to 10 lines 'grep root',":2,10!grep root",,
+,show messages error prev ex command,:messages,:mess,
+,show all opened files,:browse oldfiles,,
+,show variable current value example 'history',:echo &history,,
+,enable english syntax highlight,:set spell,,
+,disable english syntax highlight,:set nospell,,
+,close buffer,:bd,,
+,Применить текущий файл настроек vim,:source %,,
+js,"get [0, 1, 4, 9, 16]","Array.from(Array(5)).map((v,i)=> i*i)",,

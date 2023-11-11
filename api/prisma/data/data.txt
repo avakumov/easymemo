@@ -1,0 +1,538 @@
+Open zsh history by nvim
+nvim /home/avakdev/.zhistory
+
+Show path to history file
+echo $HISTFILE
+
+Show history size
+echo $HISTSIZE
+
+Find .viminfo in / path
+find / -name .viminfo 2> /dev/null
+
+Add alias to zsh ll -> ls -la and apply to current terminal
+echo "alias ll='ls -la'" >> ~/.zshrc && source ~/.zshrc
+
+Start command 'screenkey' and detach from current console
+screenkey & disown
+
+Show diff file1.txt and file2.txt with color, two columns
+diff --color -y file1.txt file2.txt
+
+Существенный, сущность
+Essential
+
+Довольно просто
+Quite simple
+
+Надежный
+Reliable
+
+Масштабируемый
+Scalable
+
+Таким образом
+Thus
+
+Аккуратный
+Neat
+
+Несущий ответственность
+Responsible
+
+... are responsible for handling incoming requests and returning responses to the client
+Controllers
+
+Соответствующий
+Corresponding
+
+Совет
+Hint
+
+Через
+Throughout
+
+Продолжительность жизни
+Life span
+
+DTO
+Data transfer objects
+
+Generate CRUD nestjs entities 'users' without tests
+nest g resource users --no-spec
+
+Install global nest cli
+npm i -g @nestjs/cli
+
+Произвольный
+Arbitrary
+
+Звездочка
+Asterisk
+
+Дефис
+Hyphen
+
+Пропускать
+Omit
+
+Decorator in nestjs, which declared class that can be managed by the Nest IoC container
+@Injectable()
+
+replace in file input.txt hello->world to out.txt
+sed 's/hello/world/' input.txt > out.txt
+
+show all global installed npm packages
+npm list -g
+
+what is path key in .eslintrc.json module value
+parserOptions.sourceType
+
+add execute permission to file start.sh
+chmod +x start.sh
+
+Which browsers support modules
+ES modules
+
+Which node support modules to 13 version
+CommonJS
+
+По меньшей мере
+At least
+
+In this decorator pass object with props: providers, controllers, imports, exports.
+@Module
+
+Module with decorator @Global not need imports (yes,no)
+yes
+
+change owner to avakdev "myfile"
+chown avakdev myfile
+
+change group to root file "myfile"
+chgrp root myfile
+
+install nerd fonts meta (arch aur)
+pamac build nerd-fonts-meta
+
+show help events nvim
+:help events
+
+show listeners on BufEnter
+:autocmd BufEnter
+
+typing compose function on js
+compose = (...fns) => (initialVal) => fns.reduceRight((val, fn) => fn(val), initialVal)
+
+set text editor "nvim" for git
+git config --global core.editor="nvim"
+
+show git config
+git config --list
+
+update pacman packages
+sudo pacman -Syu
+
+show folder 'foo' size
+du -hs foo
+
+rename file in neovim to new_name
+:saveas new_name
+
+Страдать пер.
+suffer
+
+Уверенный пер.
+confident
+
+Оценивать пер.
+evaluate
+
+get args in node app
+process.argv
+
+get env vars in node app
+process.env
+
+exit from program node app
+process.exit()
+
+ignore ctrl-c in node app
+process.on("SIGINT", ()=>{})
+
+set global exception handler
+process.setUncaughtExceptionCaptureCallBack(e=>{})
+
+set global rejections in node app
+process.on("unhandledRejection", (reason, promise)=>{})
+
+commonJS file extension
+cjs
+
+ES6 file extension
+mjs
+
+change commonJS to ES6 in package.json
+"type": "module"
+
+import fs based on promises as simple fs in nodejs
+import { promises as fs } from 'fs'
+
+Set to que async function callback without tick
+setImmefiate(callback)
+
+get current pid nodejs
+process.pid
+
+get parent pid
+process.ppid
+
+... is an experimental tool to help with managing versions of your nodejs package managers
+corepack
+
+add yarn, pnpm links command from node v14.19.0
+corepack enable
+
+remove untracked files in git repo
+git clean -f
+
+remove untracked files and folders in git repo
+git clean -fd
+
+revert changes files in git repo
+git checkout .
+
+run start init migrate prisma
+npx prisma migrate dev --name "init"
+
+start tmux session with name 'main'
+tmux attach -tmain
+
+tmux kill server
+tmux kill-server
+
+tmux reload settings
+tmux source ~/.tmux.conf
+
+modern terminal command du
+ncdu
+
+super alternatative cat with syntax highlights
+bat
+
+clever find command tool, alternative Find
+fd
+
+clever alternative ls command with highlight, tree, other
+exa
+
+cool alternative curl is ... command which use hightlight, POST req, PATCH req and other features
+http
+
+Сделать локальную ветку такую же как и удаленная. Все изменения будут потеряны
+git reset --hard origin/master
+
+Установить ssh server manjaro
+sudo pacman -S openssh
+
+path sshd config
+/etc/ssh/sshd_config
+
+status sshd by systemctl
+sudo systemctl status sshd.service
+
+enable port(default 22) to ssh in ufw
+sudo ufw allow ssh
+
+open port 8080 in ufw
+sudo ufw allow 8080
+
+connect by ssh user 'ava' host 'local' port 55
+ssh ava@local -p 55
+
+show opened ports in ufw
+sudo ufw status
+
+show git diff only staged
+git diff --staged
+
+show diff staged and unstaged
+git diff HEAD
+
+compare branch1 and branch2
+git diff branch1 branch2
+
+revert file 'api/todo.md' from commit with hash 65gg25
+git chechout 65gg25 -- api/todo.md
+
+unstage "api/todo.md" file
+git reset HEAD -- api/todo.md
+
+discard changes "api/todo.md" file
+git checkout -- api/todo.md
+
+git revert commit D without commit
+git revert --no-commit D
+
+Выполнить script.sh в текущем shell
+source script.sh
+
+Перезапустить lsp в neovim
+:LspRestart
+
+Сделать файл server исполняемым
+chmod 755 server
+chmod +x server
+
+Вывести все процессы
+ps -uax
+
+Какой файл использует команда make
+Makefile
+
+Какая команда позволяет копировать файлы по ssh
+rsync
+
+Написать через test sentence.includes('is')
+/is/.test(sentence)
+
+Дан массив arr со строками. Есть ли в каждой строке буква r
+arr.every(i => /r/.test(i))
+
+Дан массив arr со строками. Есть ли хоть в одной строке выражение att
+arr.some(i => /att/.test(i))
+
+Дан массив arr со строками. Отфильтровать где есть слово home
+arr.filter(i => /home/.test(i))
+
+Дан массив arr со строками. Отфильтровать где есть слово home без учета регистра
+arr.filter(i => /home/i.test(i))
+
+Создать регулярку с переменной: hello ${name}
+new RegExp(`hello ${name}`)
+
+Дана строка str. Получить новую строку и заменить запятые на точки
+str.replace(/,/g, '.')
+
+Дана строка str с переносами строк. Добавить в начало каждой строки '_ '
+str.replace(/^/gm, '_ ')
+
+Дана строка str с переносами строк. Добавить в конец каждой строки '.'
+str.replace(/$/gm, '.')
+
+Дана строка str. Обернуть все слова в двойные кавычкию
+str.replace(/\b/g, '"')
+
+Дана строка str. Заменить начало слова pre на pro
+str.replace(/\bpre/g, 'pro')
+
+Дана строка str. Заменить слова dog и cat на X
+str.replace(/\b(dog|cat)\b/g, 'X')
+
+Переключиться на ветку feat новой командой
+git switch feat
+
+Создать ветку feat и переключиться на нее новой командой
+git switch -c feat
+
+Показать ветки с id на которые они указывают
+git branch -v
+
+Если при слиянии веток не будет накладывающихся коммитов. Как будет тип слияния
+fast-forward
+
+Показать ветки
+git branch
+
+Удалить ветку feat
+git branch -d feat
+
+Создать ветку feat на основе id коммита 6dke555 (например если случайно удалили ветку)
+git branch feat 6dke555
+
+Вывести все коммиты с графом в строку (строка, все, граф)
+git log --oneline --all --graph
+
+Вывести изменения в текущей файловой системе git
+git diff
+
+Вывести изменения в файловой системе git репозитория в словах а не построчно
+git diff --word-diff
+
+Вывести измения в файлах внесенных в индекс в сравнении с закомитенными по строкам
+git diff --cached
+git diff --staged
+
+Вывести различия между веткой master и feat
+git diff master feat
+
+Распечать ветки в текущую консоль
+git branch | cat
+
+Отменить все изменения в файле index.js до индекса git
+git restore index.js
+
+Убрать файл index.js из индекса git
+git restore --staged index.js
+
+Удалить отслеживаемый файл git head.js и внести изменения в индекс
+git rm head.js
+
+Переименовать файл в git ind.js в index.js и внести изменения в индекс
+git mv ind.js index.js
+
+Измените сообщение последнего коммита на new message (в индексе ничего нет)
+git commit --amend -m "new message"
+
+Переименовать ветку master в main
+git branch --move master main
+
+Сравнить предыдущий коммит с текущим через HEAD
+git diff HEAD~1 HEAD
+
+Напиши ссылку на коммит после слияния для второй ветки назад на 2 коммита
+HEAD^2~2
+
+Отменить два последних коммита и изменения из них поместить в индекс и в рабочий каталог
+git reset --soft HEAD~2
+
+Отменить два последних коммита и изменения поместить в рабочий каталог
+git reset HEAD~2
+git reset --mixed HEAD~2
+
+Удалить последний коммит из истории
+git reset --hard HEAD~1
+
+Отменить коммит с id fe55s
+git revert fe55sk
+
+При клонировании репозиторияя по умолчанию ветку будет на которую указавает ...
+HEAD
+
+При клонировании репозитория копируются все ветки?
+yes
+
+Установка в настройках git на push simple
+git config --global push.default simple
+
+Посметреть настройки git на push. Если ничего не установлено будет использовано simple
+git config push.defalult
+
+Вывести url удаленного репозитория
+git remote --verbose
+git remote -v
+
+Добавить ветку feat в origin
+git push -u origin feat
+git push ---set-upstream origin feat
+
+Показать подробную информацию о ветках в git
+git branch -vv
+
+Показать все ветки
+git branch --all
+git branch -a
+
+Извлечь все коммиты и ветки из удаленного репозитория
+git fetch
+
+Переключиться на удаленную ветку feat(создаст такую же локальную)
+git switch feat
+
+При расхождении веток master и origin/master. Находимся в master
+git merge origin/master
+
+Влить все изменения в текущую рабочую ветку из origin/master
+git fetch; git merge origin/master
+
+Удаление ветки слежения feat
+git push -d origin feat
+
+Очистить ветки слежения которые были удалены на сервере
+git fetch --prune
+git fetch -p
+
+Посмотреть изменения построчно файла main.js в git
+git blame main.js
+
+Искать строку mail в репозитории с выводом строк
+git grep -n mail
+git grep --line-number mail
+
+Искать строку mail в репозитории. Вывести только названия файлов
+git grep -l mail
+git grep --name-only mail
+
+Искать строку mail в репозитории без учета регистра
+git grep -i mail
+
+Искать через логи строку mail в репозитории
+git log -S mail
+
+Вывести историю коммитов с информацией о внеснныех изменениях
+git log -p
+
+Вывести из логов репозитория каким комитом вносилась или удалялать строка "new line"
+git log -p -S "new line"
+
+Отобразить коммиты в которых было изменения в строке содержащую строку "add to"
+git log -G "add to"
+
+С помощью какой команды удобно искать коммит вызвавший ошибку
+bisect
+
+Запустить поиск ошибки в git
+git bisect start
+
+При запущенном bisect git указать на то что ошибка еще есть
+git bisect bad
+
+При запущенном git bisect указать на то что ошибки в данный момент нет
+git bisect good
+
+Остановить поиск ошибки конадной git bisect
+git bisect reset
+
+Просмотреть настройка для репозитория git
+git config --list
+
+Посмотреть настрой для репозитория с указанием их источника
+git config --list --show-origin
+git config --show-origin --list
+
+Задай для команды git алиас глобально commit -> c
+git config --global alias.c commit
+
+Напиши название ветки тикет 214, тема "update config file", автор Авакумов Владимир
+av/214/update-congig-file
+
+Повесить на коммит 23gsd тег v1.0.0
+git tag v.1.0.0 23gsd
+
+Вывести теги в репозитории
+git tag --list
+git tag -l
+
+Вывести информацию по перемещению HEAD
+git reflog
+
+Перенести коммиты из ветки feat в master. Находимся в ветке feat
+git rebase master
+
+Какие команды позволяют зафиксировать время выполнения операции oper1. Результат вывести в консоль.
+console.time("oper1"); console.timeEnd("oper1")
+
+function m(value){ return value-1}; m(26); Напиши параметри ф-и и через пробел аргумент ф-и
+value 26
+
+Path to file where save hostname(name of computer)
+/etc/hostname
+
+Check host ava.ru port 443 by command nmap
+nmap -p 443 ava.ru
+
+Сделать запрос ava.ru и открыть содержимое в neovim
+curl https://avakumov.ru | nvim
+
+Где можно сделать просто сертификат ssl для https. Название сайта
+letsencrypt.org

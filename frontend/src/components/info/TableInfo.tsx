@@ -18,7 +18,7 @@ const TableInfo: React.FC<TableInfoProps> = ({ name }) => {
 	const [isBottom, setIsBottom] = useState(false);
 
 	function handleScroll() {
-		setIsBottom(window.pageYOffset + window.innerHeight > document.body.scrollHeight);
+		setIsBottom(window.pageYOffset + window.innerHeight >= document.body.scrollHeight);
 	}
 
 	useEffect(() => {

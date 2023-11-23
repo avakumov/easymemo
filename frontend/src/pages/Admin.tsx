@@ -2,7 +2,7 @@ import { Box, Grid, Paper } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import Categories from '../components/Categories/Categories';
 import TableInfo from '../components/info/TableInfo';
-import AdminLeftMenu from '../components/menu/AdminLeftMenu';
+import AdminMenu from '../components/menu/AdminMenu';
 import FormEntityModal from '../components/modals/FormEntityModal';
 import Questions from '../components/Questions/Questions';
 import Users from '../components/Users/Users';
@@ -14,20 +14,26 @@ const AdminPage = () => {
 	const isExistEntity = name === EntityNames.QUESTION || name === EntityNames.CATEGORY || name === EntityNames.USER;
 	return (
 		<>
-			<Grid container spacing={2} margin='auto'>
-				<Grid item xs='auto'>
+			<Grid container margin='auto' sx={{ flexWrap: 'nowrap' }} spacing={1}>
+				<Grid
+					item
+					md='auto'
+					xs='auto'
+					lg='auto'
+					xl='auto'
+					sx={{ display: { xl: 'block', lg: 'block', md: 'none', sm: 'none', xs: 'none' } }}>
 					<Paper sx={{ position: 'sticky', top: 16, zIndex: 100 }}>
-						<AdminLeftMenu />
+						<AdminMenu />
 					</Paper>
 				</Grid>
-				<Grid item xs={10}>
+				<Grid item md={12} sm={12} xs={12} lg={10} xl={10} mr={2}>
 					{isExistEntity && (
 						<Paper sx={{ position: 'sticky', top: 16, zIndex: 100 }}>
 							<TableInfo name={name} handlePlus={() => {}} />
 						</Paper>
 					)}
 
-					<Paper sx={{ mt: 1 }}>
+					<Paper sx={{ mt: 2 }}>
 						<Show entityName={name} />
 					</Paper>
 				</Grid>

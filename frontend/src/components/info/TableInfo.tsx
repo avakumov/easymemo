@@ -7,6 +7,7 @@ import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import { useState, useEffect } from 'react';
+import AdminDrawer from '../menu/AdminDrawer';
 
 interface TableInfoProps {
 	name: EntityName;
@@ -37,6 +38,7 @@ const TableInfo: React.FC<TableInfoProps> = ({ name }) => {
 				alignItems: 'center',
 				p: 1,
 			}}>
+			<AdminDrawer />
 			<Box sx={{ textTransform: 'uppercase' }}>{name}</Box>
 			<Box>
 				<IconButton

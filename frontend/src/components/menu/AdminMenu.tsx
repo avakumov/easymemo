@@ -28,7 +28,7 @@ const entities = [
 	},
 ];
 
-export default function AdminLeftMenu() {
+export default function AdminMenu() {
 	const navigate = useNavigate();
 	return (
 		<List>

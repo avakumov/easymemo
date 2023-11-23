@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import api from '../../services/ApiService';
 import { token } from '../../services/auth';
 
-export default function Login() {
+export default function Login({ href }: { href: undefined | string }) {
 	const [login, status] = api.usePostLoginMutation();
 	const handleSubmit = async (event: any) => {
 		event.preventDefault();
@@ -20,7 +20,7 @@ export default function Login() {
 		if (email && password && typeof email === 'string' && typeof password === 'string') {
 			const { data } = await login({ email, password });
 			data.access_token && token.saveToken(data.access_token);
-			window.location.href = '/admin';
+			window.location.href = href ?? '/admin';
 		}
 	};
 

@@ -54,7 +54,6 @@ const api = createApi({
 			}),
 			providesTags: ['categories'],
 		}),
-		//TODO добавить переход по _url
 		postLogin: builder.mutation<ILoginAnswer, ILogin>({
 			query: ({ email, password }) => ({
 				url: `auth/login`,

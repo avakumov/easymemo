@@ -23,7 +23,8 @@ const Root = styled.div`
 
 function getAdminPages() {
 	const auth = token.getToken() ? true : false;
-	return auth ? <AdminPage /> : <Login />;
+	const href = window.location.href;
+	return auth ? <AdminPage /> : <Login href={href} />;
 }
 
 const router = createBrowserRouter([

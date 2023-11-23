@@ -1,10 +1,10 @@
 import { IconButton, ListItem, ListItemIcon, Menu, MenuItem } from '@mui/material';
-import { Box } from '@mui/system';
 import { useState } from 'react';
 import api from '../../services/ApiService';
 
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { token } from '../../services/auth';
 
 export default function Profile() {
 	const [anchorProfile, setAnchorProfile] = useState<null | HTMLElement>(null);
@@ -27,7 +27,11 @@ export default function Profile() {
 				<ListItem>{profile?.isAdmin ? 'Admin' : 'User'}</ListItem>
 				<MenuItem>{profile?.name}</MenuItem>
 				<MenuItem>{profile?.email}</MenuItem>
-				<MenuItem>
+				<MenuItem
+					onClick={() => {
+						token.removeToken();
+						window.location.reload();
+					}}>
 					<ListItemIcon>
 						<LogoutIcon sx={{ color: 'text.primary' }} />
 					</ListItemIcon>

@@ -16,16 +16,17 @@ const AdminPage = () => {
 		<>
 			<Grid container spacing={2} margin='auto'>
 				<Grid item xs='auto'>
-					<Paper>
+					<Paper sx={{ position: 'sticky', top: 16, zIndex: 100 }}>
 						<AdminLeftMenu />
 					</Paper>
 				</Grid>
 				<Grid item xs={10}>
 					{isExistEntity && (
-						<Paper>
+						<Paper sx={{ position: 'sticky', top: 16, zIndex: 100 }}>
 							<TableInfo name={name} handlePlus={() => {}} />
 						</Paper>
 					)}
+
 					<Paper sx={{ mt: 1 }}>
 						<Show entityName={name} />
 					</Paper>

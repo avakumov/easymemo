@@ -4,11 +4,9 @@ import { IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { EntityName } from '../../types';
 import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-import { useState, useEffect } from 'react';
 import AdminDrawer from '../menu/AdminDrawer';
 import Profile from '../Profile/Profile';
+import ScrollButton from '../ScrollButton/ScrollButton';
 
 interface TableInfoProps {
 	name: EntityName;
@@ -17,20 +15,6 @@ interface TableInfoProps {
 
 const TableInfo: React.FC<TableInfoProps> = ({ name }) => {
 	const dispatch = useDispatch();
-	const [isBottom, setIsBottom] = useState(false);
-
-	function handleScroll() {
-		setIsBottom(window.pageYOffset + window.innerHeight >= document.body.scrollHeight);
-	}
-
-	useEffect(() => {
-		window.addEventListener('scroll', handleScroll, { passive: true });
-
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, []);
-
 	return (
 		<Box
 			sx={{
@@ -48,21 +32,7 @@ const TableInfo: React.FC<TableInfoProps> = ({ name }) => {
 					onClick={() => dispatch(entityModalOpen({ name, open: true }))}>
 					<AddCircleOutlineIcon />
 				</IconButton>
-				{isBottom ? (
-					<IconButton
-						sx={{ color: 'text.primary' }}
-						size='small'
-						onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-						<KeyboardDoubleArrowUpIcon />
-					</IconButton>
-				) : (
-					<IconButton
-						sx={{ color: 'text.primary' }}
-						size='small'
-						onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
-						<KeyboardDoubleArrowDownIcon />
-					</IconButton>
-				)}
+				<ScrollButton />
 
 				<Profile />
 			</Box>

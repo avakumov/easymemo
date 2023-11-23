@@ -1,5 +1,5 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { EntityName, EntityNames, ICategory, ILogin, ILoginAnswer, IQuestion, IUser } from '../types';
+import { EntityName, EntityNames, ICategory, ILogin, ILoginAnswer, IProfile, IQuestion, IUser } from '../types';
 import { token } from './auth';
 
 //функция запроса с токеном
@@ -31,7 +31,7 @@ const baseQueryWithLogout: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 const api = createApi({
 	reducerPath: 'mainApi',
 	baseQuery: baseQueryWithLogout,
-	tagTypes: ['questions', 'users', 'categories'],
+	tagTypes: ['questions', 'users', 'categories', 'profile'],
 	endpoints: (builder) => ({
 		getQuestions: builder.query<IQuestion[], void>({
 			query: () => ({
@@ -81,6 +81,12 @@ const api = createApi({
 				url: `/${entityName}/${id}`,
 				method: 'DELETE',
 			}),
+		}),
+		getProfile: builder.query<IProfile, void>({
+			query: () => ({
+				url: 'auth/profile',
+			}),
+			providesTags: ['profile'],
 		}),
 	}),
 });

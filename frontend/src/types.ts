@@ -51,6 +51,14 @@ export interface IUser {
 	email: string;
 	password: string;
 }
+
+export interface IProfile {
+	id: number;
+	name: string;
+	email: string;
+	isAdmin: boolean;
+}
+
 export interface IQuestionForm {
 	id?: number;
 	description?: string;

@@ -8,6 +8,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import { useState, useEffect } from 'react';
 import AdminDrawer from '../menu/AdminDrawer';
+import Profile from '../Profile/Profile';
 
 interface TableInfoProps {
 	name: EntityName;
@@ -62,6 +63,8 @@ const TableInfo: React.FC<TableInfoProps> = ({ name }) => {
 						<KeyboardDoubleArrowDownIcon />
 					</IconButton>
 				)}
+
+				<Profile />
 			</Box>
 		</Box>
 	);

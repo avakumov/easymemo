@@ -5,14 +5,16 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
-import { IQuestion, IQuestionForm } from '../../types';
-import api from '../../services/ApiService';
+import { EntityNames, IQuestion, IQuestionForm } from '../../types';
 import { MenuItem, OutlinedInput, Select } from '@mui/material';
+import api from '../../services/ApiService';
+import { useDispatch } from 'react-redux';
 
 export default function FormQuestion({ data, exit }: { exit: () => void; data?: IQuestion }) {
 	const [createQuestion] = api.useCreateQuestionMutation();
 	const [updateQuestion] = api.useUpdateQuestionMutation();
 	const { data: categories } = api.useGetCategoriesQuery();
+	const dispatch = useDispatch();
 
 	const { handleSubmit, control } = useForm<IQuestionForm>({
 		defaultValues: {
@@ -28,6 +30,8 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 			const operation = q.id ? updateQuestion : createQuestion;
 			const question = await operation(q).unwrap();
 			exit();
+			//update table entities
+			dispatch(api.util.invalidateTags([EntityNames.QUESTION]));
 		} catch (e) {
 			console.error('ошибка соединения:', e);
 		}
@@ -81,7 +85,9 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 						)}
 					/>
 					<Grid container sx={{ mt: 3, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
-						<Button variant='contained'>cancel</Button>
+						<Button variant='contained' onClick={exit}>
+							cancel
+						</Button>
 						<Button type='submit' variant='contained'>
 							save
 						</Button>

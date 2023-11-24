@@ -5,7 +5,6 @@ import { EntityName, EntityNames, ICategory, IQuestion, IUser } from '../../type
 import { Box } from '@mui/material';
 import FormQuestion from '../forms/FormQuestion';
 import { entityModalClose } from '../../store/reducers/FormEntityModalReducer';
-import api from '../../services/ApiService';
 
 const FormEntityModal = () => {
 	const { open, name, data } = useSelector((state: RootState) => state.formEntityModalReducer);
@@ -13,8 +12,6 @@ const FormEntityModal = () => {
 	function closeModal() {
 		//close modal
 		dispatch(entityModalClose());
-		//update table entities
-		name && dispatch(api.util.invalidateTags([name]));
 	}
 	return (
 		<BasicModal isOpen={open} close={closeModal}>

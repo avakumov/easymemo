@@ -12,6 +12,7 @@ import { token } from './services/auth';
 import Login from './components/Login/Login';
 import Page404 from './pages/404';
 import ThemesProvider from './components/ThemesProvider/ThemesProvider';
+import Message from './components/Message/Message';
 
 const Root = styled.div`
 	margin: 0;
@@ -52,6 +53,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 			<ThemesProvider>
 				<CssBaseline />
 				<RouterProvider router={router} />
+				<Message />
 			</ThemesProvider>
 		</Provider>
 	</React.StrictMode>

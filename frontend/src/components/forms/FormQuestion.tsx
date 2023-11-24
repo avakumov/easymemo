@@ -9,6 +9,7 @@ import { EntityNames, IQuestion, IQuestionForm } from '../../types';
 import { MenuItem, OutlinedInput, Select } from '@mui/material';
 import api from '../../services/ApiService';
 import { useDispatch } from 'react-redux';
+import { showMessage } from '../../store/reducers/messageActions';
 
 export default function FormQuestion({ data, exit }: { exit: () => void; data?: IQuestion }) {
 	const [createQuestion] = api.useCreateQuestionMutation();
@@ -29,6 +30,9 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 		try {
 			const operation = q.id ? updateQuestion : createQuestion;
 			const question = await operation(q).unwrap();
+			//show success message
+			question.id && dispatch(showMessage({ message: 'Quesiton saved', type: 'success' }));
+
 			exit();
 			//update table entities
 			dispatch(api.util.invalidateTags([EntityNames.QUESTION]));

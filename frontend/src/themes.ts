@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-export const mainTheme = createTheme({
+const darkTheme = createTheme({
 	typography: {
 		fontSize: 14,
 	},
@@ -30,3 +30,9 @@ export const mainTheme = createTheme({
 		},
 	},
 });
+
+const lightTheme = createTheme({});
+
+export function theme(mode = 'light') {
+	return mode === 'light' ? lightTheme : darkTheme;
+}

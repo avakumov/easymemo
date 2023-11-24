@@ -4,14 +4,14 @@ import ReactDOM from 'react-dom/client';
 import styled from 'styled-components';
 import App from './components/App/App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
-import { mainTheme } from './themes/theme';
 import AdminPage from './pages/Admin';
 import { token } from './services/auth';
 import Login from './components/Login/Login';
 import Page404 from './pages/404';
+import ThemesProvider from './components/ThemesProvider/ThemesProvider';
 
 const Root = styled.div`
 	margin: 0;
@@ -49,10 +49,10 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<ThemeProvider theme={mainTheme}>
+			<ThemesProvider>
 				<CssBaseline />
 				<RouterProvider router={router} />
-			</ThemeProvider>
+			</ThemesProvider>
 		</Provider>
 	</React.StrictMode>
 );

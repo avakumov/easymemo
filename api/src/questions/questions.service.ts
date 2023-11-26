@@ -1,10 +1,15 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Scope, Inject } from "@nestjs/common";
 import { CreateQuestionDto } from "./dto/create-question.dto";
 import { PrismaService } from "src/prisma/prisma.service";
+import { REQUEST } from "@nestjs/core";
+import { RequestExtended } from "src/entities/request";
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class QuestionsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    @Inject(REQUEST) private request: RequestExtended
+  ) {}
 
   create(q: CreateQuestionDto) {
     return this.prisma.question.create({
@@ -16,7 +21,7 @@ export class QuestionsService {
         },
         owner: {
           connect: {
-            id: q.ownerId,
+            id: this.request.user.userId,
           },
         },
       },
@@ -24,13 +29,16 @@ export class QuestionsService {
   }
 
   findAll() {
+    const { userId, isAdmin } = this.request.user;
+    const where = isAdmin ? null : { where: { ownerId: userId } };
+
     return this.prisma.question.findMany({
+      ...where,
       include: {
         categories: true,
       },
     });
   }
-
   findOne(id: number) {
     return this.prisma.question.findUnique({ where: { id } });
   }

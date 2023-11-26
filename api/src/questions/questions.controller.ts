@@ -7,21 +7,17 @@ import {
   Param,
   Delete,
   Res,
-  Req,
 } from "@nestjs/common";
 import { QuestionsService } from "./questions.service";
 import { CreateQuestionDto } from "./dto/create-question.dto";
 import { Response } from "express";
-import { RequestExtended } from "src/entities/request";
 
 @Controller("questions")
 export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
 
   @Post()
-  create(@Body() question: CreateQuestionDto, @Req() request: RequestExtended) {
-    const userId = request.user.userId;
-    question.ownerId = userId;
+  create(@Body() question: CreateQuestionDto) {
     return this.questionsService.create(question);
   }
 

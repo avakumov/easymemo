@@ -7,9 +7,9 @@ interface messageState {
 }
 
 const initialState: messageState = {
-	message: 'test',
+	message: '',
 	type: 'info',
-	open: true,
+	open: false,
 };
 
 export const messageSlice = createSlice({

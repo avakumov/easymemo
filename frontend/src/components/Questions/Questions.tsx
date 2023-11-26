@@ -38,7 +38,9 @@ const Questions = () => {
 						<TableCell>categoies</TableCell>
 						<TableCell align='right'>Question</TableCell>
 						<TableCell>Answer</TableCell>
-						<TableCell align='center'>edit</TableCell>
+						<TableCell sx={{ minWidth: '100px' }} align='center'>
+							edit
+						</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -50,7 +52,7 @@ const Questions = () => {
 							<TableCell>{row.categories?.map((c) => c.name).join(', ') ?? 'not found'}</TableCell>
 							<TableCell align='right'>{row.question}</TableCell>
 							<TableCell>{row.answer}</TableCell>
-							<TableCell align='center'>
+							<TableCell sx={{ minWidth: '100px' }} align='center'>
 								<IconButton
 									sx={{ color: 'text.primary' }}
 									size='small'

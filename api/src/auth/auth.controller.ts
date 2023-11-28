@@ -27,7 +27,12 @@ export class AuthController {
   }
 
   @Get("profile")
-  getProfile(@Request() req: RequestExtended) {
-    return this.userService.findOne({ id: req.user.userId });
+  async getProfile(@Request() req: RequestExtended) {
+    const user = await this.userService.findOne({ id: req.user.userId });
+
+    return {
+      ...user,
+      entities: ["questions", "categories", ...(user.isAdmin ? ["users"] : [])],
+    };
   }
 }

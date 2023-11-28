@@ -18,6 +18,7 @@ model User {
     questions  Question[]
     categories Category[]
     isAdmin    Boolean   @default(false)
+    themeInterface      String   @default("dark")
 }
 
 model Question {

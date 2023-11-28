@@ -49,6 +49,7 @@ export interface IUser {
 	name: string;
 	email: string;
 	password: string;
+	themeInterface: string;
 }
 
 export interface IProfile {
@@ -57,6 +58,7 @@ export interface IProfile {
 	email: string;
 	isAdmin: boolean;
 	entities: string[];
+	themeInterface: string;
 }
 
 export interface IQuestionForm {

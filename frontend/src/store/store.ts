@@ -2,13 +2,11 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import api from '../services/ApiService';
 import questionsReducer from './reducers/QuestionsSlice';
 import formEntityModalReducer from './reducers/FormEntityModalReducer';
-import themeReducer from './reducers/themeActions';
 import messageReducer from './reducers/messageActions';
 
 const rootReducer = combineReducers({
 	questionsReducer,
 	formEntityModalReducer,
-	theme: themeReducer,
 	message: messageReducer,
 	[api.reducerPath]: api.reducer,
 });

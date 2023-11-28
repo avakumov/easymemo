@@ -33,6 +33,6 @@ const darkTheme = createTheme({
 
 const lightTheme = createTheme({});
 
-export function theme(mode = 'light') {
+export function theme(mode: string | undefined = 'light') {
 	return mode === 'light' ? lightTheme : darkTheme;
 }

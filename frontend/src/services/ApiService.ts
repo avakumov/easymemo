@@ -87,6 +87,13 @@ const api = createApi({
 			}),
 			providesTags: ['profile'],
 		}),
+		changeTheme: builder.mutation<IUser, Pick<IUser, 'id' | 'themeInterface'>>({
+			query: (pickedUser) => ({
+				url: `/users/${pickedUser.id}`,
+				method: 'PATCH',
+				body: { themeInterface: pickedUser.themeInterface },
+			}),
+		}),
 	}),
 });
 

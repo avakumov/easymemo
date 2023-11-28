@@ -1,5 +1,6 @@
 import { Box, Grid, Paper } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
+import Bar from '../components/Bar/Bar';
 import Categories from '../components/Categories/Categories';
 import TableInfo from '../components/info/TableInfo';
 import AdminMenu from '../components/menu/AdminMenu';
@@ -8,12 +9,14 @@ import Questions from '../components/Questions/Questions';
 import Users from '../components/Users/Users';
 import { EntityName, EntityNames } from '../types';
 
-const AdminPage = () => {
+export default function RecordsPage() {
 	const [params] = useSearchParams();
-	const name = params.get('show');
-	const isExistEntity = name === EntityNames.QUESTION || name === EntityNames.CATEGORY || name === EntityNames.USER;
+	let name = params.get('show');
+	const isEmpty = name !== EntityNames.QUESTION && name !== EntityNames.CATEGORY && name !== EntityNames.USER;
+	isEmpty && (name = EntityNames.QUESTION);
 	return (
 		<>
+			<Bar />
 			<Grid container margin='auto' sx={{ flexWrap: 'nowrap' }} spacing={1}>
 				<Grid
 					item
@@ -27,11 +30,9 @@ const AdminPage = () => {
 					</Paper>
 				</Grid>
 				<Grid item md={12} sm={12} xs={12} lg={10} xl={10} mr={2}>
-					{isExistEntity && (
-						<Paper sx={{ position: 'sticky', top: 16, zIndex: 100 }}>
-							<TableInfo name={name} handlePlus={() => {}} />
-						</Paper>
-					)}
+					<Paper sx={{ position: 'sticky', top: 16, zIndex: 100 }}>
+						<TableInfo name={name} handlePlus={() => {}} />
+					</Paper>
 
 					<Paper sx={{ mt: 2 }}>
 						<Show entityName={name} />
@@ -42,7 +43,7 @@ const AdminPage = () => {
 			<FormEntityModal />
 		</>
 	);
-};
+}
 
 function Show({ entityName }: { entityName: EntityName | undefined | null | string }) {
 	switch (entityName) {
@@ -56,5 +57,3 @@ function Show({ entityName }: { entityName: EntityName | undefined | null | stri
 			return <Box>Main</Box>;
 	}
 }
-
-export default AdminPage;

@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { EntityName } from '../../types';
 import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import AdminDrawer from '../menu/AdminDrawer';
-import Profile from '../Profile/Profile';
 import ScrollButton from '../ScrollButton/ScrollButton';
 
 interface TableInfoProps {
@@ -33,8 +32,6 @@ const TableInfo: React.FC<TableInfoProps> = ({ name }) => {
 					<AddCircleOutlineIcon />
 				</IconButton>
 				<ScrollButton />
-
-				<Profile />
 			</Box>
 		</Box>
 	);

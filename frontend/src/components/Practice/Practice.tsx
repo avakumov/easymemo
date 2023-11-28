@@ -9,8 +9,12 @@ const Root = styled.div`
 	justify-content: center;
 	flex-direction: column;
 `;
+const questions = [
+	{ question: 'q', answer: 'a' },
+	{ question: 'q1', answer: 'a1' },
+];
 
-function App({ questions }: { questions: QuestionProps[] }) {
+export default function Practice() {
 	useEffect(() => {
 		document.addEventListener('keydown', keyDownHandler, true);
 		document.addEventListener('keyup', keyUpHandler, true);
@@ -36,7 +40,7 @@ function App({ questions }: { questions: QuestionProps[] }) {
 				}
 			}, 500); //TODO Перенести в settings
 		}
-	}, [activeQ, questions, typingText]);
+	}, [activeQ, typingText]);
 
 	function keyUpHandler(this: Document, e: globalThis.KeyboardEvent): void {}
 
@@ -70,5 +74,3 @@ function App({ questions }: { questions: QuestionProps[] }) {
 		</Root>
 	);
 }
-
-export default App;

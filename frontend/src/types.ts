@@ -10,7 +10,6 @@ export interface ICategory {
 	id: number;
 	name: string;
 	description?: string;
-
 	published: boolean;
 	createdAt: string;
 }
@@ -57,6 +56,7 @@ export interface IProfile {
 	name: string;
 	email: string;
 	isAdmin: boolean;
+	entities: string[];
 }
 
 export interface IQuestionForm {

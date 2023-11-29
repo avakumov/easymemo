@@ -24,7 +24,7 @@ export interface ILoginAnswer {
 }
 
 export interface IQuestion {
-	id?: number;
+	id: number;
 	description?: string;
 	question: string;
 	answer: string;
@@ -67,6 +67,12 @@ export interface IQuestionForm {
 	question: string;
 	answer: string;
 	categories: number[];
+}
+
+export interface ICategoryForm {
+	id?: number;
+	description?: string;
+	name: string;
 }
 
 export type IEntity = IQuestion | IUser | ICategory | undefined;

@@ -18,7 +18,6 @@ import { EntityNames } from '../../types';
 const Categories = () => {
 	const { data: categories, error, isLoading } = api.useGetCategoriesQuery();
 	const [removeEntity] = api.useRemoveEntityMutation();
-
 	const dispatch = useDispatch();
 
 	if (isLoading) return <Loading />;

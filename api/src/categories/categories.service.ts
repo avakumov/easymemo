@@ -5,7 +5,7 @@ import { PrismaService } from "src/prisma/prisma.service";
 import { CreateCategoryDto } from "./dto/create-category.dto";
 import { UpdateCategoryDto } from "./dto/update-category.dto";
 
-@Injectable()
+@Injectable({ scope: Scope.REQUEST })
 export class CategoriesService {
   constructor(
     private prisma: PrismaService,
@@ -18,7 +18,7 @@ export class CategoriesService {
         name: c.name,
         owner: {
           connect: {
-            id: c.ownerId,
+            id: this.request.user.userId,
           },
         },
       },
@@ -38,8 +38,13 @@ export class CategoriesService {
     return `This action returns a #${id} category`;
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+  update(id: number, c: UpdateCategoryDto) {
+    return this.prisma.category.update({
+      where: { id },
+      data: {
+        name: c.name,
+      },
+    });
   }
 
   remove(id: number) {

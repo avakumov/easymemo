@@ -38,6 +38,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 			dispatch(api.util.invalidateTags([EntityNames.QUESTION]));
 		} catch (e) {
 			console.error('ошибка соединения:', e);
+			dispatch(showMessage({ message: e.message, type: 'error' }));
 		}
 	};
 	return (
@@ -49,7 +50,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 					alignItems: 'center',
 				}}>
 				<Typography component='h1' variant='h5'>
-					New question
+					{data?.id ? 'Change' : 'New'} question
 				</Typography>
 				<Box component='form' noValidate sx={{ mt: 1 }} onSubmit={handleSubmit(submit)}>
 					<Controller
@@ -78,7 +79,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 						name='categories'
 						control={control}
 						render={({ field }) => (
-							<Select multiple input={<OutlinedInput label='Name' />} {...field}>
+							<Select multiple input={<OutlinedInput label='Name' />} sx={{ mt: 2, mb: 1 }} {...field}>
 								{Array.isArray(categories) &&
 									categories.map((category) => (
 										<MenuItem key={category.id} value={category.id}>
@@ -88,7 +89,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 							</Select>
 						)}
 					/>
-					<Grid container sx={{ mt: 3, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
+					<Grid container sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
 						<Button variant='contained' onClick={exit}>
 							cancel
 						</Button>

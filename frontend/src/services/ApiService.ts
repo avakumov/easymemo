@@ -75,6 +75,20 @@ const api = createApi({
 				body: question,
 			}),
 		}),
+		createCategory: builder.mutation<ICategory, Partial<ICategory>>({
+			query: (category) => ({
+				url: '/categories',
+				method: 'POST',
+				body: category,
+			}),
+		}),
+		updateCategory: builder.mutation<ICategory, Partial<ICategory>>({
+			query: (category) => ({
+				url: `/categories/${category.id}`,
+				method: 'PATCH',
+				body: category,
+			}),
+		}),
 		removeEntity: builder.mutation<boolean, { id: number; entityName: EntityName }>({
 			query: ({ id, entityName }) => ({
 				url: `/${entityName}/${id}`,

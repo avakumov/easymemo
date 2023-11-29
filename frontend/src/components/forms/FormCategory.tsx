@@ -5,37 +5,41 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
-import { EntityNames, ICategory, IQuestionForm } from '../../types';
-import { MenuItem, OutlinedInput, Select } from '@mui/material';
+import { EntityNames, ICategory, ICategoryForm } from '../../types';
 import api from '../../services/ApiService';
 import { useDispatch } from 'react-redux';
 import { showMessage } from '../../store/reducers/messageActions';
 
-export default function FormCategory({ data, close }: { close: () => void; data?: ICategory }) {
-	const [createQuestion] = api.useCreateQuestionMutation();
-	const [updateQuestion] = api.useUpdateQuestionMutation();
-	const { data: categories } = api.useGetCategoriesQuery();
+export default function FormCategory({ data, exit }: { exit: () => void; data?: ICategory }) {
+	const [createCategory] = api.useCreateCategoryMutation();
+	const [updateCategory] = api.useUpdateCategoryMutation();
 	const dispatch = useDispatch();
 
-	const { handleSubmit, control } = useForm<ICategory>({
+	const {
+		handleSubmit,
+		control,
+		formState: { errors },
+	} = useForm<ICategory>({
 		defaultValues: {
 			name: data?.name ?? '',
 			id: data?.id ?? undefined,
 		},
+		mode: 'onChange',
 	});
 
-	const submit: SubmitHandler<IQuestionForm> = async (q) => {
+	const submit: SubmitHandler<ICategoryForm> = async (category) => {
 		try {
-			const operation = q.id ? updateQuestion : createQuestion;
-			const question = await operation(q).unwrap();
+			const operation = category.id ? updateCategory : createCategory;
+			const question = await operation(category).unwrap();
 			//show success message
-			question.id && dispatch(showMessage({ message: 'Quesiton saved', type: 'success' }));
+			question.id && dispatch(showMessage({ message: 'Category saved', type: 'success' }));
 
 			exit();
 			//update table entities
-			dispatch(api.util.invalidateTags([EntityNames.QUESTION]));
+			dispatch(api.util.invalidateTags([EntityNames.CATEGORY]));
 		} catch (e) {
 			console.error('ошибка соединения:', e);
+			dispatch(showMessage({ message: 'Ошибка сохранения', type: 'error' }));
 		}
 	};
 	return (
@@ -47,46 +51,30 @@ export default function FormCategory({ data, close }: { close: () => void; data?
 					alignItems: 'center',
 				}}>
 				<Typography component='h1' variant='h5'>
-					New question
+					{data?.id ? 'Change' : 'New'} category
 				</Typography>
 				<Box component='form' noValidate sx={{ mt: 1 }} onSubmit={handleSubmit(submit)}>
 					<Controller
-						name='question'
+						name='name'
 						control={control}
+						rules={{
+							maxLength: 50,
+							//категория не должна содержать пробелы
+							validate: (value, formValues) => !/\s/.test(value),
+						}}
 						render={({ field }) => (
 							<TextField
+								error={!!errors.name}
 								margin='normal'
 								fullWidth
-								label='Question'
+								label='Category'
 								autoFocus
-								multiline={true}
+								helperText={errors.name ? 'without spaces' : ''}
 								{...field}
 							/>
 						)}
 					/>
-					<Controller
-						name='answer'
-						control={control}
-						render={({ field }) => (
-							<TextField margin='normal' fullWidth label='Answer' multiline={true} {...field} />
-						)}
-					/>
-
-					<Controller
-						name='categories'
-						control={control}
-						render={({ field }) => (
-							<Select multiple input={<OutlinedInput label='Name' />} {...field}>
-								{Array.isArray(categories) &&
-									categories.map((category) => (
-										<MenuItem key={category.id} value={category.id}>
-											{category.name}
-										</MenuItem>
-									))}
-							</Select>
-						)}
-					/>
-					<Grid container sx={{ mt: 3, mb: 2, display: 'flex', justifyContent: 'space-between' }}>
+					<Grid container sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
 						<Button variant='contained' onClick={exit}>
 							cancel
 						</Button>

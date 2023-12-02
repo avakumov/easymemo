@@ -27,8 +27,8 @@ export default function Page404() {
 				<Button variant='contained' onClick={() => navigate('/', { replace: false })}>
 					Home
 				</Button>
-				<Button variant='contained' onClick={() => navigate('/admin', { replace: false })}>
-					Admin home
+				<Button variant='contained' onClick={() => navigate('/practice', { replace: false })}>
+					Practice
 				</Button>
 			</Box>
 		</Box>

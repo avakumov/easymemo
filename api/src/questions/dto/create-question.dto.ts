@@ -7,6 +7,6 @@ export class CreateQuestionDto {
   answer: string;
   @IsNotEmpty()
   ownerId: number;
-  categories: string[];
+  categories: number[];
   id: number;
 }

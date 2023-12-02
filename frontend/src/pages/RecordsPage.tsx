@@ -1,6 +1,5 @@
 import { Box, Grid, Paper } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
-import Bar from '../components/Bar/Bar';
 import Categories from '../components/Categories/Categories';
 import TableInfo from '../components/info/TableInfo';
 import AdminMenu from '../components/menu/AdminMenu';
@@ -12,11 +11,8 @@ import { EntityName, EntityNames } from '../types';
 export default function RecordsPage() {
 	const [params] = useSearchParams();
 	let name = params.get('show');
-	const isEmpty = name !== EntityNames.QUESTION && name !== EntityNames.CATEGORY && name !== EntityNames.USER;
-	isEmpty && (name = EntityNames.QUESTION);
 	return (
 		<>
-			<Bar />
 			<Grid container margin='auto' sx={{ flexWrap: 'nowrap' }} spacing={1}>
 				<Grid
 					item

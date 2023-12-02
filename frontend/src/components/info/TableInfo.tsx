@@ -2,18 +2,21 @@ import Box from '@mui/material/Box';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { EntityName } from '../../types';
+import { EntityName, EntityNames } from '../../types';
 import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import AdminDrawer from '../menu/AdminDrawer';
 import ScrollButton from '../ScrollButton/ScrollButton';
 
 interface TableInfoProps {
-	name: EntityName;
+	name: EntityName | string;
 	handlePlus: () => void;
 }
 
 const TableInfo: React.FC<TableInfoProps> = ({ name }) => {
 	const dispatch = useDispatch();
+	if (name !== EntityNames.QUESTION && name !== EntityNames.CATEGORY && name !== EntityNames.USER) {
+		return null;
+	}
 	return (
 		<Box
 			sx={{

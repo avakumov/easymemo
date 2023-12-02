@@ -37,7 +37,7 @@ export default function Bar() {
 	return (
 		<AppBar position='static'>
 			<Container sx={{ maxWidth: '100%', pl: '0px !important', pr: '0px !important' }} maxWidth={false}>
-				<Toolbar variant='string' sx={{ pl: '0px !important', pr: '0px !important' }}>
+				<Toolbar variant='dense' sx={{ pl: '0px !important', pr: '0px !important' }}>
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
 						<IconButton
 							size='small'

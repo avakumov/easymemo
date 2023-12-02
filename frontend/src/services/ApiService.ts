@@ -23,7 +23,7 @@ const baseQueryWithLogout: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 		token.removeToken();
 		const url = localStorage.getItem('_url');
 		url && localStorage.removeItem('_url');
-		window.location.href = url ?? '/admin';
+		// window.location.href = url ?? '/practice';
 	}
 	return result;
 };

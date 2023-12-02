@@ -11,6 +11,7 @@ import Message from './components/Message/Message';
 import Practice from './components/Practice/Practice';
 import RecordsPage from './pages/RecordsPage';
 import Auth from './components/Auth/Auth';
+import Bar from './components/Bar/Bar';
 
 const router = createBrowserRouter([
 	{
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
 		path: '/practice',
 		element: (
 			<Auth>
+				<Bar />
 				<Practice />
 			</Auth>
 		),
@@ -29,6 +31,7 @@ const router = createBrowserRouter([
 		path: '/records',
 		element: (
 			<Auth>
+				<Bar />
 				<RecordsPage />
 			</Auth>
 		),
@@ -37,6 +40,7 @@ const router = createBrowserRouter([
 		path: '/stats',
 		element: (
 			<Auth>
+				<Bar />
 				<div>stats</div>
 			</Auth>
 		),

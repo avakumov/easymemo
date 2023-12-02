@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IQuestion } from '../../models/IQuestion';
+import { IQuestion } from '../../types';
 import { AppDispatch } from '../store';
 import { questionsSlice } from './QuestionsSlice';
 
@@ -9,6 +9,8 @@ export const fetchQuestions = () => async (dispatch: AppDispatch) => {
 		const response = await axios.get<IQuestion[]>('http://localhost:8001/questions');
 		dispatch(questionsSlice.actions.fetchQuestionsSuccess(response.data));
 	} catch (e) {
-		dispatch(questionsSlice.actions.fetchQuestionsError(e.message));
+		if (e instanceof Error) {
+			dispatch(questionsSlice.actions.fetchQuestionsError(e.message));
+		}
 	}
 };

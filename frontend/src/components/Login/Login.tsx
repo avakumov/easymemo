@@ -18,9 +18,9 @@ export default function Login({ href }: { href: undefined | string }) {
 		const email = formData.get('email');
 		const password = formData.get('password');
 		if (email && password && typeof email === 'string' && typeof password === 'string') {
-			const { data } = await login({ email, password });
-			data.access_token && token.saveToken(data.access_token);
-			window.location.href = href ?? '/admin';
+			const { access_token } = await login({ email, password }).unwrap();
+			access_token && token.saveToken(access_token);
+			window.location.href = href ?? '/practice';
 		}
 	};
 

@@ -17,16 +17,16 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 	const { data: categories } = api.useGetCategoriesQuery();
 	const dispatch = useDispatch();
 
-	const { handleSubmit, control } = useForm<IQuestionForm>({
+	const { handleSubmit, control } = useForm<Partial<IQuestion>>({
 		defaultValues: {
 			question: data?.question ?? '',
 			answer: data?.answer ?? '',
-			categories: data?.categories?.map((c) => c.id) ?? [],
+			categories: Array.isArray(data?.categories) ? data?.categories : [],
 			id: data?.id ?? undefined,
 		},
 	});
 
-	const submit: SubmitHandler<IQuestionForm> = async (q) => {
+	const submit: SubmitHandler<Partial<IQuestion>> = async (q) => {
 		try {
 			const operation = q.id ? updateQuestion : createQuestion;
 			const question = await operation(q).unwrap();
@@ -37,8 +37,10 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 			//update table entities
 			dispatch(api.util.invalidateTags([EntityNames.QUESTION]));
 		} catch (e) {
-			console.error('ошибка соединения:', e);
-			dispatch(showMessage({ message: e.message, type: 'error' }));
+			if (e instanceof Error) {
+				console.error('ошибка соединения:', e);
+				dispatch(showMessage({ message: e.message, type: 'error' }));
+			}
 		}
 	};
 	return (

@@ -8,10 +8,10 @@ import { store } from './store/store';
 import Page404 from './pages/404';
 import ThemesProvider from './components/ThemesProvider/ThemesProvider';
 import Message from './components/Message/Message';
-import Practice from './components/Practice/Practice';
 import RecordsPage from './pages/RecordsPage';
 import Auth from './components/Auth/Auth';
 import Bar from './components/Bar/Bar';
+import PracticePage from './pages/PracticePage';
 
 const router = createBrowserRouter([
 	{
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
 		element: (
 			<Auth>
 				<Bar />
-				<Practice />
+				<PracticePage />
 			</Auth>
 		),
 	},

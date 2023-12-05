@@ -1,76 +1,127 @@
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import Question, { QuestionProps } from '../Question/Question';
-import TypingView from '../TypingView/TypingView';
-
-const Root = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-`;
-const questions = [
-	{ question: 'q', answer: 'a' },
-	{ question: 'q1', answer: 'a1' },
-];
+import { Paper } from '@mui/material';
+import React from 'react';
+import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import PracticeQuestion from '../PracticeQuestion/PracticeQuestion';
 
 export default function Practice() {
-	useEffect(() => {
-		document.addEventListener('keydown', keyDownHandler, true);
-		document.addEventListener('keyup', keyUpHandler, true);
-		return () => {
-			document.removeEventListener('keydown', keyDownHandler, true);
-			document.removeEventListener('keyup', keyUpHandler, true);
-		};
-	}, []);
+	const [searchParams] = useSearchParams();
+	const [questions, setQuestions] = useState<
+		{
+			id: number;
+			question: string;
+			answer: string;
+			status: 'active' | 'wait' | 'fail' | 'success';
+			categories: { id: number; name: string }[];
+			ref: React.RefObject<HTMLInputElement>;
+		}[]
+	>([
+		{
+			id: 0,
+			question: 'Какая сегодня погода',
+			answer: 'хорошая',
+			status: 'active',
+			categories: [{ id: 1, name: 'погода' }],
+			ref: React.createRef(),
+		},
+		{
+			id: 1,
+			question: 'Какая сегодня погода',
+			answer: 'хорошая',
+			status: 'wait',
+			categories: [{ id: 1, name: 'погода' }],
+			ref: React.createRef(),
+		},
+		{
+			id: 2,
+			question: 'Какая завтра погода',
+			answer: 'отличная',
+			status: 'fail',
+			categories: [{ id: 1, name: 'погода' }],
+			ref: React.createRef(),
+		},
+		{
+			id: 3,
+			question: 'Какая вчера погода',
+			answer: 'нормальная',
+			status: 'success',
+			categories: [{ id: 1, name: 'погода' }],
+			ref: React.createRef(),
+		},
+		{
+			id: 4,
+			question: 'Какая погода',
+			answer: 'нормальная',
+			status: 'wait',
+			categories: [{ id: 1, name: 'погода' }],
+			ref: React.createRef(),
+		},
+		{
+			id: 5,
+			question: 'Какая погода',
+			answer: 'нормальная',
+			status: 'wait',
+			categories: [{ id: 1, name: 'погода' }],
+			ref: React.createRef(),
+		},
+	]);
+	const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+		if (e.key === 'Tab') {
+			e.preventDefault();
+			//переходит на следующий вопрсос ожидающий ответа
+			const currentQuestionIndex = questions.findIndex((q) => q.status === 'active');
+			const lastIndex = questions.length - 1;
+			let nextQuestionIndex: null | number = null;
 
-	const [activeQ, setActiveQ] = useState(questions[0] ?? {});
-	const [typingText, setTypingText] = useState('');
-
-	useEffect(() => {
-		if (typingText === activeQ.answer) {
-			//Небольшая задержка после правильного ответа
-			setTimeout(() => {
-				const index = questions.indexOf(activeQ);
-				setTypingText('');
-				if (questions.length - 1 === index) {
-					setActiveQ(questions[0]);
-				} else {
-					setActiveQ(questions[index + 1]);
+			if (currentQuestionIndex !== lastIndex) {
+				for (let index = currentQuestionIndex; index <= lastIndex; index++) {
+					if (questions[index].status === 'wait') {
+						nextQuestionIndex = index;
+						break;
+					}
 				}
-			}, 500); //TODO Перенести в settings
+			}
+			if (!nextQuestionIndex) {
+				for (let index = 0; index < currentQuestionIndex; index++) {
+					if (questions[index].status === 'wait') {
+						nextQuestionIndex = index;
+						break;
+					}
+				}
+			}
+			if (nextQuestionIndex !== null && Number.isInteger(nextQuestionIndex)) {
+				//обновляем текущее положение активного инпута
+				questions[currentQuestionIndex].status = 'wait';
+				questions[nextQuestionIndex].status = 'active';
+				setQuestions([...questions]);
+			}
 		}
-	}, [activeQ, typingText]);
-
-	function keyUpHandler(this: Document, e: globalThis.KeyboardEvent): void {}
-
-	function keyDownHandler(this: Document, e: globalThis.KeyboardEvent) {
-		const { key } = e;
-		//ignore keys
-		const ignoreKeys = ['Shift', 'Control'];
-		if (ignoreKeys.find((k) => k === e.key)) {
-			return;
+		if (e.key === 'Enter') {
+			e.preventDefault();
 		}
-
-		if (key === 'Escape') {
-			return setTypingText('');
-		}
-		if (key === 'Backspace') {
-			return setTypingText((prev) => prev.slice(0, -1));
-		}
-
-		if (e.ctrlKey) {
-			return setTypingText((prev) => `${prev}<C-${key}>`);
-		}
-		setTypingText((prev) => prev + key);
-	}
-
+	};
 	return (
-		<Root>
-			{questions.map((q: QuestionProps) => (
-				<Question q={q} active={q.answer === activeQ.answer} key={q.answer} />
+		<Paper
+			sx={{ display: 'flex', flexDirection: 'column', gap: 1, p: 1 }}
+			onKeyDown={onKeyDown}
+			onFocus={(ref) => {
+				if (!questions) return;
+				const index = questions.findIndex((q) => {
+					return q.ref.current === ref.target;
+				});
+				if (index === -1) return;
+				questions.forEach((q, i) => {
+					if (q.status === 'active') {
+						questions[i].status = 'wait';
+					}
+				});
+				questions[index].status = 'active';
+
+				setQuestions([...questions]);
+			}}>
+			{questions.map((q) => (
+				<PracticeQuestion key={q.id} {...q} />
 			))}
-			<TypingView typingText={typingText} highlightText={activeQ.answer} />
-		</Root>
+		</Paper>
 	);
 }

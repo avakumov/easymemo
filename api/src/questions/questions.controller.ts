@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Res,
+  Query,
 } from "@nestjs/common";
 import { QuestionsService } from "./questions.service";
 import { CreateQuestionDto } from "./dto/create-question.dto";
@@ -21,6 +22,14 @@ export class QuestionsController {
     return this.questionsService.create(question);
   }
 
+  @Get("/practice")
+  async practice(
+    @Query() query: { [index: string]: string },
+    @Res() res: Response
+  ) {
+    const data = await this.questionsService.practice(query);
+    res.json(data);
+  }
   @Get()
   async findAll(@Res() res: Response) {
     const data = await this.questionsService.findAll();

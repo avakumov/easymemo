@@ -1,5 +1,5 @@
 import { Box, IconButton, ListItem, ListItemIcon, Menu, MenuItem } from '@mui/material';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import api from '../../services/ApiService';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -7,6 +7,19 @@ import { token } from '../../services/auth';
 import { useDispatch } from 'react-redux';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import SettingsSystemDaydreamIcon from '@mui/icons-material/SettingsSystemDaydream';
+
+const themeValues = ['light', 'dark', 'system'];
+
+const themeIcons = new Map<string, ReactNode>([
+	['light', <Brightness4Icon />],
+	['dark', <Brightness7Icon />],
+	['system', <SettingsSystemDaydreamIcon />],
+]);
+
+function getIcon(themeName: string = 'system'): ReactNode {
+	return themeIcons.get(themeName);
+}
 
 export default function Profile() {
 	const dispatch = useDispatch();
@@ -37,9 +50,17 @@ export default function Profile() {
 				<MenuItem
 					onClick={async () => {
 						if (!profile?.id) return;
+
+						const indexTheme = themeValues.findIndex((themeName) => themeName === profile?.themeInterface);
+						let nextIndex = indexTheme + 1;
+						const len = themeValues.length;
+						if (nextIndex >= len) {
+							nextIndex = 0;
+						}
+
 						await changeTheme({
 							id: profile.id,
-							themeInterface: profile?.themeInterface === 'dark' ? 'light' : 'dark',
+							themeInterface: themeValues[nextIndex],
 						});
 						dispatch(api.util.invalidateTags(['profile']));
 					}}>
@@ -47,11 +68,11 @@ export default function Profile() {
 						sx={{
 							display: 'flex',
 							alignItems: 'center',
+							justifyContent: 'space-between',
+							width: '100%',
 						}}>
 						{profile?.themeInterface} theme
-						<IconButton color='inherit'>
-							{profile?.themeInterface === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-						</IconButton>
+						<IconButton color='inherit'>{getIcon(profile?.themeInterface)}</IconButton>
 					</Box>
 				</MenuItem>
 				<MenuItem

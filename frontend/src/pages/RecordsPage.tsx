@@ -1,4 +1,5 @@
 import { Box, Grid, Paper } from '@mui/material';
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Categories from '../components/Categories/Categories';
 import TableInfo from '../components/info/TableInfo';
@@ -9,8 +10,13 @@ import Users from '../components/Users/Users';
 import { EntityName, EntityNames } from '../types';
 
 export default function RecordsPage() {
-	const [params] = useSearchParams();
+	const [params, setParams] = useSearchParams();
 	let name = params.get('show');
+
+	useEffect(() => {
+		setParams({ show: 'questions' });
+	}, [params, setParams]);
+
 	return (
 		<>
 			<Grid container margin='auto' sx={{ flexWrap: 'nowrap' }} spacing={1}>

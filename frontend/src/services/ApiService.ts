@@ -1,8 +1,8 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { EntityName, EntityNames, ICategory, ILogin, ILoginAnswer, IProfile, IQuestion, IUser } from '../types';
+import { EntityName, ICategory, ILogin, ILoginAnswer, IProfile, IQuestion, IUser } from '../types';
 import { token } from './auth';
 
-//функция запроса с токеном
+/*функция запроса с токеном*/
 const baseQuery = fetchBaseQuery({
 	baseUrl: 'http://localhost:8001',
 	prepareHeaders: (headers, query) => {
@@ -12,7 +12,7 @@ const baseQuery = fetchBaseQuery({
 	},
 });
 
-//функция запроса с удалением токена при отсутствии авторизации
+/*функция запроса с удалением токена при отсутствии авторизации*/
 const baseQueryWithLogout: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
 	args,
 	api,
@@ -23,7 +23,6 @@ const baseQueryWithLogout: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 		token.removeToken();
 		const url = localStorage.getItem('_url');
 		url && localStorage.removeItem('_url');
-		// window.location.href = url ?? '/practice';
 	}
 	return result;
 };
@@ -31,12 +30,18 @@ const baseQueryWithLogout: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 const api = createApi({
 	reducerPath: 'mainApi',
 	baseQuery: baseQueryWithLogout,
-	tagTypes: ['questions', 'users', 'categories', 'profile'],
+	tagTypes: ['questions', 'users', 'categories', 'profile', 'practice'],
 	endpoints: (builder) => ({
+		getPractice: builder.query<IQuestion[], { [key: string]: string } | undefined>({
+			query: (query) => ({
+				url: `/questions/practice`,
+				params: query,
+			}),
+			providesTags: ['practice'],
+		}),
 		getQuestions: builder.query<IQuestion[], void>({
 			query: () => ({
 				url: `/questions`,
-				params: {},
 			}),
 			providesTags: ['questions'],
 		}),
@@ -111,5 +116,4 @@ const api = createApi({
 	}),
 });
 
-// export const { useFetchQuestions } = ApiService;
 export default api;

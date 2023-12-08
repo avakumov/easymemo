@@ -1,11 +1,16 @@
-import { Paper } from '@mui/material';
-import React from 'react';
+import { Box } from '@mui/material';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import api from '../../services/ApiService';
+import { groupParamsByKey } from '../../utils';
 import PracticeQuestion from '../PracticeQuestion/PracticeQuestion';
 
 export default function Practice() {
 	const [searchParams] = useSearchParams();
+	const objParams = groupParamsByKey(searchParams);
+	const { data } = api.useGetPracticeQuery(objParams);
+
 	const [questions, setQuestions] = useState<
 		{
 			id: number;
@@ -15,56 +20,23 @@ export default function Practice() {
 			categories: { id: number; name: string }[];
 			ref: React.RefObject<HTMLInputElement>;
 		}[]
-	>([
-		{
-			id: 0,
-			question: 'Какая сегодня погода',
-			answer: 'хорошая',
-			status: 'active',
-			categories: [{ id: 1, name: 'погода' }],
-			ref: React.createRef(),
-		},
-		{
-			id: 1,
-			question: 'Какая сегодня погода',
-			answer: 'хорошая',
-			status: 'wait',
-			categories: [{ id: 1, name: 'погода' }],
-			ref: React.createRef(),
-		},
-		{
-			id: 2,
-			question: 'Какая завтра погода',
-			answer: 'отличная',
-			status: 'fail',
-			categories: [{ id: 1, name: 'погода' }],
-			ref: React.createRef(),
-		},
-		{
-			id: 3,
-			question: 'Какая вчера погода',
-			answer: 'нормальная',
-			status: 'success',
-			categories: [{ id: 1, name: 'погода' }],
-			ref: React.createRef(),
-		},
-		{
-			id: 4,
-			question: 'Какая погода',
-			answer: 'нормальная',
-			status: 'wait',
-			categories: [{ id: 1, name: 'погода' }],
-			ref: React.createRef(),
-		},
-		{
-			id: 5,
-			question: 'Какая погода',
-			answer: 'нормальная',
-			status: 'wait',
-			categories: [{ id: 1, name: 'погода' }],
-			ref: React.createRef(),
-		},
-	]);
+	>([]);
+
+	useEffect(() => {
+		if (Array.isArray(data)) {
+			setQuestions(
+				data.map((q, index) => ({
+					id: q.id,
+					question: q.question,
+					answer: q.answer,
+					status: index === 0 ? 'active' : 'wait',
+					categories: q.categories,
+					ref: React.createRef(),
+				}))
+			);
+		}
+	}, [data]);
+
 	const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
 		if (e.key === 'Tab') {
 			e.preventDefault();
@@ -101,7 +73,7 @@ export default function Practice() {
 		}
 	};
 	return (
-		<Paper
+		<Box
 			sx={{ display: 'flex', flexDirection: 'column', gap: 1, p: 1 }}
 			onKeyDown={onKeyDown}
 			onFocus={(ref) => {
@@ -122,6 +94,6 @@ export default function Practice() {
 			{questions.map((q) => (
 				<PracticeQuestion key={q.id} {...q} />
 			))}
-		</Paper>
+		</Box>
 	);
 }

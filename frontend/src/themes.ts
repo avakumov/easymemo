@@ -1,23 +1,14 @@
 import { createTheme } from '@mui/material/styles';
 
-const darkTheme = createTheme({
+const sharedStyles = {
 	typography: {
-		fontSize: 14,
-	},
-	palette: {
-		mode: 'dark',
-		background: {
-			default: '#1c1c1c',
-		},
-		text: {
-			primary: '#b8bb26',
-		},
+		fontSize: 12,
 	},
 	components: {
-		MuiPaper: {
+		MuiCheckbox: {
 			styleOverrides: {
 				root: {
-					border: '#111 2px solid',
+					padding: '5px',
 				},
 			},
 		},
@@ -29,9 +20,33 @@ const darkTheme = createTheme({
 			},
 		},
 	},
+};
+
+const darkTheme = createTheme({
+	...sharedStyles,
+	components: {
+		MuiPaper: {
+			styleOverrides: {
+				root: {
+					border: '#111 1px solid',
+				},
+			},
+		},
+	},
+	palette: {
+		mode: 'dark',
+		background: {
+			default: '#1c1c1c',
+		},
+		text: {
+			primary: '#b8bb26',
+		},
+	},
 });
 
-const lightTheme = createTheme({});
+const lightTheme = createTheme({
+	...sharedStyles,
+});
 
 export function theme(mode: string | undefined = 'light') {
 	return mode === 'light' ? lightTheme : darkTheme;

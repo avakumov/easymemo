@@ -14,7 +14,9 @@ export default function RecordsPage() {
 	let name = params.get('show');
 
 	useEffect(() => {
-		setParams({ show: 'questions' });
+		if (!params.get('show')) {
+			setParams({ show: 'questions' });
+		}
 	}, [params, setParams]);
 
 	return (

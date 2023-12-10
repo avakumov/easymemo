@@ -2,18 +2,18 @@ import { Box, Paper, TextField } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import DoneIcon from '@mui/icons-material/Done';
 import CircularProgress from '@mui/material/CircularProgress';
-import React, { ForwardedRef, forwardRef, useEffect, useRef } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 
 export interface QuestionProps {
 	question: string;
-	answer: string;
 	categories: { id: number; name: string }[];
 	status: 'wait' | 'active' | 'success' | 'fail';
+	answer: string;
 }
 
 const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref) => {
-	// const inputRef = useForwardRef<HTMLInputElement>(ref);
-	const { question, answer, categories, status } = props;
+	const { question, categories, status, answer } = props;
+
 	useEffect(() => {
 		if (status === 'active') {
 			if (!ref) return;
@@ -22,17 +22,18 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 			}
 		}
 	}, [ref, status]);
+
 	function styleStatus(status: QuestionProps['status']) {
 		switch (status) {
 			case 'success': {
 				return {
 					backgroundColor: 'green',
-					filter: 'grayscale(80%)',
+					filter: 'grayscale(70%)',
 				};
 			}
 			case 'fail': {
 				return {
-					filter: 'grayscale(80%)',
+					filter: 'grayscale(70%)',
 					backgroundColor: 'error.main',
 				};
 			}
@@ -46,6 +47,19 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 			}
 		}
 	}
+
+	// const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+	// 	if (e.key === 'Enter') {
+	// 		const target = e.target as HTMLInputElement;
+	// console.log('checke pass: ', target.value);
+	// check(target.value);
+	// }
+	// };
+
+	// const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+	// 	console.log('input value: ', e.target.value);
+	// };
+
 	return (
 		<Paper
 			sx={{
@@ -57,20 +71,27 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 				...styleStatus(status),
 			}}>
 			<Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-				<Box>{question}</Box>
+				<Box sx={{ fontWeight: 'bold' }}>{question}</Box>
 				<TextField
 					error={false}
 					fullWidth
-					autoFocus
-					helperText={''}
+					spellCheck={false}
 					size='small'
 					inputRef={ref}
+					// onKeyDown={keyDownHandler}
+					// onChange={onChangeHandler}
 					disabled={status === 'success' || status === 'fail'}
+					{...(status === 'fail' ? { value: answer } : {})}
+					sx={{
+						input: {
+							...(status === 'fail'
+								? { fontWeight: 700, color: 'black', fontSize: '1.2rem' }
+								: { fontSize: '1.2rem' }),
+						},
+					}}
 				/>
 				<Box sx={{ display: 'flex', fontSize: '0.7rem' }}>
-					{categories.map((c) => (
-						<Box key={c.id}>{c.name}</Box>
-					))}
+					{Array.isArray(categories) ? categories.map((c) => <Box key={c.id}>{c.name}</Box>) : null}
 				</Box>
 			</Box>
 			<Box sx={{ width: '24px' }}>

@@ -28,7 +28,7 @@ export interface IQuestion {
 	description?: string;
 	question: string;
 	answer: string;
-	categories: Partial<ICategory>[];
+	categories: ICategory[];
 	// id                 Int        @id @default(autoincrement())
 	// description        String?
 	// question           String     @unique

@@ -1,4 +1,4 @@
-import { Box, Button, FormControlLabel, FormGroup, Paper, TextField, Checkbox } from '@mui/material';
+import { Box, Button, FormControlLabel, FormGroup, Paper, TextField, Checkbox, IconButton } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import api from '../../services/ApiService';
 import { map } from '../../utils';
@@ -6,6 +6,7 @@ import { map } from '../../utils';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import ReplayIcon from '@mui/icons-material/Replay';
 import settings from '../../settings';
 
 interface ParamsI {
@@ -43,6 +44,7 @@ export default function PracticeFilter() {
 			setSearchParams({});
 			setSearchParams(paramsCategories);
 		});
+
 		return () => subscription.unsubscribe();
 	}, [dispatch, setSearchParams, watch]);
 
@@ -66,6 +68,10 @@ export default function PracticeFilter() {
 			});
 			return categories;
 		}
+	}
+
+	function replayHandler() {
+		dispatch(api.util.invalidateTags(['practice']));
 	}
 
 	const submit: SubmitHandler<any> = async (q) => {
@@ -107,8 +113,8 @@ export default function PracticeFilter() {
 						/>
 					)}
 				/>
-				<Button type='submit' variant='contained'>
-					start
+				<Button variant='contained' size='large' onClick={replayHandler} startIcon={<ReplayIcon />}>
+					update
 				</Button>
 			</Paper>
 		</Box>

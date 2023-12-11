@@ -17,8 +17,9 @@ model User {
     name       String?
     questions  Question[]
     categories Category[]
+    answers    Answer[]
     isAdmin    Boolean   @default(false)
-    themeInterface      String   @default("dark")
+    themeInterface      String   @default("system")
 }
 
 model Question {
@@ -35,6 +36,7 @@ model Question {
     owner              User       @relation(fields: [ownerId], references: [id])
     ownerId            Int
     categories         Category[]
+    answers            Answer[]
 }
 
 model Category {
@@ -46,4 +48,13 @@ model Category {
     owner       User       @relation(fields: [ownerId], references: [id])
     ownerId     Int        @default(1)
     questions   Question[]
+}
+
+model Answer {
+    id          Int        @id @default(autoincrement())
+    action      String
+    question    Question   @relation(fields: [questionId], references: [id])
+    questionId  Int
+    owner       User       @relation(fields: [ownerId], references: [id])
+    ownerId     Int        @default(1)
 }

@@ -8,7 +8,7 @@ export interface QuestionProps {
 	question: string;
 	categories: { id: number; name: string }[];
 	status: 'wait' | 'active' | 'success' | 'fail';
-	answer: string;
+	answer?: string;
 }
 
 const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref) => {

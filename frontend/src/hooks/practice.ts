@@ -9,7 +9,7 @@ interface UsePratice {
 
 export function usePratice({ params }: UsePratice) {
 	const { data } = api.useGetPracticeQuery(params);
-
+	const [checkAnswerBackend] = api.useCheckAnwerMutation();
 	const [questions, setQuestions] = useStateCallback<
 		{
 			id: number;
@@ -17,7 +17,7 @@ export function usePratice({ params }: UsePratice) {
 			status: 'active' | 'wait' | 'fail' | 'success';
 			categories: { id: number; name: string }[];
 			ref: React.RefObject<HTMLInputElement>;
-			answer: string;
+			answer?: string;
 		}[]
 	>([]);
 
@@ -35,16 +35,25 @@ export function usePratice({ params }: UsePratice) {
 			);
 		}
 	}, [data, setQuestions]);
+	useEffect(() => {
+		console.log(questions);
+	}, [questions]);
 
 	/*Проверяет текущий активный вопрос*/
-	function checkAnswer(answer: string) {
+	async function checkAnswer(answer: string) {
 		const activeIndex = questions.findIndex((q) => q.status === 'active');
-		const correctAnswer = questions[activeIndex].answer;
-		if (answer.trim() === correctAnswer.trim()) {
-			questions[activeIndex].status = 'success';
-		} else {
-			questions[activeIndex].status = 'fail';
-		}
+		// const correctAnswer = questions[activeIndex].answer;
+		//check from backend
+		const { status, answer: correctAnswer } = await checkAnswerBackend({
+			questionId: questions[activeIndex].id,
+			answer,
+		}).unwrap();
+		console.log('from backend status: ', status);
+
+		// const isSuccess = answer.trim() === correctAnswer.trim();
+		// const status = isSuccess ? 'success' : 'fail';
+		questions[activeIndex].status = status;
+		questions[activeIndex].answer = correctAnswer;
 		setQuestions([...questions], () => next(activeIndex));
 	}
 

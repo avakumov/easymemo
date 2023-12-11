@@ -32,6 +32,16 @@ const api = createApi({
 	baseQuery: baseQueryWithLogout,
 	tagTypes: ['questions', 'users', 'categories', 'profile', 'practice'],
 	endpoints: (builder) => ({
+		checkAnwer: builder.mutation<
+			{ status: 'fail' | 'success'; answer: string },
+			{ questionId: number; answer: string }
+		>({
+			query: (body) => ({
+				url: `questions/checkanswer`,
+				method: 'POST',
+				body,
+			}),
+		}),
 		getPractice: builder.query<IQuestion[], { [key: string]: string } | undefined>({
 			query: (query) => ({
 				url: `/questions/practice`,

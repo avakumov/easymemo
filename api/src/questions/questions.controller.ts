@@ -30,6 +30,12 @@ export class QuestionsController {
     const data = await this.questionsService.practice(query);
     res.json(data);
   }
+
+  @Post("/checkanswer")
+  answer(@Body() body: { questionId: number; answer: string }) {
+    return this.questionsService.checkAnswer(body);
+  }
+
   @Get()
   async findAll(@Res() res: Response) {
     const data = await this.questionsService.findAll();

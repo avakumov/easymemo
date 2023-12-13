@@ -1,4 +1,10 @@
-import { Injectable, Scope, Inject } from "@nestjs/common";
+import {
+  Injectable,
+  Scope,
+  Inject,
+  HttpException,
+  HttpStatus,
+} from "@nestjs/common";
 import { REQUEST } from "@nestjs/core";
 import { RequestExtended } from "src/entities/request";
 import { PrismaService } from "src/prisma/prisma.service";
@@ -12,7 +18,25 @@ export class CategoriesService {
     @Inject(REQUEST) private request: RequestExtended
   ) {}
 
-  create(c: CreateCategoryDto) {
+  /* проверка на существование название категории у пользователя. Если существует выбрасывает исключение*/
+  async checkOnExistName(c: CreateCategoryDto | UpdateCategoryDto) {
+    const categoryExisting = await this.prisma.category.findFirst({
+      where: {
+        name: c.name,
+        ownerId: this.request.user.userId,
+      },
+    });
+
+    if (categoryExisting) {
+      throw new HttpException(
+        "Категория с таким именем уже существует",
+        HttpStatus.CONFLICT
+      );
+    }
+  }
+
+  async create(c: CreateCategoryDto) {
+    await this.checkOnExistName(c);
     return this.prisma.category.create({
       data: {
         name: c.name,
@@ -41,7 +65,8 @@ export class CategoriesService {
     return `This action returns a #${id} category`;
   }
 
-  update(id: number, c: UpdateCategoryDto) {
+  async update(id: number, c: UpdateCategoryDto) {
+    await this.checkOnExistName(c);
     return this.prisma.category.update({
       where: { id },
       data: {

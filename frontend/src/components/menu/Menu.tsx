@@ -8,7 +8,7 @@ import TableRowsIcon from '@mui/icons-material/TableRows';
 import api from '../../services/ApiService';
 import { extendEntities } from '../../utils';
 
-export default function AdminMenu() {
+export default function Menu() {
 	const { data: profile, error, isLoading } = api.useGetProfileQuery();
 	const preparedEntities = extendEntities(profile?.entities);
 
@@ -19,8 +19,9 @@ export default function AdminMenu() {
 	return (
 		<List>
 			{preparedEntities.map((item, _index) => (
-				<ListItem key={item.name} disablePadding>
+				<ListItem key={item.name} sx={{ px: '5px', py: 0 }}>
 					<ListItemButton
+						sx={{ borderRadius: '5px' }}
 						dense
 						onClick={() => navigate(item.path, { replace: false })}
 						selected={name === item.name}>

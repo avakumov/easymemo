@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Drawer from '@mui/material/Drawer';
 import { Box, IconButton } from '@mui/material';
-import AdminMenu from './AdminMenu';
+import Menu from './Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 
 export default function AdminDrawer() {
@@ -23,7 +23,7 @@ export default function AdminDrawer() {
 				<MenuIcon />
 			</IconButton>
 			<Drawer anchor='left' open={state} onClose={toggleDrawer(false)}>
-				<AdminMenu />
+				<Menu />
 			</Drawer>
 		</Box>
 	);

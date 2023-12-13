@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Categories from '../components/Categories/Categories';
 import TableInfo from '../components/info/TableInfo';
-import AdminMenu from '../components/menu/AdminMenu';
+import Menu from '../components/menu/Menu';
 import FormEntityModal from '../components/modals/FormEntityModal';
 import Questions from '../components/Questions/Questions';
 import Users from '../components/Users/Users';
@@ -30,7 +30,7 @@ export default function RecordsPage() {
 					xl='auto'
 					sx={{ display: { xl: 'block', lg: 'block', md: 'none', sm: 'none', xs: 'none' } }}>
 					<Paper sx={{ position: 'sticky', top: 16, zIndex: 100 }}>
-						<AdminMenu />
+						<Menu />
 					</Paper>
 				</Grid>
 				<Grid item md={12} sm={12} xs={12} lg={10} xl={10} mr={2}>

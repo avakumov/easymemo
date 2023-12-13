@@ -5,6 +5,8 @@ import { usePratice } from '../../hooks/practice';
 import { groupParamsByKey } from '../../utils';
 import PracticeQuestion from '../PracticeQuestion/PracticeQuestion';
 
+const PracticeQuestionMemo = React.memo(PracticeQuestion);
+
 export default function Practice() {
 	const [searchParams] = useSearchParams();
 	const params = groupParamsByKey(searchParams);
@@ -26,7 +28,7 @@ export default function Practice() {
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, p: 1 }} onKeyDown={onKeyDown} onFocus={setActive}>
 			{questions.map((q) => (
-				<PracticeQuestion key={q.id} {...q} />
+				<PracticeQuestionMemo key={q.id} {...q} />
 			))}
 		</Box>
 	);

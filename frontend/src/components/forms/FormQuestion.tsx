@@ -21,7 +21,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 		defaultValues: {
 			question: data?.question ?? '',
 			answer: data?.answer ?? '',
-			categories: Array.isArray(data?.categories) ? data?.categories : [],
+			categories: Array.isArray(data?.categories) ? data.categories.map((c) => c.id) : [],
 			id: data?.id ?? undefined,
 		},
 	});
@@ -33,16 +33,15 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 			//show success message
 			question.id && dispatch(showMessage({ message: 'Quesiton saved', type: 'success' }));
 
-			exit();
 			//update table entities
 			dispatch(api.util.invalidateTags([EntityNames.QUESTION]));
 		} catch (e) {
-			if (e instanceof Error) {
-				console.error('ошибка соединения:', e);
-				dispatch(showMessage({ message: e.message, type: 'error' }));
-			}
+			console.error('ошибка:', e);
+			dispatch(showMessage({ message: JSON.stringify(e), type: 'error' }));
 		}
+		exit();
 	};
+
 	return (
 		<Container component='main' maxWidth='xs'>
 			<Box

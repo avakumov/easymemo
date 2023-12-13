@@ -30,18 +30,19 @@ export default function FormCategory({ data, exit }: { exit: () => void; data?: 
 	const submit: SubmitHandler<ICategoryForm> = async (category) => {
 		try {
 			const operation = category.id ? updateCategory : createCategory;
-			const question = await operation(category).unwrap();
+			const c = await operation(category).unwrap();
 			//show success message
-			question.id && dispatch(showMessage({ message: 'Category saved', type: 'success' }));
+			c.id && dispatch(showMessage({ message: 'Category saved', type: 'success' }));
 
-			exit();
 			//update table entities
 			dispatch(api.util.invalidateTags([EntityNames.CATEGORY]));
 		} catch (e) {
-			console.error('ошибка соединения:', e);
-			dispatch(showMessage({ message: 'Ошибка сохранения', type: 'error' }));
+			console.error('ошибка:', e);
+			dispatch(showMessage({ message: JSON.stringify(e), type: 'error' }));
 		}
+		exit();
 	};
+
 	return (
 		<Container component='main' maxWidth='xs'>
 			<Box

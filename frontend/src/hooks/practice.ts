@@ -35,9 +35,6 @@ export function usePratice({ params }: UsePratice) {
 			);
 		}
 	}, [data, setQuestions]);
-	useEffect(() => {
-		console.log(questions);
-	}, [questions]);
 
 	/*Проверяет текущий активный вопрос*/
 	async function checkAnswer(answer: string) {

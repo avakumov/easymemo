@@ -14,6 +14,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import { EntityNames } from '../../types';
+import { showMessage } from '../../store/reducers/messageActions';
 
 const Questions = () => {
 	const { data: questions, error, isLoading } = api.useGetQuestionsQuery();
@@ -24,9 +25,20 @@ const Questions = () => {
 
 	if (error && 'status' in error) return <BasicAlert type='error' message={JSON.stringify(error.status)} />;
 
-	function removeElement(id: number) {
-		removeEntity({ entityName: EntityNames.QUESTION, id });
-		dispatch(api.util.invalidateTags([EntityNames.QUESTION]));
+	async function removeElement(id: number) {
+		try {
+			const removedQuestion = await removeEntity({ entityName: EntityNames.QUESTION, id }).unwrap();
+
+			if (removedQuestion.id) {
+				removedQuestion.id && dispatch(showMessage({ message: 'Quesiton removed', type: 'success' }));
+				dispatch(api.util.invalidateTags([EntityNames.QUESTION]));
+			} else {
+				dispatch(showMessage({ type: 'info', message: 'Что-то пошло не так' }));
+			}
+		} catch (e) {
+			console.log(e);
+			dispatch(showMessage({ type: 'error', message: e?.data?.message ?? 'Error on remove' }));
+		}
 	}
 
 	return (

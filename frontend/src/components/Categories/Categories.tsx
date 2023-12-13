@@ -14,6 +14,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useDispatch } from 'react-redux';
 import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import { EntityNames } from '../../types';
+import { showMessage } from '../../store/reducers/messageActions';
 
 const Categories = () => {
 	const { data: categories, error, isLoading } = api.useGetCategoriesQuery();
@@ -23,9 +24,19 @@ const Categories = () => {
 	if (isLoading) return <Loading />;
 	if (error && 'status' in error) return <BasicAlert type='error' message={JSON.stringify(error.status)} />;
 
-	function removeElement(id: number) {
-		removeEntity({ entityName: EntityNames.CATEGORY, id });
-		dispatch(api.util.invalidateTags([EntityNames.CATEGORY]));
+	async function removeElement(id: number) {
+		try {
+			const removedCategory = await removeEntity({ entityName: EntityNames.CATEGORY, id }).unwrap();
+			if (removedCategory.id) {
+				dispatch(showMessage({ message: 'Category removed', type: 'success' }));
+				dispatch(api.util.invalidateTags([EntityNames.CATEGORY]));
+			} else {
+				dispatch(showMessage({ type: 'info', message: 'Что-то пошло не так' }));
+			}
+		} catch (e) {
+			console.log(e);
+			dispatch(showMessage({ type: 'error', message: e?.data?.message ?? 'Error on remove' }));
+		}
 	}
 
 	return (

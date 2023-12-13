@@ -14,6 +14,7 @@ import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { EntityNames } from '../../types';
+import { showMessage } from '../../store/reducers/messageActions';
 
 const Users = () => {
 	const { data: users, error, isLoading } = api.useGetUsersQuery();
@@ -24,9 +25,19 @@ const Users = () => {
 	if (isLoading) return <Loading />;
 	if (error && 'status' in error) return <BasicAlert type='error' message={JSON.stringify(error.status)} />;
 
-	function removeElement(id: number) {
-		removeEntity({ entityName: EntityNames.USER, id });
-		dispatch(api.util.invalidateTags([EntityNames.USER]));
+	async function removeElement(id: number) {
+		try {
+			const removedUser = await removeEntity({ entityName: EntityNames.USER, id }).unwrap();
+			if (removedUser.id) {
+				dispatch(showMessage({ message: 'Category removed', type: 'success' }));
+				dispatch(api.util.invalidateTags([EntityNames.USER]));
+			} else {
+				dispatch(showMessage({ type: 'info', message: 'Что-то пошло не так' }));
+			}
+		} catch (e) {
+			console.log(e);
+			dispatch(showMessage({ type: 'error', message: e?.data?.message ?? 'Error on remove' }));
+		}
 	}
 
 	return (

@@ -22,7 +22,7 @@ const sharedStyles = {
 	},
 };
 
-const darkTheme = createTheme({
+export const darkTheme = createTheme({
 	...sharedStyles,
 	components: {
 		MuiPaper: {
@@ -44,7 +44,7 @@ const darkTheme = createTheme({
 	},
 });
 
-const lightTheme = createTheme({
+export const lightTheme = createTheme({
 	...sharedStyles,
 });
 

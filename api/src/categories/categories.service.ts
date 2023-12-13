@@ -31,6 +31,9 @@ export class CategoriesService {
 
     return this.prisma.category.findMany({
       ...where,
+      orderBy: {
+        id: "desc",
+      },
     });
   }
 

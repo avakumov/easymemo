@@ -17,6 +17,9 @@ export class UsersService {
       include: {
         questions: {},
       },
+      orderBy: {
+        id: "desc",
+      },
     });
   }
 

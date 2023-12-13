@@ -158,6 +158,9 @@ export class QuestionsService {
       include: {
         categories: true,
       },
+      orderBy: {
+        id: "desc",
+      },
     });
   }
 

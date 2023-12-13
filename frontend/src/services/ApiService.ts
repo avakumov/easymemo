@@ -104,7 +104,7 @@ const api = createApi({
 				body: category,
 			}),
 		}),
-		removeEntity: builder.mutation<boolean, { id: number; entityName: EntityName }>({
+		removeEntity: builder.mutation<{ id: number }, { id: number; entityName: EntityName }>({
 			query: ({ id, entityName }) => ({
 				url: `/${entityName}/${id}`,
 				method: 'DELETE',

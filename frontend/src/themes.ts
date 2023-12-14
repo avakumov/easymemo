@@ -1,4 +1,6 @@
 import { createTheme } from '@mui/material/styles';
+import { PaletteMode } from '@mui/material';
+import { merge as lodash_merge } from 'lodash';
 
 const sharedStyles = {
 	typography: {
@@ -9,6 +11,7 @@ const sharedStyles = {
 			styleOverrides: {
 				root: {
 					padding: '5px',
+					paddingLeft: '10px',
 				},
 			},
 		},
@@ -22,8 +25,7 @@ const sharedStyles = {
 	},
 };
 
-export const darkTheme = createTheme({
-	...sharedStyles,
+const darkStyles = {
 	components: {
 		MuiPaper: {
 			styleOverrides: {
@@ -34,7 +36,7 @@ export const darkTheme = createTheme({
 		},
 	},
 	palette: {
-		mode: 'dark',
+		mode: 'dark' as PaletteMode,
 		background: {
 			default: '#1c1c1c',
 		},
@@ -42,11 +44,16 @@ export const darkTheme = createTheme({
 			primary: '#b8bb26',
 		},
 	},
-});
+};
 
-export const lightTheme = createTheme({
-	...sharedStyles,
-});
+const lightStyles = {};
+
+const dark = lodash_merge({}, sharedStyles, darkStyles);
+const light = lodash_merge({}, sharedStyles, lightStyles);
+
+export const darkTheme = createTheme(dark);
+
+export const lightTheme = createTheme(light);
 
 export function theme(mode: string | undefined = 'light') {
 	return mode === 'light' ? lightTheme : darkTheme;

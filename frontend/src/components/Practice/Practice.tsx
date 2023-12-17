@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box } from '@mui/joy';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { usePratice } from '../../hooks/practice';

@@ -1,6 +1,6 @@
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-import { IconButton } from '@mui/material';
+import { IconButton } from '@mui/joy';
 import { useState, useEffect } from 'react';
 
 export default function ScrollButton() {
@@ -21,17 +21,11 @@ export default function ScrollButton() {
 	return (
 		<>
 			{isBottom ? (
-				<IconButton
-					sx={{ color: 'text.primary' }}
-					size='small'
-					onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+				<IconButton onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
 					<KeyboardDoubleArrowUpIcon />
 				</IconButton>
 			) : (
-				<IconButton
-					sx={{ color: 'text.primary' }}
-					size='small'
-					onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
+				<IconButton onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })}>
 					<KeyboardDoubleArrowDownIcon />
 				</IconButton>
 			)}

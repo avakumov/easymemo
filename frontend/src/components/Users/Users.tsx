@@ -1,20 +1,13 @@
-import { IconButton } from '@mui/material';
 import api from '../../services/ApiService';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import { map } from '../../utils';
 import Loading from '../Loading/Loading';
-import BasicAlert from '../BasicAlert.tsx/BasicAlert';
-import { useDispatch } from 'react-redux';
 import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { EntityNames } from '../../types';
 import { showMessage } from '../../store/reducers/messageActions';
+import { Alert, IconButton, Sheet, Table } from '@mui/joy';
+import { useDispatch } from 'react-redux';
 
 const Users = () => {
 	const { data: users, error, isLoading } = api.useGetUsersQuery();
@@ -23,7 +16,7 @@ const Users = () => {
 	const [removeEntity] = api.useRemoveEntityMutation();
 
 	if (isLoading) return <Loading />;
-	if (error && 'status' in error) return <BasicAlert type='error' message={JSON.stringify(error.status)} />;
+	if (error && 'status' in error) return <Alert color='danger'>{JSON.stringify(error.status)}</Alert>;
 
 	async function removeElement(id: number) {
 		try {
@@ -41,47 +34,40 @@ const Users = () => {
 	}
 
 	return (
-		<TableContainer>
-			<Table size='small'>
-				<TableHead>
-					<TableRow>
-						<TableCell>id</TableCell>
-						<TableCell align='right'>name</TableCell>
-						<TableCell>email</TableCell>
-						<TableCell>password</TableCell>
-						<TableCell align='center'>edit</TableCell>
-					</TableRow>
-				</TableHead>
-				<TableBody>
+		<Sheet variant='outlined'>
+			<Table>
+				<thead>
+					<tr>
+						<th>id</th>
+						<th align='right'>name</th>
+						<th>email</th>
+						<th>password</th>
+						<th align='center'>edit</th>
+					</tr>
+				</thead>
+				<tbody>
 					{map(users, (row) => (
-						<TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-							<TableCell component='th' scope='row'>
-								{row.id}
-							</TableCell>
-							<TableCell align='right'>{row.name}</TableCell>
-							<TableCell>{row.email}</TableCell>
-							<TableCell>{row.password}</TableCell>
-							<TableCell align='center'>
+						<tr key={row.id}>
+							<td>{row.id}</td>
+							<td>{row.name}</td>
+							<td>{row.email}</td>
+							<td>{row.password}</td>
+							<td align='center'>
 								<IconButton
-									sx={{ color: 'text.primary' }}
-									size='small'
 									onClick={() =>
 										dispatch(entityModalOpen({ name: EntityNames.USER, data: row, open: true }))
 									}>
 									<EditIcon fontSize='inherit' />
 								</IconButton>
-								<IconButton
-									sx={{ color: 'text.primary' }}
-									size='small'
-									onClick={() => removeElement(row.id)}>
+								<IconButton onClick={() => removeElement(row.id)}>
 									<DeleteOutlineIcon fontSize='inherit' />
 								</IconButton>
-							</TableCell>
-						</TableRow>
+							</td>
+						</tr>
 					))}
-				</TableBody>
+				</tbody>
 			</Table>
-		</TableContainer>
+		</Sheet>
 	);
 };
 

@@ -1,8 +1,8 @@
-import { Box, Paper, TextField } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
 import DoneIcon from '@mui/icons-material/Done';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { forwardRef, useEffect } from 'react';
+import { Box, Input, Sheet } from '@mui/joy';
 
 export interface QuestionProps {
 	question: string;
@@ -34,7 +34,7 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 			case 'fail': {
 				return {
 					filter: 'grayscale(70%)',
-					backgroundColor: 'error.main',
+					backgroundColor: 'orange',
 				};
 			}
 			case 'active': {
@@ -61,7 +61,7 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 	// };
 
 	return (
-		<Paper
+		<Sheet
 			sx={{
 				display: 'flex',
 				justifyContent: 'space-between',
@@ -72,23 +72,16 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 			}}>
 			<Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
 				<Box sx={{ fontWeight: 'bold' }}>{question}</Box>
-				<TextField
+				<Input
 					error={false}
+					variant='soft'
 					fullWidth
 					spellCheck={false}
-					size='small'
-					inputRef={ref}
+					ref={ref}
 					// onKeyDown={keyDownHandler}
 					// onChange={onChangeHandler}
 					disabled={status === 'success' || status === 'fail'}
 					{...(status === 'fail' ? { value: answer } : {})}
-					sx={{
-						input: {
-							...(status === 'fail'
-								? { fontWeight: 700, color: 'black', fontSize: '1.2rem' }
-								: { fontSize: '1.2rem' }),
-						},
-					}}
 				/>
 				<Box sx={{ display: 'flex', fontSize: '0.7rem' }}>
 					{Array.isArray(categories) ? categories.map((c) => <Box key={c.id}>{c.name}</Box>) : null}
@@ -100,7 +93,7 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 				{status === 'fail' && <ErrorIcon sx={{ color: 'warning.main' }} />}
 				{/*{status === 'wait' && <ErrorIcon sx={{ color: 'warning.main' }} />}*/}
 			</Box>
-		</Paper>
+		</Sheet>
 	);
 });
 

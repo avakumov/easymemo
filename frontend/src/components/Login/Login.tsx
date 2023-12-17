@@ -1,12 +1,4 @@
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import { Box, Button, Container, Grid, Input, Link, Typography } from '@mui/joy';
 import api from '../../services/ApiService';
 import { token } from '../../services/auth';
 
@@ -37,44 +29,26 @@ export default function Login({ href }: { href: undefined | string }) {
 					flexDirection: 'column',
 					alignItems: 'center',
 				}}>
-				<Typography component='h1' variant='h5'>
-					Login
-				</Typography>
+				<Typography component='h1'>Login</Typography>
 				<Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-					<TextField
-						margin='normal'
-						required
-						fullWidth
-						id='email'
-						label='Email'
-						name='email'
-						autoComplete='email'
-						autoFocus
-					/>
-					<TextField
-						margin='normal'
+					<Input required fullWidth id='email' name='email' autoComplete='email' autoFocus />
+					<Input
 						required
 						fullWidth
 						name='password'
-						label='Password'
 						type='password'
 						id='password'
 						autoComplete='current-password'
 					/>
-					<FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
-					<Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+					<Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }}>
 						login
 					</Button>
 					<Grid container>
-						<Grid item xs>
-							<Link href='#' variant='body2'>
-								Forgot password?
-							</Link>
+						<Grid xs>
+							<Link href='#'>Forgot password?</Link>
 						</Grid>
-						<Grid item>
-							<Link href='#' variant='body2'>
-								{'Register'}
-							</Link>
+						<Grid>
+							<Link href='#'>{'Register'}</Link>
 						</Grid>
 					</Grid>
 				</Box>

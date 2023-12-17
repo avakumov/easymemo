@@ -1,4 +1,3 @@
-import { Box, Button, FormControlLabel, FormGroup, Paper, TextField, Checkbox, IconButton } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import api from '../../services/ApiService';
 import { map } from '../../utils';
@@ -8,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import ReplayIcon from '@mui/icons-material/Replay';
 import settings from '../../settings';
+import { Box, Button, Checkbox, Input, Sheet } from '@mui/joy';
 
 interface ParamsI {
 	count: number;
@@ -80,43 +80,15 @@ export default function PracticeFilter() {
 
 	return (
 		<Box component='form' noValidate sx={{ mt: 1 }} onSubmit={handleSubmit(submit)}>
-			<Paper sx={{ display: 'flex', flexDirection: 'column', gap: 1, p: 1 }}>
-				<FormGroup>
-					{map(categories, (c) => (
-						<FormControlLabel
-							key={c.id}
-							label={c.name}
-							control={
-								<Controller
-									name={c.name}
-									control={control}
-									render={({ field }) => <Checkbox {...field} />}
-								/>
-							}
-						/>
-					))}
-				</FormGroup>
-				<Controller
-					name='count'
-					control={control}
-					render={({ field }) => (
-						<TextField
-							type='number'
-							size='small'
-							InputProps={{
-								inputProps: {
-									max: settings.practice.MAX_TASK_COUNT,
-									min: settings.practice.MIN_TASK_COUNT,
-								},
-							}}
-							{...field}
-						/>
-					)}
-				/>
-				<Button variant='contained' size='large' onClick={replayHandler} startIcon={<ReplayIcon />}>
+			<Sheet sx={{ display: 'flex', flexDirection: 'column', gap: 1, p: 1 }}>
+				{map(categories, (c) => (
+					<Controller name={c.name} control={control} render={({ field }) => <Checkbox {...field} />} />
+				))}
+				<Controller name='count' control={control} render={({ field }) => <Input type='number' {...field} />} />
+				<Button onClick={replayHandler} startDecorator={<ReplayIcon />}>
 					update
 				</Button>
-			</Paper>
+			</Sheet>
 		</Box>
 	);
 }

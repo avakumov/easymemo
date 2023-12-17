@@ -1,4 +1,4 @@
-import { Box, Paper } from '@mui/material';
+import { Box } from '@mui/joy';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Categories from '../components/Categories/Categories';
@@ -20,13 +20,13 @@ export default function RecordsPage() {
 
 	return (
 		<>
-			<Paper sx={{ position: 'sticky', top: 16, zIndex: 100 }}>
+			<Box sx={{ position: 'sticky', top: 0, zIndex: 100 }}>
 				<TableInfo name={name} handlePlus={() => {}} />
-			</Paper>
+			</Box>
 
-			<Paper sx={{ mt: 2 }}>
+			<Box sx={{ mt: 2 }}>
 				<Show entityName={name} />
-			</Paper>
+			</Box>
 
 			<FormEntityModal />
 		</>

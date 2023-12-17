@@ -1,14 +1,9 @@
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { EntityNames, ICategory, ICategoryForm } from '../../types';
 import api from '../../services/ApiService';
 import { useDispatch } from 'react-redux';
 import { showMessage } from '../../store/reducers/messageActions';
+import { Box, Button, Container, Grid, Input, Typography } from '@mui/joy';
 
 export default function FormCategory({ data, exit }: { exit: () => void; data?: ICategory }) {
 	const [createCategory] = api.useCreateCategoryMutation();
@@ -51,9 +46,7 @@ export default function FormCategory({ data, exit }: { exit: () => void; data?: 
 					flexDirection: 'column',
 					alignItems: 'center',
 				}}>
-				<Typography component='h1' variant='h5'>
-					{data?.id ? 'Change' : 'New'} category
-				</Typography>
+				<Typography component='h1'>{data?.id ? 'Change' : 'New'} category</Typography>
 				<Box component='form' noValidate sx={{ mt: 1 }} onSubmit={handleSubmit(submit)}>
 					<Controller
 						name='name'
@@ -63,25 +56,11 @@ export default function FormCategory({ data, exit }: { exit: () => void; data?: 
 							//категория не должна содержать пробелы
 							validate: (value, formValues) => !/\s/.test(value),
 						}}
-						render={({ field }) => (
-							<TextField
-								error={!!errors.name}
-								margin='normal'
-								fullWidth
-								label='Category'
-								autoFocus
-								helperText={errors.name ? 'without spaces' : ''}
-								{...field}
-							/>
-						)}
+						render={({ field }) => <Input error={!!errors.name} fullWidth autoFocus {...field} />}
 					/>
 					<Grid container sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
-						<Button variant='contained' onClick={exit}>
-							cancel
-						</Button>
-						<Button type='submit' variant='contained'>
-							save
-						</Button>
+						<Button onClick={exit}>cancel</Button>
+						<Button type='submit'>save</Button>
 					</Grid>
 				</Box>
 			</Box>

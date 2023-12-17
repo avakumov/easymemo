@@ -1,13 +1,5 @@
-import { IconButton } from '@mui/material';
 import api from '../../services/ApiService';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
 import Loading from '../Loading/Loading';
-import BasicAlert from '../BasicAlert.tsx/BasicAlert';
 import { useDispatch } from 'react-redux';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -15,7 +7,7 @@ import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import { EntityNames, IQuestion } from '../../types';
 import { showMessage } from '../../store/reducers/messageActions';
 import { memo, useCallback, useState } from 'react';
-import MultiSelect from '../MultiSelect/MultiSelect';
+import { Alert, IconButton, Sheet, Table } from '@mui/joy';
 
 const Questions = () => {
 	const dispatch = useDispatch();
@@ -52,16 +44,18 @@ const Questions = () => {
 
 	if (isLoading) return <Loading />;
 
-	if (error && 'status' in error) return <BasicAlert type='error' message={JSON.stringify(error.status)} />;
+	if (error && 'status' in error) return <Alert color='danger'>{JSON.stringify(error.status)}</Alert>;
 
 	return (
-		<TableContainer>
-			<Table size='small'>
-				<TableHead>
-					<TableRow>
-						<TableCell>id</TableCell>
-						<TableCell>
-							<MultiSelect
+		<Sheet variant='outlined'>
+			<Table>
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>
+							{/*
+
+                            <MultiSelect
 								name={EntityNames.CATEGORY}
 								selectAll={() => {
 									if (Array.isArray(categories)) {
@@ -82,23 +76,22 @@ const Questions = () => {
 								selectedItems={categoryFilter}
 								items={Array.isArray(categories) ? categories.map((c) => c.name) : []}
 							/>
-						</TableCell>
-						<TableCell align='right'>Question</TableCell>
-						<TableCell>Answer</TableCell>
-						<TableCell sx={{ minWidth: '100px' }} align='center'>
-							edit
-						</TableCell>
-					</TableRow>
-				</TableHead>
-				<TableBody>
+                            */}
+						</th>
+						<th>Question</th>
+						<th>Answer</th>
+						<th>edit</th>
+					</tr>
+				</thead>
+				<tbody>
 					{Array.isArray(questions)
 						? questions.map((q) => (
 								<TableRowMemo row={q} removeElement={removeElementCallback} editElement={editElement} />
 						  ))
 						: null}
-				</TableBody>
+				</tbody>
 			</Table>
-		</TableContainer>
+		</Sheet>
 	);
 };
 
@@ -115,27 +108,23 @@ const TableRowMemo = memo(
 		editElement: (data: IQuestion) => void;
 	}) => {
 		return (
-			<TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-				<TableCell component='th' scope='row'>
-					{row.id}
-				</TableCell>
-				<TableCell>{row.categories?.map((c) => c.name).join(', ') ?? 'not found'}</TableCell>
-				<TableCell align='right'>{row.question}</TableCell>
-				<TableCell>{row.answer}</TableCell>
-				<TableCell sx={{ minWidth: '100px' }} align='center'>
+			<tr key={row.id}>
+				<td>{row.id}</td>
+				<td>{row.categories?.map((c) => c.name).join(', ') ?? 'not found'}</td>
+				<td>{row.question}</td>
+				<td>{row.answer}</td>
+				<td align='center'>
 					<IconButton
-						sx={{ color: 'text.primary' }}
-						size='small'
 						onClick={() => {
 							editElement(row);
 						}}>
-						<EditIcon fontSize='inherit' />
+						<EditIcon />
 					</IconButton>
-					<IconButton sx={{ color: 'text.primary' }} size='small' onClick={() => removeElement(row.id)}>
-						<DeleteOutlineIcon fontSize='inherit' />
+					<IconButton onClick={() => removeElement(row.id)}>
+						<DeleteOutlineIcon />
 					</IconButton>
-				</TableCell>
-			</TableRow>
+				</td>
+			</tr>
 		);
 	}
 );

@@ -32,7 +32,6 @@ export class AuthController {
 
     return {
       ...user,
-      entities: ["questions", "categories", ...(user.isAdmin ? ["users"] : [])],
     };
   }
 }

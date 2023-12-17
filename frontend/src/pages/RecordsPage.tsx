@@ -1,9 +1,8 @@
-import { Box, Grid, Paper } from '@mui/material';
+import { Box, Paper } from '@mui/material';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Categories from '../components/Categories/Categories';
 import TableInfo from '../components/info/TableInfo';
-import Menu from '../components/menu/Menu';
 import FormEntityModal from '../components/modals/FormEntityModal';
 import Questions from '../components/Questions/Questions';
 import Users from '../components/Users/Users';
@@ -21,28 +20,13 @@ export default function RecordsPage() {
 
 	return (
 		<>
-			<Grid container margin='auto' sx={{ flexWrap: 'nowrap' }} spacing={1}>
-				<Grid
-					item
-					md='auto'
-					xs='auto'
-					lg='auto'
-					xl='auto'
-					sx={{ display: { xl: 'block', lg: 'block', md: 'none', sm: 'none', xs: 'none' } }}>
-					<Paper sx={{ position: 'sticky', top: 16, zIndex: 100 }}>
-						<Menu />
-					</Paper>
-				</Grid>
-				<Grid item md={12} sm={12} xs={12} lg={10} xl={10} mr={2}>
-					<Paper sx={{ position: 'sticky', top: 16, zIndex: 100 }}>
-						<TableInfo name={name} handlePlus={() => {}} />
-					</Paper>
+			<Paper sx={{ position: 'sticky', top: 16, zIndex: 100 }}>
+				<TableInfo name={name} handlePlus={() => {}} />
+			</Paper>
 
-					<Paper sx={{ mt: 2 }}>
-						<Show entityName={name} />
-					</Paper>
-				</Grid>
-			</Grid>
+			<Paper sx={{ mt: 2 }}>
+				<Show entityName={name} />
+			</Paper>
 
 			<FormEntityModal />
 		</>

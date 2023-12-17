@@ -1,7 +1,7 @@
 import ErrorIcon from '@mui/icons-material/Error';
 import DoneIcon from '@mui/icons-material/Done';
 import CircularProgress from '@mui/material/CircularProgress';
-import React, { forwardRef, useEffect } from 'react';
+import { forwardRef, useEffect } from 'react';
 import { Box, Input, Sheet } from '@mui/joy';
 
 export interface QuestionProps {
@@ -48,26 +48,12 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 		}
 	}
 
-	// const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-	// 	if (e.key === 'Enter') {
-	// 		const target = e.target as HTMLInputElement;
-	// console.log('checke pass: ', target.value);
-	// check(target.value);
-	// }
-	// };
-
-	// const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-	// 	console.log('input value: ', e.target.value);
-	// };
-
 	return (
 		<Sheet
 			sx={{
 				display: 'flex',
 				justifyContent: 'space-between',
 				width: '100%',
-				p: 1,
-				pl: 2,
 				...styleStatus(status),
 			}}>
 			<Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
@@ -78,8 +64,6 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 					fullWidth
 					spellCheck={false}
 					ref={ref}
-					// onKeyDown={keyDownHandler}
-					// onChange={onChangeHandler}
 					disabled={status === 'success' || status === 'fail'}
 					{...(status === 'fail' ? { value: answer } : {})}
 				/>

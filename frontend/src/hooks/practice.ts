@@ -45,7 +45,6 @@ export function usePratice({ params }: UsePratice) {
 			questionId: questions[activeIndex].id,
 			answer,
 		}).unwrap();
-		console.log('from backend status: ', status);
 
 		// const isSuccess = answer.trim() === correctAnswer.trim();
 		// const status = isSuccess ? 'success' : 'fail';

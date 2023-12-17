@@ -67,7 +67,6 @@ function Toggler({
 }
 
 export default function Sidebar() {
-	console.log('window.loccation', window.location);
 	const { pathname, search } = window.location;
 	const currentPath = pathname + search;
 	const navigate = useNavigate();

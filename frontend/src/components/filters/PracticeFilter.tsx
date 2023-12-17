@@ -80,12 +80,21 @@ export default function PracticeFilter() {
 
 	return (
 		<Box component='form' noValidate sx={{ mt: 1 }} onSubmit={handleSubmit(submit)}>
-			<Sheet sx={{ display: 'flex', flexDirection: 'column', gap: 1, p: 1 }}>
+			<Sheet sx={{ display: 'flex', alignItem: 'center', justifyContent: 'space-evenly', gap: 1, p: 1 }}>
 				{map(categories, (c) => (
-					<Controller name={c.name} control={control} render={({ field }) => <Checkbox {...field} />} />
+					<Controller
+						key={c.id}
+						name={c.name}
+						control={control}
+						render={({ field }) => <Checkbox label={c.name} {...field} />}
+					/>
 				))}
-				<Controller name='count' control={control} render={({ field }) => <Input type='number' {...field} />} />
-				<Button onClick={replayHandler} startDecorator={<ReplayIcon />}>
+				<Controller
+					name='count'
+					control={control}
+					render={({ field }) => <Input type='number' sx={{ width: '70px' }} {...field} />}
+				/>
+				<Button variant='soft' onClick={replayHandler} startDecorator={<ReplayIcon />}>
 					update
 				</Button>
 			</Sheet>

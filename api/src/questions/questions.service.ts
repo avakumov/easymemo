@@ -111,12 +111,12 @@ export class QuestionsService {
 
     function filterById(arr: { id: number }[]) {
       const withoutDublicates = [];
-      const ids: number[] = [];
+      // const ids: number[] = [];
       arr.forEach((q) => {
-        const findedId = ids.find((id) => id === q.id);
+        const findedId = withoutDublicates.find((e) => e.id === q.id);
         if (!findedId) {
           withoutDublicates.push(q);
-          ids.push(q.id);
+          // ids.push(q.id);
         }
       });
       return withoutDublicates;

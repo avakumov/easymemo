@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { EntityName, EntityNames, ICategory, IQuestion, IUser } from '../../types';
 import { Box } from '@mui/material';
 import FormQuestion from '../forms/FormQuestion';
-import { entityModalClose } from '../../store/reducers/FormEntityModalReducer';
 import FormCategory from '../forms/FormCategory';
+import { entityModalClose } from '../../store/slices/FormEntityModalSlice';
 
 const FormEntityModal = () => {
 	const { open, name, data } = useSelector((state: RootState) => state.formEntityModalReducer);

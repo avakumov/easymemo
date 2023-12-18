@@ -1,10 +1,9 @@
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useDispatch } from 'react-redux';
 import { EntityName, EntityNames } from '../../types';
-import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
-import AdminDrawer from '../menu/AdminDrawer';
 import ScrollButton from '../ScrollButton/ScrollButton';
 import { Box, IconButton, Sheet } from '@mui/joy';
+import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
 
 interface TableInfoProps {
 	name: EntityName | string;

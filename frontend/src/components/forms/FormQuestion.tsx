@@ -2,8 +2,8 @@ import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { EntityNames, IQuestion } from '../../types';
 import api from '../../services/ApiService';
 import { useDispatch } from 'react-redux';
-import { showMessage } from '../../store/reducers/messageActions';
 import { Box, Button, FormControl, FormLabel, Option, Select, Textarea, Typography } from '@mui/joy';
+import { showMessage } from '../../store/slices/messageSlice';
 
 export default function FormQuestion({ data, exit }: { exit: () => void; data?: IQuestion }) {
 	const [createQuestion] = api.useCreateQuestionMutation();

@@ -4,10 +4,10 @@ import Loading from '../Loading/Loading';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useDispatch } from 'react-redux';
-import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import { EntityNames } from '../../types';
-import { showMessage } from '../../store/reducers/messageActions';
 import { Alert, IconButton, Sheet, Table } from '@mui/joy';
+import { showMessage } from '../../store/slices/messageSlice';
+import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
 
 const Categories = () => {
 	const { data: categories, error, isLoading } = api.useGetCategoriesQuery();

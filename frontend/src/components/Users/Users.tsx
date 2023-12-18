@@ -1,13 +1,13 @@
 import api from '../../services/ApiService';
 import { map } from '../../utils';
 import Loading from '../Loading/Loading';
-import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { EntityNames } from '../../types';
-import { showMessage } from '../../store/reducers/messageActions';
 import { Alert, IconButton, Sheet, Table } from '@mui/joy';
 import { useDispatch } from 'react-redux';
+import { showMessage } from '../../store/slices/messageSlice';
+import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
 
 const Users = () => {
 	const { data: users, error, isLoading } = api.useGetUsersQuery();

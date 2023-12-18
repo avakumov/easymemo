@@ -2,8 +2,8 @@ import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { EntityNames, ICategory, ICategoryForm } from '../../types';
 import api from '../../services/ApiService';
 import { useDispatch } from 'react-redux';
-import { showMessage } from '../../store/reducers/messageActions';
 import { Box, Button, Container, Grid, Input, Typography } from '@mui/joy';
+import { showMessage } from '../../store/slices/messageSlice';
 
 export default function FormCategory({ data, exit }: { exit: () => void; data?: ICategory }) {
 	const [createCategory] = api.useCreateCategoryMutation();

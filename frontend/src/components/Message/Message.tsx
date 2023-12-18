@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeMessage } from '../../store/reducers/messageActions';
 import { Snackbar, SnackbarCloseReason } from '@mui/joy';
+import { changeMessage } from '../../store/slices/messageSlice';
 
 export default function Message() {
 	const { open, message, type } = useSelector((state: RootState) => state.message);

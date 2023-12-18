@@ -3,11 +3,11 @@ import Loading from '../Loading/Loading';
 import { useDispatch } from 'react-redux';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { entityModalOpen } from '../../store/reducers/FormEntityModalReducer';
 import { EntityNames, IQuestion } from '../../types';
-import { showMessage } from '../../store/reducers/messageActions';
 import { memo, useCallback, useState } from 'react';
 import { Alert, IconButton, Sheet, Table } from '@mui/joy';
+import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
+import { showMessage } from '../../store/slices/messageSlice';
 
 const Questions = () => {
 	const dispatch = useDispatch();

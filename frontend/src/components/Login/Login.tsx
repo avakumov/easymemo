@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Input, Link, Typography } from '@mui/joy';
+import { Box, Button, Container, Grid, Input, Link, Sheet, Typography } from '@mui/joy';
 import api from '../../services/ApiService';
 import { token } from '../../services/auth';
 
@@ -17,20 +17,27 @@ export default function Login({ href }: { href: undefined | string }) {
 	};
 
 	return (
-		<Container component='main' maxWidth='xs'>
+		<Sheet
+			variant='outlined'
+			sx={{
+				width: 'fit-content',
+				margin: '50px auto',
+				borderRadius: '1rem',
+			}}>
 			<Box
 				sx={{
-					boxShadow: 3,
-					borderRadius: 2,
 					px: 4,
 					py: 6,
-					marginTop: 8,
 					display: 'flex',
 					flexDirection: 'column',
 					alignItems: 'center',
 				}}>
 				<Typography component='h1'>Login</Typography>
-				<Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+				<Box
+					component='form'
+					onSubmit={handleSubmit}
+					noValidate
+					sx={{ mt: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
 					<Input required fullWidth id='email' name='email' autoComplete='email' autoFocus />
 					<Input
 						required
@@ -40,7 +47,7 @@ export default function Login({ href }: { href: undefined | string }) {
 						id='password'
 						autoComplete='current-password'
 					/>
-					<Button type='submit' fullWidth sx={{ mt: 3, mb: 2 }}>
+					<Button type='submit' variant='soft' fullWidth sx={{ mt: 3, mb: 2 }}>
 						login
 					</Button>
 					<Grid container>
@@ -53,6 +60,6 @@ export default function Login({ href }: { href: undefined | string }) {
 					</Grid>
 				</Box>
 			</Box>
-		</Container>
+		</Sheet>
 	);
 }

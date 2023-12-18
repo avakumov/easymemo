@@ -19,6 +19,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import ColorSchemeToggle from '../ColorSchemeToggle/ColorSchemeToggle';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { IconButton } from '@mui/joy';
+import Profile from '../Profile/Profile';
 
 const menuItems = [
 	{ title: 'Practice', path: '/practice', icon: <KeyboardIcon /> },
@@ -87,7 +88,7 @@ export default function Sidebar() {
 					md: 'none',
 				},
 				transition: 'transform 0.4s, width 0.4s',
-				zIndex: 10000,
+				zIndex: 100,
 				height: '100dvh',
 				width: 'var(--Sidebar-width)',
 				top: 0,
@@ -113,7 +114,7 @@ export default function Sidebar() {
 				className='Sidebar-overlay'
 				sx={{
 					position: 'fixed',
-					zIndex: 9998,
+					zIndex: 99,
 					top: 0,
 					left: 0,
 					width: '100vw',
@@ -128,12 +129,9 @@ export default function Sidebar() {
 				}}
 				// onClick={() => closeSidebar()}
 			/>
-			<Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+			<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 				<Typography level='title-lg'>Easymemo</Typography>
-				<ColorSchemeToggle sx={{ ml: 'auto' }} />
-				<IconButton size='sm' variant='outlined' color='neutral'>
-					<AccountBoxIcon />
-				</IconButton>
+				<Profile />
 			</Box>
 			<Box
 				sx={{

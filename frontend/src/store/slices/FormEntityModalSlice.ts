@@ -31,4 +31,4 @@ export const entityModalSlice = createSlice({
 });
 export const { entityModalClose, entityModalOpen } = entityModalSlice.actions;
 
-export default entityModalSlice.reducer;
+export const formEntityModalReducer = entityModalSlice.reducer;

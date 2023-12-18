@@ -8,7 +8,7 @@ import FormCategory from '../forms/FormCategory';
 import { entityModalClose } from '../../store/slices/FormEntityModalSlice';
 
 const FormEntityModal = () => {
-	const { open, name, data } = useSelector((state: RootState) => state.formEntityModalReducer);
+	const { open, name, data } = useSelector((state: RootState) => state.formEntityModal);
 	const dispatch = useDispatch();
 	function closeModal() {
 		//close modal

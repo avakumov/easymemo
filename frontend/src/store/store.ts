@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import api from '../services/ApiService';
-import formEntityModalReducer from './slices/FormEntityModalSlice';
-import messageReducer from './slices/messageSlice';
+import { formEntityModalReducer } from './slices/FormEntityModalSlice';
+import { messageReducer } from './slices/messageSlice';
+import { practiceReducer } from './slices/practiceSlice';
 
 const rootReducer = combineReducers({
-	formEntityModalReducer,
+	formEntityModal: formEntityModalReducer,
 	message: messageReducer,
+	practice: practiceReducer,
 	[api.reducerPath]: api.reducer,
 });
 

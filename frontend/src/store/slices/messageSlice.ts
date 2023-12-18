@@ -30,4 +30,4 @@ export const messageSlice = createSlice({
 });
 export const { changeMessage, showMessage } = messageSlice.actions;
 
-export default messageSlice.reducer;
+export const messageReducer = messageSlice.reducer;

@@ -16,13 +16,19 @@ import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import GroupIcon from '@mui/icons-material/Group';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import CategoryIcon from '@mui/icons-material/Category';
-import ColorSchemeToggle from '../ColorSchemeToggle/ColorSchemeToggle';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import { IconButton } from '@mui/joy';
 import Profile from '../Profile/Profile';
 
 const menuItems = [
-	{ title: 'Practice', path: '/practice', icon: <KeyboardIcon /> },
+	{
+		title: 'Practice',
+		path: '/practice',
+		icon: <KeyboardIcon />,
+		items: [
+			{ title: '10 questions', path: '/practice?count=10' },
+			{ title: '50 questions', path: '/practice?count=50' },
+			{ title: 'Error work', path: '/practice' },
+		],
+	},
 	{
 		title: 'Records',
 		path: '/records',

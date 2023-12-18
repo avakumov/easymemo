@@ -26,9 +26,14 @@ export default function Practice() {
 	};
 
 	return (
-		<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 1 }} onKeyDown={onKeyDown} onFocus={setActive}>
+		<Box
+			sx={{ display: 'flex', flexDirection: 'column', gap: 2, p: 1 }}
+			onKeyDown={onKeyDown}
+			onFocus={(e) => {
+				setActive(e);
+			}}>
 			{questions.map((q) => (
-				<PracticeQuestionMemo key={q.id} {...q} />
+				<PracticeQuestionMemo key={q.id} question={q} ref={q.ref} setActive={setActive} />
 			))}
 		</Box>
 	);

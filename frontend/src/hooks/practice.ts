@@ -6,20 +6,24 @@ import api from '../services/ApiService';
 interface UsePratice {
 	params: { [index: string]: string };
 }
+export type QuestionType = {
+	id: number;
+	question: string;
+	status: 'active' | 'wait' | 'fail' | 'success';
+	categories: {
+		id: number;
+		name: string;
+	}[];
+	ref: React.RefObject<HTMLInputElement>;
+	answer?: string;
+	correctAnswer?: string;
+};
 
 export function usePratice({ params }: UsePratice) {
 	const { data } = api.useGetPracticeQuery(params);
 	const [checkAnswerBackend] = api.useCheckAnwerMutation();
-	const [questions, setQuestions] = useStateCallback<
-		{
-			id: number;
-			question: string;
-			status: 'active' | 'wait' | 'fail' | 'success';
-			categories: { id: number; name: string }[];
-			ref: React.RefObject<HTMLInputElement>;
-			answer?: string;
-		}[]
-	>([]);
+
+	const [questions, setQuestions] = useStateCallback<QuestionType[]>([]);
 
 	useEffect(() => {
 		if (Array.isArray(data)) {
@@ -49,7 +53,8 @@ export function usePratice({ params }: UsePratice) {
 		// const isSuccess = answer.trim() === correctAnswer.trim();
 		// const status = isSuccess ? 'success' : 'fail';
 		questions[activeIndex].status = status;
-		questions[activeIndex].answer = correctAnswer;
+		questions[activeIndex].answer = answer;
+		questions[activeIndex].correctAnswer = correctAnswer;
 		setQuestions([...questions], () => next(activeIndex));
 	}
 
@@ -88,11 +93,10 @@ export function usePratice({ params }: UsePratice) {
 	}
 
 	/*Изменить вопрос на активный по рефу*/
-	function setActive(ref: React.FocusEvent<HTMLInputElement>) {
+	function setActive(id: number) {
 		if (!questions) return;
-		const target = ref.target as HTMLInputElement;
 		const index = questions.findIndex((q) => {
-			return q.ref.current === target;
+			return q.id === id;
 		});
 		if (index === -1) return;
 		questions.forEach((q, i) => {

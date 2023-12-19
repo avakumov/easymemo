@@ -58,6 +58,13 @@ export class CategoriesService {
       orderBy: {
         id: "desc",
       },
+      include: {
+        _count: {
+          select: {
+            questions: true,
+          },
+        },
+      },
     });
   }
 

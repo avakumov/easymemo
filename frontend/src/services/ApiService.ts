@@ -62,7 +62,7 @@ const api = createApi({
 			}),
 			providesTags: ['users'],
 		}),
-		getCategories: builder.query<ICategory[], void>({
+		getCategories: builder.query<ICategory[] & { _count: { questions: number } }, void>({
 			query: () => ({
 				url: `/categories`,
 				params: {},

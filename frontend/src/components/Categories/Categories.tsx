@@ -39,6 +39,7 @@ const Categories = () => {
 					<tr>
 						<th>id</th>
 						<th>name</th>
+						<th>questions</th>
 						<th>description</th>
 						<th>published</th>
 						<th>createdAt</th>
@@ -50,6 +51,7 @@ const Categories = () => {
 						<tr key={row.id}>
 							<td>{row.id}</td>
 							<td>{row.name}</td>
+							<td>{row._count.questions}</td>
 							<td>{row.description ?? '-'}</td>
 							<td>{row.published ? 'true' : 'false'}</td>
 							<td>{row.createdAt}</td>

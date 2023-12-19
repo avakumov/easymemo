@@ -4,6 +4,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Snackbar, SnackbarCloseReason } from '@mui/joy';
 import { changeMessage } from '../../store/slices/messageSlice';
 
+type MesssageType = {
+	open: boolean;
+	type: 'info' | 'warning' | 'success' | 'error' | undefined;
+	message: string;
+};
+
+function getColor(type: MesssageType['type']): 'primary' | 'danger' | 'success' | 'warning' | 'neutral' {
+	switch (type) {
+		case 'error':
+			return 'danger';
+		case 'warning':
+			return 'warning';
+		case 'success':
+			return 'success';
+		case 'info':
+			return 'neutral';
+		default:
+			return 'neutral';
+	}
+}
+
 export default function Message() {
 	const { open, message, type } = useSelector((state: RootState) => state.message);
 
@@ -16,7 +37,7 @@ export default function Message() {
 	};
 
 	return (
-		<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+		<Snackbar color={getColor(type)} variant='solid' open={open} autoHideDuration={6000} onClose={handleClose}>
 			{message}
 		</Snackbar>
 	);

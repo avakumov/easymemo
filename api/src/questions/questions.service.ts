@@ -66,10 +66,13 @@ export class QuestionsService {
     }
   }
 
-  async practice(query: { [index: string]: string }) {
-    const categories = query?.categories?.split(",");
-    const count = query?.count;
-
+  async practice({
+    categories,
+    count,
+  }: {
+    categories: string[];
+    count: number;
+  }) {
     const groupedQuestions = await getQuestionsWithFilter.call(
       this,
       categories
@@ -92,15 +95,14 @@ export class QuestionsService {
     return getRandom(questionsWithoutDublicates, count);
 
     /*Для взятия случайных элементов в количестве count */
-    function getRandom(arr: any[], count: string) {
+    function getRandom(arr: any[], count: number) {
       const res = [];
-      let parsedCount = parseInt(count);
-      if (Array.isArray(arr) && !isNaN(parsedCount)) {
+      if (Array.isArray(arr) && !isNaN(count)) {
         let len = arr.length;
-        if (len < parsedCount) {
-          parsedCount = len;
+        if (len < count) {
+          count = len;
         }
-        for (let i = 0; i < parsedCount; i++) {
+        for (let i = 0; i < count; i++) {
           len = arr.length;
           const randomIndex = Math.floor(Math.random() * len);
           res.push(arr.splice(randomIndex, 1)[0]);
@@ -111,12 +113,10 @@ export class QuestionsService {
 
     function filterById(arr: { id: number }[]) {
       const withoutDublicates = [];
-      // const ids: number[] = [];
       arr.forEach((q) => {
         const findedId = withoutDublicates.find((e) => e.id === q.id);
         if (!findedId) {
           withoutDublicates.push(q);
-          // ids.push(q.id);
         }
       });
       return withoutDublicates;

@@ -42,10 +42,11 @@ const api = createApi({
 				body,
 			}),
 		}),
-		getPractice: builder.query<IQuestion[], { [key: string]: string } | undefined>({
-			query: (query) => ({
+		getPractice: builder.query<IQuestion[], { categories: string[]; count: number } | undefined>({
+			query: (filter) => ({
 				url: `/questions/practice`,
-				params: query,
+				method: 'POST',
+				body: filter,
 			}),
 			providesTags: ['practice'],
 		}),

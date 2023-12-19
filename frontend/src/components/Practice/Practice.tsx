@@ -1,22 +1,21 @@
 import { Box, IconButton, Typography } from '@mui/joy';
 import React from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { usePratice } from '../../hooks/practice';
-import { groupParamsByKey } from '../../utils';
 import PracticeQuestion from '../PracticeQuestion/PracticeQuestion';
 
 import ReplayIcon from '@mui/icons-material/Replay';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { openPracticeFilterModal } from '../../store/slices/practiceSlice';
+import { RootState } from '../../store/store';
+import api from '../../services/ApiService';
 const PracticeQuestionMemo = React.memo(PracticeQuestion);
 
 export default function Practice() {
-	const [searchParams] = useSearchParams();
 	const dispatch = useDispatch();
-	const params = groupParamsByKey(searchParams);
+	const filter = useSelector((state: RootState) => state.practice.filter);
 
-	const { questions, next, checkAnswer, setActive } = usePratice({ params });
+	const { questions, next, checkAnswer, setActive } = usePratice(filter);
 
 	const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
 		if (e.key === 'Tab') {
@@ -30,7 +29,9 @@ export default function Practice() {
 		}
 	};
 
-	function replay() {}
+	function replay() {
+		dispatch(api.util.invalidateTags(['practice']));
+	}
 
 	function openFilters() {
 		dispatch(openPracticeFilterModal());
@@ -46,7 +47,11 @@ export default function Practice() {
 					<ReplayIcon />
 				</IconButton>
 				<Typography level='title-md' sx={{ ml: 'auto' }}>
-					5/10
+					{questions.reduce((acc, curr) => {
+						curr.status === 'success' && acc++;
+						return acc;
+					}, 0)}
+					/{questions.length}
 				</Typography>
 			</Box>
 			<Box

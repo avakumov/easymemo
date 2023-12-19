@@ -1,11 +1,12 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useStateCallback } from '.';
 import api from '../services/ApiService';
 
-interface UsePratice {
-	params: { [index: string]: string };
-}
+type UsePratice = {
+	categories: string[];
+	count: number;
+};
 export type QuestionType = {
 	id: number;
 	question: string;
@@ -19,8 +20,8 @@ export type QuestionType = {
 	correctAnswer?: string;
 };
 
-export function usePratice({ params }: UsePratice) {
-	const { data } = api.useGetPracticeQuery(params);
+export function usePratice(filter: UsePratice) {
+	const { data } = api.useGetPracticeQuery(filter);
 	const [checkAnswerBackend] = api.useCheckAnwerMutation();
 
 	const [questions, setQuestions] = useStateCallback<QuestionType[]>([]);
@@ -43,15 +44,12 @@ export function usePratice({ params }: UsePratice) {
 	/*Проверяет текущий активный вопрос*/
 	async function checkAnswer(answer: string) {
 		const activeIndex = questions.findIndex((q) => q.status === 'active');
-		// const correctAnswer = questions[activeIndex].answer;
 		//check from backend
 		const { status, answer: correctAnswer } = await checkAnswerBackend({
 			questionId: questions[activeIndex].id,
 			answer,
 		}).unwrap();
 
-		// const isSuccess = answer.trim() === correctAnswer.trim();
-		// const status = isSuccess ? 'success' : 'fail';
 		questions[activeIndex].status = status;
 		questions[activeIndex].answer = answer;
 		questions[activeIndex].correctAnswer = correctAnswer;

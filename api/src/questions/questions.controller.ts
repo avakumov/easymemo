@@ -22,13 +22,9 @@ export class QuestionsController {
     return this.questionsService.create(question);
   }
 
-  @Get("/practice")
-  async practice(
-    @Query() query: { [index: string]: string },
-    @Res() res: Response
-  ) {
-    const data = await this.questionsService.practice(query);
-    res.json(data);
+  @Post("/practice")
+  async practice(@Body() body: { categories: string[]; count: number }) {
+    return this.questionsService.practice(body);
   }
 
   @Post("/checkanswer")

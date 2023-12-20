@@ -45,6 +45,13 @@ export interface IQuestion {
 	// categories         Category[]
 }
 
+export type IQuestionForm = {
+	categories: number[];
+	correctAnswers: { value: string }[];
+	id?: number;
+	question?: string;
+};
+
 export interface IUser {
 	id: number;
 	name: string;
@@ -60,14 +67,6 @@ export interface IProfile {
 	isAdmin: boolean;
 	entities: string[];
 	themeInterface: string;
-}
-
-export interface IQuestionForm {
-	id?: number;
-	description?: string;
-	question: string;
-	answer: string;
-	categories: number[];
 }
 
 export interface ICategoryForm {

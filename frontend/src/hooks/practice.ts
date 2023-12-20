@@ -90,7 +90,7 @@ export function usePratice(filter: UsePratice) {
 		}
 	}
 
-	/*Изменить вопрос на активный по рефу*/
+	/*Изменить вопрос на активный по id*/
 	function setActive(id: number) {
 		if (!questions) return;
 		const index = questions.findIndex((q) => {

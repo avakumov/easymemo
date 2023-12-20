@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface messageState {
+interface MessageState {
 	message: string;
 	type?: 'error' | 'warning' | 'info' | 'success';
 	open: boolean;
 }
 
-const initialState: messageState = {
+const initialState: MessageState = {
 	message: '',
 	type: 'info',
 	open: false,
@@ -16,12 +16,12 @@ export const messageSlice = createSlice({
 	name: 'messageSlice',
 	initialState,
 	reducers: {
-		changeMessage(state, action: PayloadAction<messageState>) {
+		changeMessage(state, action: PayloadAction<MessageState>) {
 			state.message = action.payload.message;
 			state.type = action.payload.type ?? state.type;
 			state.open = action.payload.open;
 		},
-		showMessage(state, action: PayloadAction<Omit<messageState, 'open'>>) {
+		showMessage(state, action: PayloadAction<Omit<MessageState, 'open'>>) {
 			state.message = action.payload.message;
 			state.type = action.payload.type ?? state.type;
 			state.open = true;

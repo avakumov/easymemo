@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm, Controller, useFieldArray } from 'react-hook-form';
-import { EntityNames, IQuestion } from '../../types';
+import { EntityNames, IQuestion, IQuestionForm } from '../../types';
 import api from '../../services/ApiService';
 import { useDispatch } from 'react-redux';
 import { Box, Button, FormControl, FormLabel, IconButton, Option, Select, Textarea, Typography } from '@mui/joy';
@@ -13,13 +13,14 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 	const { data: categories } = api.useGetCategoriesQuery();
 	const dispatch = useDispatch();
 
-	const { handleSubmit, control, setValue, watch } = useForm<Partial<IQuestion>>({
+	const { handleSubmit, control, setValue, watch } = useForm<IQuestionForm>({
 		defaultValues: {
 			id: data?.id ?? undefined,
 			question: data?.question ?? '',
-			// answer: data?.correctAnswers[0] ?? '',
 			categories: Array.isArray(data?.categories) ? data?.categories.map((c) => c.id) : [],
-			correctAnswers: Array.isArray(data?.correctAnswers) ? data?.correctAnswers : [' '],
+			correctAnswers: Array.isArray(data?.correctAnswers)
+				? data?.correctAnswers.map((a) => ({ value: a }))
+				: [{ value: '' }],
 		},
 	});
 	const { fields, append, remove } = useFieldArray({
@@ -31,7 +32,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 	});
 	watch();
 
-	const submit: SubmitHandler<Partial<IQuestion>> = async (q) => {
+	const submit: SubmitHandler<IQuestionForm> = async (q) => {
 		try {
 			const operation = q.id ? updateQuestion : createQuestion;
 			const question = await operation(q).unwrap();
@@ -67,7 +68,13 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 					render={({ field }) => (
 						<FormControl>
 							<FormLabel>Question</FormLabel>
-							<Textarea spellcheck='false' required variant='soft' placeholder='question...' {...field} />
+							<Textarea
+								slotProps={{ textarea: { spellCheck: 'false' } }}
+								required
+								variant='soft'
+								placeholder='question...'
+								{...field}
+							/>
 						</FormControl>
 					)}
 				/>
@@ -77,33 +84,36 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 							key={field.id}
 							name={`correctAnswers.${index}`}
 							control={control}
-							render={({ field }) => (
-								<FormControl>
-									<FormLabel>{`Answer ${index + 1}`}</FormLabel>
-									<Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-										<Textarea
-											required
-											variant='soft'
-											spellcheck='false'
-											placeholder='answer is ...'
-											{...field}
-											sx={{ width: '100%' }}
-										/>
-										<IconButton
-											onClick={() => {
-												remove(index);
-											}}>
-											<DeleteOutlineIcon />
-										</IconButton>
-									</Box>
-								</FormControl>
-							)}
+							render={({ field }) => {
+								return (
+									<FormControl>
+										<FormLabel>{`Answer ${index + 1}`}</FormLabel>
+										<Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+											<Textarea
+												required
+												slotProps={{ textarea: { spellcheck: 'false' } }}
+												variant='soft'
+												placeholder='answer is ...'
+												{...field}
+												value={field.value.value}
+												sx={{ width: '100%' }}
+											/>
+											<IconButton
+												onClick={() => {
+													remove(index);
+												}}>
+												<DeleteOutlineIcon />
+											</IconButton>
+										</Box>
+									</FormControl>
+								);
+							}}
 						/>
 					);
 				})}
 				<IconButton
 					onClick={() => {
-						append(' ');
+						append({ value: '' });
 					}}>
 					<AddCircleOutlineIcon />
 				</IconButton>

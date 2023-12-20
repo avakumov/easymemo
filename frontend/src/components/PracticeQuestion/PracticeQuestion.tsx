@@ -13,11 +13,15 @@ export interface QuestionProps {
 const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref) => {
 	const { question: q, setActive } = props;
 
+	/*При установки элемента как активного - наводить фокус на его инпут*/
 	useEffect(() => {
 		if (q.status === 'active') {
 			if (!ref) return;
 			if (typeof ref !== 'function') {
-				ref.current?.children[0].focus();
+				const input = ref.current?.querySelector('input');
+				if (input) {
+					input.focus();
+				}
 			}
 		}
 	}, [ref, q.status]);
@@ -63,11 +67,12 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 						<Sheet color='danger' sx={{ px: '0.5rem', borderRadius: '5px' }}>
 							{q.answer}
 						</Sheet>
-						{q.correctAnswers.map((correctAnswer, index) => (
-							<Sheet key={index} color='success' sx={{ px: '0.5rem', borderRadius: '5px' }}>
-								{correctAnswer}
-							</Sheet>
-						))}
+						{Array.isArray(q.correctAnswers) &&
+							q.correctAnswers.map((correctAnswer, index) => (
+								<Sheet key={index} color='success' sx={{ px: '0.5rem', borderRadius: '5px' }}>
+									{correctAnswer}
+								</Sheet>
+							))}
 					</Box>
 				)}
 				{q.status === 'success' && <Box>{q.answer}</Box>}

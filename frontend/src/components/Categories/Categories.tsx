@@ -26,7 +26,7 @@ const Categories = () => {
 			} else {
 				dispatch(showMessage({ type: 'info', message: 'Что-то пошло не так' }));
 			}
-		} catch (e) {
+		} catch (e: any) {
 			console.log(e);
 			dispatch(showMessage({ type: 'error', message: e?.data?.message ?? 'Error on remove' }));
 		}

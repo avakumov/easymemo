@@ -1,5 +1,5 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { EntityName, ICategory, ILogin, ILoginAnswer, IProfile, IQuestion, IUser } from '../types';
+import { EntityName, ICategory, ILogin, ILoginAnswer, IProfile, IQuestion, IQuestionForm, IUser } from '../types';
 import { token } from './auth';
 
 /*функция запроса с токеном*/
@@ -63,7 +63,7 @@ const api = createApi({
 			}),
 			providesTags: ['users'],
 		}),
-		getCategories: builder.query<ICategory[] & { _count: { questions: number } }, void>({
+		getCategories: builder.query<(ICategory & { _count: { questions: number } })[], void>({
 			query: () => ({
 				url: `/categories`,
 				params: {},
@@ -77,14 +77,14 @@ const api = createApi({
 				body: { email, password },
 			}),
 		}),
-		createQuestion: builder.mutation<IQuestion, Partial<IQuestion>>({
+		createQuestion: builder.mutation<IQuestion, IQuestionForm>({
 			query: (question) => ({
 				url: '/questions',
 				method: 'POST',
 				body: question,
 			}),
 		}),
-		updateQuestion: builder.mutation<IQuestion, Partial<IQuestion>>({
+		updateQuestion: builder.mutation<IQuestion, IQuestionForm>({
 			query: (question) => ({
 				url: `/questions/${question.id}`,
 				method: 'PATCH',

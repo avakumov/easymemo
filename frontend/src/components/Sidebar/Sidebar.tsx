@@ -24,9 +24,9 @@ const menuItems = [
 		path: '/practice',
 		icon: <KeyboardIcon />,
 		items: [
-			{ title: '10 questions', path: '/practice?count=10' },
-			{ title: '50 questions', path: '/practice?count=50' },
-			{ title: 'Error work', path: '/practice' },
+			{ title: '10 questions', path: '/practice?count=10', icon: null },
+			{ title: '50 questions', path: '/practice?count=50', icon: null },
+			{ title: 'Error work', path: '/practice', icon: null },
 		],
 	},
 	{

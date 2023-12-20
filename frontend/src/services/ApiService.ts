@@ -33,7 +33,7 @@ const api = createApi({
 	tagTypes: ['questions', 'users', 'categories', 'profile', 'practice'],
 	endpoints: (builder) => ({
 		checkAnwer: builder.mutation<
-			{ status: 'fail' | 'success'; answer: string },
+			{ status: 'fail' | 'success'; correctAnswers: string[] },
 			{ questionId: number; answer: string }
 		>({
 			query: (body) => ({

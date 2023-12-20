@@ -42,7 +42,9 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 			variant='soft'
 			color={getColor(q.status)}
 			onClick={() => {
-				setActive(q.id);
+				if (q.status === 'wait') {
+					setActive(q.id);
+				}
 			}}
 			sx={{
 				display: 'flex',
@@ -61,9 +63,11 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 						<Sheet color='danger' sx={{ px: '0.5rem', borderRadius: '5px' }}>
 							{q.answer}
 						</Sheet>
-						<Sheet color='success' sx={{ px: '0.5rem', borderRadius: '5px' }}>
-							{q.correctAnswer}
-						</Sheet>
+						{q.correctAnswers.map((correctAnswer, index) => (
+							<Sheet key={index} color='success' sx={{ px: '0.5rem', borderRadius: '5px' }}>
+								{correctAnswer}
+							</Sheet>
+						))}
 					</Box>
 				)}
 				{q.status === 'success' && <Box>{q.answer}</Box>}

@@ -1,9 +1,11 @@
-import { SubmitHandler, useForm, Controller } from 'react-hook-form';
+import { SubmitHandler, useForm, Controller, useFieldArray } from 'react-hook-form';
 import { EntityNames, IQuestion } from '../../types';
 import api from '../../services/ApiService';
 import { useDispatch } from 'react-redux';
-import { Box, Button, FormControl, FormLabel, Option, Select, Textarea, Typography } from '@mui/joy';
+import { Box, Button, FormControl, FormLabel, IconButton, Option, Select, Textarea, Typography } from '@mui/joy';
 import { showMessage } from '../../store/slices/messageSlice';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 export default function FormQuestion({ data, exit }: { exit: () => void; data?: IQuestion }) {
 	const [createQuestion] = api.useCreateQuestionMutation();
@@ -11,14 +13,23 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 	const { data: categories } = api.useGetCategoriesQuery();
 	const dispatch = useDispatch();
 
-	const { handleSubmit, control, setValue } = useForm<Partial<IQuestion>>({
+	const { handleSubmit, control, setValue, watch } = useForm<Partial<IQuestion>>({
 		defaultValues: {
-			question: data?.question ?? '',
-			answer: data?.answer ?? '',
-			categories: Array.isArray(data?.categories) ? data.categories.map((c) => c.id) : [],
 			id: data?.id ?? undefined,
+			question: data?.question ?? '',
+			// answer: data?.correctAnswers[0] ?? '',
+			categories: Array.isArray(data?.categories) ? data?.categories.map((c) => c.id) : [],
+			correctAnswers: Array.isArray(data?.correctAnswers) ? data?.correctAnswers : [' '],
 		},
 	});
+	const { fields, append, remove } = useFieldArray({
+		name: 'correctAnswers',
+		control,
+		rules: {
+			required: 'Please append at least 1 item',
+		},
+	});
+	watch();
 
 	const submit: SubmitHandler<Partial<IQuestion>> = async (q) => {
 		try {
@@ -47,7 +58,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 			<Typography component='h1'>{data?.id ? 'Change' : 'New'} question</Typography>
 			<Box
 				component='form'
-				noValidate
+				noValidate={false}
 				sx={{ mt: 1, display: 'flex', gap: 2, flexDirection: 'column', width: '100%' }}
 				onSubmit={handleSubmit(submit)}>
 				<Controller
@@ -56,20 +67,46 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 					render={({ field }) => (
 						<FormControl>
 							<FormLabel>Question</FormLabel>
-							<Textarea variant='soft' placeholder='question...' {...field} />
+							<Textarea spellcheck='false' required variant='soft' placeholder='question...' {...field} />
 						</FormControl>
 					)}
 				/>
-				<Controller
-					name='answer'
-					control={control}
-					render={({ field }) => (
-						<FormControl>
-							<FormLabel>Answer</FormLabel>
-							<Textarea variant='soft' placeholder='answer is ...' {...field} />
-						</FormControl>
-					)}
-				/>
+				{fields.map((field, index) => {
+					return (
+						<Controller
+							key={field.id}
+							name={`correctAnswers.${index}`}
+							control={control}
+							render={({ field }) => (
+								<FormControl>
+									<FormLabel>{`Answer ${index + 1}`}</FormLabel>
+									<Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+										<Textarea
+											required
+											variant='soft'
+											spellcheck='false'
+											placeholder='answer is ...'
+											{...field}
+											sx={{ width: '100%' }}
+										/>
+										<IconButton
+											onClick={() => {
+												remove(index);
+											}}>
+											<DeleteOutlineIcon />
+										</IconButton>
+									</Box>
+								</FormControl>
+							)}
+						/>
+					);
+				})}
+				<IconButton
+					onClick={() => {
+						append(' ');
+					}}>
+					<AddCircleOutlineIcon />
+				</IconButton>
 
 				<Controller
 					name='categories'

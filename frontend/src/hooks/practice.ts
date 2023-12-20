@@ -17,7 +17,7 @@ export type QuestionType = {
 	}[];
 	ref: React.RefObject<HTMLInputElement>;
 	answer?: string;
-	correctAnswer?: string;
+	correctAnswers?: string[];
 };
 
 export function usePratice(filter: UsePratice) {
@@ -45,14 +45,14 @@ export function usePratice(filter: UsePratice) {
 	async function checkAnswer(answer: string) {
 		const activeIndex = questions.findIndex((q) => q.status === 'active');
 		//check from backend
-		const { status, answer: correctAnswer } = await checkAnswerBackend({
+		const { status, correctAnswers } = await checkAnswerBackend({
 			questionId: questions[activeIndex].id,
 			answer,
 		}).unwrap();
 
 		questions[activeIndex].status = status;
 		questions[activeIndex].answer = answer;
-		questions[activeIndex].correctAnswer = correctAnswer;
+		questions[activeIndex].correctAnswers = correctAnswers;
 		setQuestions([...questions], () => next(activeIndex));
 	}
 

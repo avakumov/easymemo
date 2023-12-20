@@ -28,6 +28,7 @@ export interface IQuestion {
 	description?: string;
 	question: string;
 	answer: string;
+	correctAnswers: string[];
 	categories: ICategory[];
 	// id                 Int        @id @default(autoincrement())
 	// description        String?

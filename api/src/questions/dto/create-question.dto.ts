@@ -4,8 +4,7 @@ export class CreateQuestionDto {
   @IsNotEmpty()
   question: string;
   @IsNotEmpty()
-  answer: string;
-  @IsNotEmpty()
+  correctAnswers: string[];
   ownerId: number;
   categories: number[];
   id: number;

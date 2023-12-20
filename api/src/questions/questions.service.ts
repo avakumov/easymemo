@@ -15,7 +15,7 @@ export class QuestionsService {
     return this.prisma.question.create({
       data: {
         question: q.question,
-        answer: q.answer,
+        correctAnswers: q.correctAnswers.map((q) => q.trim()),
         categories: {
           connect: q.categories.map((c) => ({ id: +c })) ?? [],
         },
@@ -42,10 +42,17 @@ export class QuestionsService {
       },
     });
     if (question) {
-      const correctAnswer = question.answer;
-      const isCorrect = answer.trim() === correctAnswer.trim();
+      const correctAnswers = question.correctAnswers;
+      let isCorrect = false;
+      for (const correctAnswer of correctAnswers) {
+        if (answer.trim() === correctAnswer.trim()) {
+          isCorrect = true;
+          break;
+        }
+      }
       const status = isCorrect ? "success" : "fail";
 
+      /*вносим логи*/
       await this.prisma.answer.create({
         data: {
           action: status,
@@ -62,7 +69,7 @@ export class QuestionsService {
         },
       });
 
-      return { status, answer: correctAnswer };
+      return { status, correctAnswers };
     }
   }
 
@@ -173,7 +180,7 @@ export class QuestionsService {
       where: { id },
       data: {
         question: q.question,
-        answer: q.answer,
+        correctAnswers: q.correctAnswers.map((q) => q.trim()),
         categories: {
           set: q.categories?.map((c) => ({ id: +c })) ?? [],
         },

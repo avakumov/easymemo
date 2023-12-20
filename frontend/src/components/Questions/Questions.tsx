@@ -5,15 +5,15 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { EntityNames, IQuestion } from '../../types';
 import { memo, useCallback, useState } from 'react';
-import { Alert, IconButton, Sheet, Table } from '@mui/joy';
+import { Alert, Box, IconButton, Sheet, Table } from '@mui/joy';
 import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
 import { showMessage } from '../../store/slices/messageSlice';
 
 const Questions = () => {
 	const dispatch = useDispatch();
-	const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
+	// const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
 
-	const { data: categories } = api.useGetCategoriesQuery();
+	// const { data: categories } = api.useGetCategoriesQuery();
 	// const [getQuestions, { data: questions, error, isLoading }] = api.useLazyGetQuestionsQuery();
 	const { data: questions, error, isLoading } = api.useGetQuestionsQuery();
 	const [removeEntity] = api.useRemoveEntityMutation();
@@ -86,7 +86,12 @@ const Questions = () => {
 				<tbody>
 					{Array.isArray(questions)
 						? questions.map((q) => (
-								<TableRowMemo row={q} removeElement={removeElementCallback} editElement={editElement} />
+								<TableRowMemo
+									key={q.id}
+									row={q}
+									removeElement={removeElementCallback}
+									editElement={editElement}
+								/>
 						  ))
 						: null}
 				</tbody>
@@ -112,7 +117,15 @@ const TableRowMemo = memo(
 				<td>{row.id}</td>
 				<td>{row.categories?.map((c) => c.name).join(', ') ?? 'not found'}</td>
 				<td>{row.question}</td>
-				<td>{row.answer}</td>
+				<td>
+					<Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+						{row.correctAnswers.map((a) => (
+							<Sheet key={a} variant='soft' sx={{ p: '0.3rem', borderRadius: '0.3rem' }}>
+								{a}
+							</Sheet>
+						))}
+					</Box>
+				</td>
 				<td align='center'>
 					<IconButton
 						onClick={() => {

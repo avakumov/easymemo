@@ -1,0 +1,70 @@
+version: "3.8"
+
+services:
+  postgres:
+    container_name: postgres_easymemo1
+    hostname: postgres
+    image: postgres:13.5
+    restart: always
+    env_file:
+      - ./api/.env
+    volumes:
+      - ./api/postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - postgres-pgadmin
+
+  pgadmin:
+    container_name: pgadmin_easymemo
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    env_file:
+      - ./api/.env
+    volumes:
+      - ./api/pgadmin:/var/lib/pgadmin-docker
+    ports:
+      - "6060:80"
+    networks:
+      - postgres-pgadmin
+
+  api:
+    build:
+      dockerfile: ./api/Dockerfile
+      context: ./api
+      target: development
+    volumes:
+      - ./api:/usr/src/app
+    env_file:
+      - ./api/.env
+    command: npm run start:dev
+    ports:
+      - 8001:8001
+    networks:
+      - postgres-pgadmin
+
+  easymemo-front:
+    container_name: easymemo-react
+    build:
+      dockerfile: ./frontend/Dockerfile
+      context: ./frontend
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 80:8000
+    networks:
+      - postgres-pgadmin
+    # command: serve .
+    command: npm run dev
+    # command: nginx -g daemon off;
+
+networks:
+  postgres-pgadmin:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
+  api:

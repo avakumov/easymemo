@@ -56,9 +56,7 @@ services:
       - 80:8000
     networks:
       - postgres-pgadmin
-    # command: serve .
     command: npm run dev
-    # command: nginx -g daemon off;
 
 networks:
   postgres-pgadmin:

@@ -48,36 +48,11 @@ const Questions = () => {
 
 	return (
 		<Sheet variant='outlined'>
-			<Table>
+			<Table stickyHeader>
 				<thead>
 					<tr>
 						<th>id</th>
-						<th>
-							{/*
-
-                            <MultiSelect
-								name={EntityNames.CATEGORY}
-								selectAll={() => {
-									if (Array.isArray(categories)) {
-										setCategoryFilter(categories.map((c) => c.name));
-									}
-								}}
-								unSelectAll={() => {
-									setCategoryFilter([]);
-								}}
-								onSelect={(c) => {
-									const idx = categoryFilter.findIndex((cat) => cat === c);
-									if (idx === -1) {
-										setCategoryFilter([...categoryFilter, c]);
-									} else {
-										setCategoryFilter(categoryFilter.filter((name) => name !== c));
-									}
-								}}
-								selectedItems={categoryFilter}
-								items={Array.isArray(categories) ? categories.map((c) => c.name) : []}
-							/>
-                            */}
-						</th>
+						<th> Categories</th>
 						<th>Question</th>
 						<th>Answer</th>
 						<th>edit</th>
@@ -107,13 +82,26 @@ const TableRowMemo = memo(
 		row,
 		removeElement,
 		editElement,
-	}: {
+	}: // selected,
+	// setSelected,
+	{
 		row: IQuestion;
 		removeElement: (id: number) => void;
 		editElement: (data: IQuestion) => void;
+		// selected: boolean;
+		// setSelected: (value: boolean) => void;
 	}) => {
+		const [selected, setSelected] = useState<boolean>(false);
 		return (
-			<tr key={row.id}>
+			<Box
+				component='tr'
+				key={row.id}
+				sx={{ backgroundColor: (theme) => (selected ? theme.vars.palette.background.level2 : 'inherit') }}
+				onClick={() => {
+					console.log('selecred: ', row.id);
+					console.log('selecred: ', selected);
+					setSelected(!selected);
+				}}>
 				<td>{row.id}</td>
 				<td>{row.categories?.map((c) => c.name).join(', ') ?? 'not found'}</td>
 				<td>{row.question}</td>
@@ -137,7 +125,7 @@ const TableRowMemo = memo(
 						<DeleteOutlineIcon />
 					</IconButton>
 				</td>
-			</tr>
+			</Box>
 		);
 	}
 );

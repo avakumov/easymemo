@@ -34,12 +34,12 @@ services:
     build:
       dockerfile: ./api/Dockerfile
       context: ./api
-      target: development
+      # target: development
     volumes:
       - ./api:/usr/src/app
     env_file:
       - ./api/.env
-    command: npm run start:dev
+    command: npm run start:prod
     ports:
       - 8001:8001
     networks:
@@ -53,10 +53,11 @@ services:
     volumes:
       - ./frontend:/app
     ports:
-      - 80:8000
+      - 80:3000
     networks:
       - postgres-pgadmin
-    command: npm run dev
+    # command: npm run dev
+    command: npm run serve
 
 networks:
   postgres-pgadmin:

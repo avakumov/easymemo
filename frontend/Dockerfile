@@ -2,13 +2,15 @@ FROM node:18-alpine as build
 
 WORKDIR /app
 
-
-ENV PATH /app/node_modules/.bin:$PATH
-
-COPY --chown=node:node package*.json ./
-RUN npm ci
-RUN npm install serve -g
-COPY --chown=node:node . .
+COPY package*.json ./
+RUN npm ci 
+# RUN npm install serve -g
+COPY . .
 RUN npm run build
-USER node
 
+# CMD ["npm", "run", "serve"]
+
+FROM nginx:stable-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+CMD ["nginx", "-g", "daemon off;"]

@@ -9,7 +9,7 @@ services:
     env_file:
       - ./api/.env
     volumes:
-      - ./api/postgres-data:/var/lib/postgresql/data
+      - ./postgres-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
     networks:
@@ -24,22 +24,18 @@ services:
     env_file:
       - ./api/.env
     volumes:
-      - ./api/pgadmin:/var/lib/pgadmin-docker
+      - ./pgadmin-data:/var/lib/pgadmin-docker
     ports:
-      - "6060:80"
+      - 6060:80
     networks:
       - postgres-pgadmin
 
   api:
-    build:
-      dockerfile: ./api/Dockerfile
-      context: ./api
-      # target: development
-    volumes:
-      - ./api:/usr/src/app
+    image: nestjs-api
+    hostname: api
+    build: ./api
     env_file:
       - ./api/.env
-    command: npm run start:prod
     ports:
       - 8001:8001
     networks:
@@ -47,17 +43,11 @@ services:
 
   easymemo-front:
     container_name: easymemo-react
-    build:
-      dockerfile: ./frontend/Dockerfile
-      context: ./frontend
-    volumes:
-      - ./frontend:/app
+    build: ./frontend
     ports:
-      - 80:3000
+      - 80:80
     networks:
       - postgres-pgadmin
-    # command: npm run dev
-    command: npm run serve
 
 networks:
   postgres-pgadmin:

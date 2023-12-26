@@ -2,13 +2,13 @@
 FROM node:18-alpine3.16 
 
 WORKDIR /usr/src/app
+ENV NODE_ENV=prod
 
-COPY --chown=node:node package*.json ./
-
-RUN npm ci
+COPY package*.json ./
+RUN npm i
+COPY . .
 
 RUN npm run build
-COPY --chown=node:node . .
-USER node
+RUN npx prisma generate
 
-
+CMD ["npm", "run", "start:prod"]

@@ -43,11 +43,10 @@ services:
 
   easymemo-front:
     container_name: easymemo-react
+    restart: always
     build: ./frontend
-    ports:
-      - 80:80
-    networks:
-      - postgres-pgadmin
+    volumes:
+      - /var/www/dist:/app/dist
 
 networks:
   postgres-pgadmin:

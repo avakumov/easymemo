@@ -16,7 +16,7 @@ import { CssBaseline, Grid } from '@mui/joy';
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <div>main page</div>,
+		element: <div>Main Page</div>,
 	},
 	{
 		path: '/practice',

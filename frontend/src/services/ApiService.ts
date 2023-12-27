@@ -2,9 +2,10 @@ import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError 
 import { EntityName, ICategory, ILogin, ILoginAnswer, IProfile, IQuestion, IQuestionForm, IUser } from '../types';
 import { token } from './auth';
 
+const baseUrl = import.meta.env.PROD ? 'http://avakumov.ru:8001' : 'http://localhost:8001';
 /*функция запроса с токеном*/
 const baseQuery = fetchBaseQuery({
-	baseUrl: 'http://localhost:8001',
+	baseUrl,
 	prepareHeaders: (headers, query) => {
 		const jwtToken = token.getToken();
 		jwtToken && headers.set('authorization', 'Bearer ' + jwtToken);

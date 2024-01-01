@@ -47,7 +47,7 @@ export interface IQuestion {
 
 export type IQuestionForm = {
 	categories: number[];
-	correctAnswers: { value: string }[];
+	correctAnswers: string[];
 	id?: number;
 	question?: string;
 };

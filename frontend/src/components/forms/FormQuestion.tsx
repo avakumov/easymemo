@@ -18,9 +18,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 			id: data?.id ?? undefined,
 			question: data?.question ?? '',
 			categories: Array.isArray(data?.categories) ? data?.categories.map((c) => c.id) : [],
-			correctAnswers: Array.isArray(data?.correctAnswers)
-				? data?.correctAnswers.map((a) => ({ value: a }))
-				: [{ value: '' }],
+			correctAnswers: Array.isArray(data?.correctAnswers) ? data?.correctAnswers.map((a) => a) : [''],
 		},
 	});
 	const { fields, append, remove } = useFieldArray({
@@ -85,17 +83,18 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 							name={`correctAnswers.${index}`}
 							control={control}
 							render={({ field }) => {
+								console.log('field: ', field);
 								return (
 									<FormControl>
 										<FormLabel>{`Answer ${index + 1}`}</FormLabel>
 										<Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
 											<Textarea
 												required
-												slotProps={{ textarea: { spellcheck: 'false' } }}
+												slotProps={{ textarea: { spellCheck: 'false' } }}
 												variant='soft'
 												placeholder='answer is ...'
 												{...field}
-												value={field.value.value}
+												value={field.value}
 												sx={{ width: '100%' }}
 											/>
 											<IconButton
@@ -113,7 +112,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 				})}
 				<IconButton
 					onClick={() => {
-						append({ value: '' });
+						append('');
 					}}>
 					<AddCircleOutlineIcon />
 				</IconButton>

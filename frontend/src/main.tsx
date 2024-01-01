@@ -11,7 +11,9 @@ import Auth from './components/Auth/Auth';
 import PracticePage from './pages/PracticePage';
 import Sidebar from './components/Sidebar/Sidebar';
 import { CssVarsProvider } from '@mui/joy/styles';
-import { CssBaseline, Grid } from '@mui/joy';
+import { CssBaseline, Box } from '@mui/joy';
+import Header from './components/Header/Header';
+import './index.css';
 
 const router = createBrowserRouter([
 	{
@@ -22,19 +24,20 @@ const router = createBrowserRouter([
 		path: '/practice',
 		element: (
 			<Auth>
-				<Grid container margin='auto' sx={{ flexWrap: 'nowrap' }} spacing={1}>
-					<Grid
-						md='auto'
-						xs='auto'
-						lg='auto'
-						xl='auto'
-						sx={{ display: { xl: 'block', lg: 'block', md: 'none', sm: 'none', xs: 'none' } }}>
-						<Sidebar />
-					</Grid>
-					<Grid md={12} sm={12} xs={12} lg={10} xl={10} mr={2}>
+				<Box sx={{ display: 'flex' }}>
+					<Header />
+					<Sidebar />
+					<Box
+						component='main'
+						sx={{
+							pt: {
+								xs: 'calc(var(--Header-height))',
+								sm: 'calc(var(--Header-height))',
+							},
+						}}>
 						<PracticePage />
-					</Grid>
-				</Grid>
+					</Box>
+				</Box>
 			</Auth>
 		),
 	},
@@ -42,19 +45,20 @@ const router = createBrowserRouter([
 		path: '/records',
 		element: (
 			<Auth>
-				<Grid container margin='auto' sx={{ flexWrap: 'nowrap' }} spacing={1}>
-					<Grid
-						md='auto'
-						xs='auto'
-						lg='auto'
-						xl='auto'
-						sx={{ display: { xl: 'block', lg: 'block', md: 'none', sm: 'none', xs: 'none' } }}>
-						<Sidebar />
-					</Grid>
-					<Grid md={12} sm={12} xs={12} lg={10} xl={10} mr={2}>
+				<Box sx={{ display: 'flex' }}>
+					<Header />
+					<Sidebar />
+					<Box
+						component='main'
+						sx={{
+							pt: {
+								xs: 'calc(var(--Header-height))',
+								sm: 'calc(var(--Header-height))',
+							},
+						}}>
 						<RecordsPage />
-					</Grid>
-				</Grid>
+					</Box>
+				</Box>
 			</Auth>
 		),
 	},
@@ -62,19 +66,20 @@ const router = createBrowserRouter([
 		path: '/stats',
 		element: (
 			<Auth>
-				<Grid container margin='auto' sx={{ flexWrap: 'nowrap' }} spacing={1}>
-					<Grid
-						md='auto'
-						xs='auto'
-						lg='auto'
-						xl='auto'
-						sx={{ display: { xl: 'block', lg: 'block', md: 'none', sm: 'none', xs: 'none' } }}>
-						<Sidebar />
-					</Grid>
-					<Grid md={12} sm={12} xs={12} lg={10} xl={10} mr={2}>
-						<div>stats</div>
-					</Grid>
-				</Grid>
+				<Box sx={{ display: 'flex' }}>
+					<Header />
+					<Sidebar />
+					<Box
+						component='main'
+						sx={{
+							pt: {
+								xs: 'calc(12px + var(--Header-height))',
+								sm: 'calc(12px + var(--Header-height))',
+							},
+						}}>
+						stats
+					</Box>
+				</Box>
 			</Auth>
 		),
 	},

@@ -17,6 +17,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import CategoryIcon from '@mui/icons-material/Category';
 import Profile from '../Profile/Profile';
+import { closeSidebar } from '../../utils';
 
 const menuItems = [
 	{
@@ -94,7 +95,7 @@ export default function Sidebar() {
 					md: 'none',
 				},
 				transition: 'transform 0.4s, width 0.4s',
-				zIndex: 100,
+				zIndex: 10000,
 				height: '100dvh',
 				width: 'var(--Sidebar-width)',
 				top: 0,
@@ -120,7 +121,7 @@ export default function Sidebar() {
 				className='Sidebar-overlay'
 				sx={{
 					position: 'fixed',
-					zIndex: 99,
+					zIndex: 9998,
 					top: 0,
 					left: 0,
 					width: '100vw',
@@ -133,7 +134,7 @@ export default function Sidebar() {
 						lg: 'translateX(-100%)',
 					},
 				}}
-				// onClick={() => closeSidebar()}
+				onClick={() => closeSidebar()}
 			/>
 			<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 				<Typography level='title-lg'>Easymemo</Typography>

@@ -119,10 +119,10 @@ const TableRowMemo = memo(
 						onClick={() => {
 							editElement(row);
 						}}>
-						<EditIcon />
+						<EditIcon fontSize='inherit' />
 					</IconButton>
 					<IconButton onClick={() => removeElement(row.id)}>
-						<DeleteOutlineIcon />
+						<DeleteOutlineIcon fontSize='inherit' />
 					</IconButton>
 				</td>
 			</Box>

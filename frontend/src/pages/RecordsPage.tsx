@@ -2,7 +2,6 @@ import { Box } from '@mui/joy';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Categories from '../components/Categories/Categories';
-import TableInfo from '../components/info/TableInfo';
 import FormEntityModal from '../components/modals/FormEntityModal';
 import Questions from '../components/Questions/Questions';
 import Users from '../components/Users/Users';
@@ -20,11 +19,7 @@ export default function RecordsPage() {
 
 	return (
 		<>
-			<Box sx={{ position: 'sticky', top: 0, zIndex: 100 }}>
-				<TableInfo name={name} handlePlus={() => {}} />
-			</Box>
-
-			<Box sx={{ mt: 2 }}>
+			<Box sx={{ m: 1 }}>
 				<Show entityName={name} />
 			</Box>
 

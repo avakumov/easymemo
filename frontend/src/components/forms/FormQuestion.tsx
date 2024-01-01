@@ -22,7 +22,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 		},
 	});
 	const { fields, append, remove } = useFieldArray({
-		name: 'correctAnswers',
+		name: 'correctAnswers' as never,
 		control,
 		rules: {
 			required: 'Please append at least 1 item',

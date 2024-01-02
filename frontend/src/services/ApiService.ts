@@ -2,7 +2,7 @@ import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError 
 import { EntityName, ICategory, ILogin, ILoginAnswer, IProfile, IQuestion, IQuestionForm, IUser } from '../types';
 import { token } from './auth';
 
-const baseUrl = import.meta.env.PROD ? 'http://avakumov.ru:8001' : 'http://localhost:8001';
+const baseUrl = import.meta.env.PROD ? 'https://avakumov.ru/api' : 'http://localhost:8001/api';
 /*функция запроса с токеном*/
 const baseQuery = fetchBaseQuery({
 	baseUrl,

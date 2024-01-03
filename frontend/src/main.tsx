@@ -34,6 +34,7 @@ const router = createBrowserRouter([
 								xs: 'calc(var(--Header-height))',
 								sm: 'calc(var(--Header-height))',
 							},
+							width: '100%',
 						}}>
 						<PracticePage />
 					</Box>

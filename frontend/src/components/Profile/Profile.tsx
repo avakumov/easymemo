@@ -26,10 +26,10 @@ export default function Profile() {
 
 	return (
 		<Dropdown>
-			<MenuButton size='sm' color='neutral' slots={{ root: IconButton }}>
+			<MenuButton slots={{ root: IconButton }} slotProps={{ root: { variant: 'soft' } }}>
 				<AccountBoxIcon />
 			</MenuButton>
-			<Menu size='sm'>
+			<Menu size='sm' style={{ zIndex: 10000 }}>
 				<MenuItem disabled>{profile?.isAdmin ? 'Admin' : 'User'}</MenuItem>
 				<MenuItem disabled>{profile?.name}</MenuItem>
 				<MenuItem disabled>{profile?.email}</MenuItem>

@@ -1,5 +1,5 @@
 
-FROM node:18-alpine3.16 
+FROM node:20-alpine3.18 
 
 WORKDIR /usr/src/app
 ENV NODE_ENV=prod

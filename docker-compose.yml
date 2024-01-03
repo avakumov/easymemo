@@ -9,7 +9,7 @@ services:
     env_file:
       - ./api/.env
     volumes:
-      - /var/doker-data/postgres-data:/var/lib/postgresql/data
+      - /home/avakdev/postgres-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
     networks:
@@ -24,7 +24,7 @@ services:
     env_file:
       - ./api/.env
     volumes:
-      - /var/doker-data/pgadmin-data:/var/lib/pgadmin-docker
+      - /home/avakdev/pgadmin-data:/var/lib/pgadmin-docker
     ports:
       - 6060:80
     networks:

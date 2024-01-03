@@ -5,8 +5,14 @@ on:
     branches: ["master"]
 
 jobs:
+  checkout:
+    runs-on: self-hosted
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
   prepare-environment:
     runs-on: self-hosted
+    needs: checkout
     steps:
       - name: Stop and remove containers, networks
         run: docker-compose down
@@ -16,7 +22,5 @@ jobs:
     runs-on: self-hosted
     needs: prepare-environment
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
       - name: docker-compose
         run: docker-compose up -d

@@ -40,11 +40,13 @@ services:
       - 8001:8001
     networks:
       - postgres-pgadmin
-  #
-  # easymemo-front:
-  #   container_name: easymemo-react
-  #   restart: always
-  #   build: ./frontend
+
+  easymemo-front:
+    container_name: easymemo-react
+    restart: always
+    build: ./frontend
+    ports:
+      - 8000:80
 
 networks:
   postgres-pgadmin:

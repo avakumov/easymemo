@@ -3,7 +3,8 @@ import Loading from '../Loading/Loading';
 import { useDispatch } from 'react-redux';
 import { EntityNames, IQuestion } from '../../types';
 import { useCallback } from 'react';
-import { Alert } from '@mui/joy';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { Alert, IconButton } from '@mui/joy';
 import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
 import { showMessage } from '../../store/slices/messageSlice';
 import QuestionsTable from './QuestionsTable';
@@ -45,6 +46,13 @@ const Questions = () => {
 
 	return (
 		<>
+			<IconButton
+				sx={{ position: 'fixed', right: '30px', top: '80px', zIndex: 1000 }}
+				variant='soft'
+				color='primary'
+				onClick={() => dispatch(entityModalOpen({ name: EntityNames.QUESTION, open: true }))}>
+				<AddCircleOutlineIcon />
+			</IconButton>
 			<QuestionsTable questions={questions} remove={removeElementCallback} edit={editElement} />
 			<QuestionsList questions={questions} remove={removeElementCallback} edit={editElement} />
 		</>

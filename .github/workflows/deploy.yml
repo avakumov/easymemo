@@ -26,9 +26,3 @@ jobs:
     steps:
       - name: docker-compose
         run: docker-compose up -d
-  # deploy-frontend:
-  #   needs: checkout
-  #   runs-on: self-hosted
-  #   steps:
-  #     - name: deploy-frontend
-  #       run: cd frontend && npm i && npm run build

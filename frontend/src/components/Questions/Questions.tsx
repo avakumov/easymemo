@@ -2,9 +2,9 @@ import api from '../../services/ApiService';
 import Loading from '../Loading/Loading';
 import { useDispatch } from 'react-redux';
 import { EntityNames, IQuestion } from '../../types';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { Alert, IconButton } from '@mui/joy';
+import { Alert, Box, IconButton } from '@mui/joy';
 import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
 import { showMessage } from '../../store/slices/messageSlice';
 import QuestionsTable from './QuestionsTable';
@@ -29,6 +29,12 @@ const Questions = () => {
 		},
 		[dispatch]
 	);
+	useEffect(() => {
+		setTimeout(() => {
+			const start_list_questions = document.querySelector('#start_list_questions');
+			start_list_questions?.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'smooth' });
+		}, 200);
+	}, [data?.questions]);
 
 	async function removeElement(id: number) {
 		try {
@@ -61,6 +67,7 @@ const Questions = () => {
 				onClick={() => dispatch(entityModalOpen({ name: EntityNames.QUESTION, open: true }))}>
 				<AddCircleOutlineIcon />
 			</IconButton>
+			<Box id='start_list_questions'></Box>
 			<QuestionsTable questions={data.questions} remove={removeElementCallback} edit={editElement} />
 			<QuestionsList questions={data.questions} remove={removeElementCallback} edit={editElement} />
 			<Paginator

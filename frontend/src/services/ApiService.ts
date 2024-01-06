@@ -51,10 +51,14 @@ const api = createApi({
 			}),
 			providesTags: ['practice'],
 		}),
-		getQuestions: builder.query<IQuestion[], void>({
-			query: () => ({
-				url: `/questions`,
-			}),
+		getQuestions: builder.query<{ questions: IQuestion[]; total: number }, { skip?: number; take?: number }>({
+			query: ({ skip, take }) => {
+				const skipParam = skip ? `skip=${skip}` : '';
+				const takeParam = take ? `take=${take}` : '';
+				return {
+					url: `/questions?${[skipParam, takeParam].join('&')}`,
+				};
+			},
 			providesTags: ['questions'],
 		}),
 		getUsers: builder.query<IUser[], void>({

@@ -4,6 +4,9 @@ const settings = {
 		MAX_TASK_COUNT: 100,
 		MIN_TASK_COUNT: 1,
 	},
+	lists: {
+		PER_PAGE: 20,
+	},
 };
 
 export default settings;

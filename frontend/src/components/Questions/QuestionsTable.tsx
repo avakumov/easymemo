@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { Box, IconButton, Sheet, Table } from '@mui/joy';
+import { Box, Button, IconButton, Sheet, Table } from '@mui/joy';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';

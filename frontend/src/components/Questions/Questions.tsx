@@ -2,17 +2,25 @@ import api from '../../services/ApiService';
 import Loading from '../Loading/Loading';
 import { useDispatch } from 'react-redux';
 import { EntityNames, IQuestion } from '../../types';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Alert, IconButton } from '@mui/joy';
 import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
 import { showMessage } from '../../store/slices/messageSlice';
 import QuestionsTable from './QuestionsTable';
 import QuestionsList from './QuestionsList';
+import Paginator from '../Paginator/Paginator';
+import settings from '../../settings';
+
+const per_page = settings.lists.PER_PAGE;
 
 const Questions = () => {
 	const dispatch = useDispatch();
-	const { data: questions, error, isLoading } = api.useGetQuestionsQuery();
+	const [currentPage, setCurrentPage] = useState(1);
+	const { data, error, isLoading } = api.useGetQuestionsQuery({
+		take: per_page,
+		skip: currentPage === 1 ? 0 : (currentPage - 1) * per_page,
+	});
 	const [removeEntity] = api.useRemoveEntityMutation();
 
 	const editElement = useCallback(
@@ -42,7 +50,7 @@ const Questions = () => {
 	if (isLoading) return <Loading />;
 
 	if (error && 'status' in error) return <Alert color='danger'>{JSON.stringify(error.status)}</Alert>;
-	if (typeof questions === 'undefined') return null;
+	if (typeof data?.questions === 'undefined') return null;
 
 	return (
 		<>
@@ -53,8 +61,13 @@ const Questions = () => {
 				onClick={() => dispatch(entityModalOpen({ name: EntityNames.QUESTION, open: true }))}>
 				<AddCircleOutlineIcon />
 			</IconButton>
-			<QuestionsTable questions={questions} remove={removeElementCallback} edit={editElement} />
-			<QuestionsList questions={questions} remove={removeElementCallback} edit={editElement} />
+			<QuestionsTable questions={data.questions} remove={removeElementCallback} edit={editElement} />
+			<QuestionsList questions={data.questions} remove={removeElementCallback} edit={editElement} />
+			<Paginator
+				currentPage={currentPage}
+				pagesCount={Math.ceil(data.total / per_page)}
+				setPage={setCurrentPage}
+			/>
 		</>
 	);
 };

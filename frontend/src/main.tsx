@@ -15,80 +15,87 @@ import { CssBaseline, Box } from '@mui/joy';
 import Header from './components/Header/Header';
 import './index.css';
 
-const router = createBrowserRouter([
-	{
-		path: '/',
-		element: <div>Main Page</div>,
-	},
-	{
-		path: '/practice',
-		element: (
-			<Auth>
-				<Box sx={{ display: 'flex' }}>
-					<Header />
-					<Sidebar />
-					<Box
-						component='main'
-						sx={{
-							pt: {
-								xs: 'calc(var(--Header-height))',
-								sm: 'calc(var(--Header-height))',
-							},
-							width: '100%',
-						}}>
-						<PracticePage />
+const router = createBrowserRouter(
+	[
+		{
+			path: '/',
+			element: <div>Main Page</div>,
+		},
+		{
+			path: '/practice',
+			element: (
+				<Auth>
+					<Box sx={{ display: 'flex' }}>
+						<Header />
+						<Sidebar />
+						<Box
+							component='main'
+							sx={{
+								pt: {
+									xs: 'calc(var(--Header-height))',
+									sm: 'calc(var(--Header-height))',
+								},
+								width: '100%',
+							}}>
+							<PracticePage />
+						</Box>
 					</Box>
-				</Box>
-			</Auth>
-		),
-	},
-	{
-		path: '/records',
-		element: (
-			<Auth>
-				<Box sx={{ display: 'flex' }}>
-					<Header />
-					<Sidebar />
-					<Box
-						component='main'
-						sx={{
-							pt: {
-								xs: 'calc(var(--Header-height))',
-								sm: 'calc(var(--Header-height))',
-							},
-						}}>
-						<RecordsPage />
+				</Auth>
+			),
+		},
+		{
+			path: '/records',
+			element: (
+				<Auth>
+					<Box sx={{ display: 'flex' }}>
+						<Header />
+						<Sidebar />
+						<Box
+							component='main'
+							sx={{
+								pt: {
+									xs: 'calc(var(--Header-height))',
+									sm: 'calc(var(--Header-height))',
+								},
+								width: '100%',
+							}}>
+							<RecordsPage />
+						</Box>
 					</Box>
-				</Box>
-			</Auth>
-		),
-	},
-	{
-		path: '/stats',
-		element: (
-			<Auth>
-				<Box sx={{ display: 'flex' }}>
-					<Header />
-					<Sidebar />
-					<Box
-						component='main'
-						sx={{
-							pt: {
-								xs: 'calc(12px + var(--Header-height))',
-								sm: 'calc(12px + var(--Header-height))',
-							},
-						}}>
-						stats
+				</Auth>
+			),
+		},
+		{
+			path: '/stats',
+			element: (
+				<Auth>
+					<Box sx={{ display: 'flex' }}>
+						<Header />
+						<Sidebar />
+						<Box
+							component='main'
+							sx={{
+								pt: {
+									xs: 'calc(12px + var(--Header-height))',
+									sm: 'calc(12px + var(--Header-height))',
+								},
+								width: '100%',
+							}}>
+							stats
+						</Box>
 					</Box>
-				</Box>
-			</Auth>
-		),
-	},
-	{
-		path: '*',
-		element: <Page404 />,
-	},
-]);
+				</Auth>
+			),
+		},
+		{
+			path: '*',
+			element: <Page404 />,
+		},
+	]
+	// {
+	// 	basename: '/easymemo',
+	// }
+);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>

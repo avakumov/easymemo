@@ -156,19 +156,29 @@ export class QuestionsService {
     }
   }
 
-  async findAll() {
+  async findAll({ skip, take }: { skip?: number; take?: number }) {
     const { userId, isAdmin } = this.request.user;
-    return this.prisma.question.findMany({
-      where: {
-        ...(isAdmin ? {} : { ownerId: userId }),
-      },
-      include: {
-        categories: true,
-      },
-      orderBy: {
-        id: "desc",
-      },
-    });
+
+    const [questions, count] = await this.prisma.$transaction([
+      this.prisma.question.findMany({
+        ...(take ? { take } : {}),
+        ...(skip ? { skip } : {}),
+        where: {
+          ...(isAdmin ? {} : { ownerId: userId }),
+        },
+        include: {
+          categories: true,
+        },
+        orderBy: {
+          id: "desc",
+        },
+      }),
+      this.prisma.question.count(),
+    ]);
+    return {
+      total: count,
+      questions,
+    };
   }
 
   findOne(id: number) {

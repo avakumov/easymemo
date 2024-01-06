@@ -33,12 +33,11 @@ export class QuestionsController {
   }
 
   @Get()
-  async findAll(@Res() res: Response) {
-    const data = await this.questionsService.findAll();
-    const count = data.length.toString();
-    res.append("X-Total-Count", count);
-    res.append("Access-Control-Expose-Headers", "X-Total-Count");
-    res.json(data);
+  async findAll(@Query() query: { skip?: number; take?: number }) {
+    return this.questionsService.findAll({
+      skip: Number(query.skip),
+      take: Number(query.take),
+    });
   }
 
   @Get(":id")

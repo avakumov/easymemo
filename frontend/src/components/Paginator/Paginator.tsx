@@ -15,8 +15,6 @@ const Paginator = ({ setPage, pagesCount, currentPage }: PaginatorProps) => {
 	}
 	let maxPage = currentPage + delta;
 	const pages = Array.from({ length: pagesCount }, (_, i) => i + 1).slice(minPage - 1, maxPage);
-
-	console.log(pages);
 	return (
 		<Box
 			sx={{

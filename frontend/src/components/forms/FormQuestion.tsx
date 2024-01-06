@@ -83,7 +83,6 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 							name={`correctAnswers.${index}`}
 							control={control}
 							render={({ field }) => {
-								console.log('field: ', field);
 								return (
 									<FormControl>
 										<FormLabel>{`Answer ${index + 1}`}</FormLabel>

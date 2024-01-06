@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { Box, Button, IconButton, Sheet, Table } from '@mui/joy';
+import { Box, IconButton, Sheet, Table } from '@mui/joy';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -41,14 +41,10 @@ const TableRowMemo = memo(
 		row,
 		removeElement,
 		editElement,
-	}: // selected,
-	// setSelected,
-	{
+	}: {
 		row: IQuestion;
 		removeElement: (id: number) => void;
 		editElement: (data: IQuestion) => void;
-		// selected: boolean;
-		// setSelected: (value: boolean) => void;
 	}) => {
 		const [selected, setSelected] = useState<boolean>(false);
 		return (
@@ -57,8 +53,6 @@ const TableRowMemo = memo(
 				key={row.id}
 				sx={{ backgroundColor: (theme) => (selected ? theme.vars.palette.background.level2 : 'inherit') }}
 				onClick={() => {
-					console.log('selecred: ', row.id);
-					console.log('selecred: ', selected);
 					setSelected(!selected);
 				}}>
 				<td>{row.id}</td>

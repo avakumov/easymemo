@@ -3,6 +3,7 @@ import { RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { closePracticeFilterModal } from '../../store/slices/practiceSlice';
 import PracticeFilter from '../filters/PracticeFilter';
+import { Box } from '@mui/joy';
 
 const PracticeFilterModal = () => {
 	const { openFilterModal: open, filter } = useSelector((state: RootState) => state.practice);
@@ -13,7 +14,16 @@ const PracticeFilterModal = () => {
 	}
 	return (
 		<BasicModal isOpen={open} close={closeModal}>
-			<PracticeFilter />
+			<Box
+				sx={{
+					width: {
+						xs: '300px',
+						sm: '300px',
+						md: '400px',
+					},
+				}}>
+				<PracticeFilter />
+			</Box>
 		</BasicModal>
 	);
 };

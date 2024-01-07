@@ -42,7 +42,7 @@ export default function PracticeFilter() {
 	};
 
 	return (
-		<Sheet sx={{ m: 1, width: '400px' }} component='form' onSubmit={handleSubmit(submit)}>
+		<Sheet component='form' onSubmit={handleSubmit(submit)}>
 			<Typography level='title-lg' sx={{ mb: '2rem', textAlign: 'center' }}>
 				Filter on practice
 			</Typography>

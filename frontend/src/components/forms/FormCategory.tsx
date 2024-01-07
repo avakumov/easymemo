@@ -39,7 +39,7 @@ export default function FormCategory({ data, exit }: { exit: () => void; data?: 
 	};
 
 	return (
-		<Container component='main' maxWidth='xs'>
+		<Container component='main'>
 			<Box
 				sx={{
 					display: 'flex',

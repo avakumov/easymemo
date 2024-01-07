@@ -18,7 +18,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 			id: data?.id ?? undefined,
 			question: data?.question ?? '',
 			categories: Array.isArray(data?.categories) ? data?.categories.map((c) => c.id) : [],
-			correctAnswers: Array.isArray(data?.correctAnswers) ? data?.correctAnswers.map((a) => a) : [''],
+			correctAnswers: Array.isArray(data?.correctAnswers) ? data?.correctAnswers.map((a) => a) : [' '],
 		},
 	});
 	const { fields, append, remove } = useFieldArray({
@@ -52,7 +52,6 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 				display: 'flex',
 				flexDirection: 'column',
 				alignItems: 'center',
-				minWidth: '400px',
 			}}>
 			<Typography component='h1'>{data?.id ? 'Change' : 'New'} question</Typography>
 			<Box
@@ -88,11 +87,11 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 										<FormLabel>{`Answer ${index + 1}`}</FormLabel>
 										<Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
 											<Textarea
-												required
 												slotProps={{ textarea: { spellCheck: 'false' } }}
 												variant='soft'
-												placeholder='answer is ...'
 												{...field}
+												placeholder='answer is ...'
+												required
 												value={field.value}
 												sx={{ width: '100%' }}
 											/>

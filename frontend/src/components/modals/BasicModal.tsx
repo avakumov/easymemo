@@ -7,7 +7,7 @@ const style = {
 	left: '50%',
 	transform: 'translate(-50%, -50%)',
 	width: 'fit-content',
-	p: 4,
+	p: 2,
 	borderRadius: 'md',
 	boxShadow: 'lg',
 };

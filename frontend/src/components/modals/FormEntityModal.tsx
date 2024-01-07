@@ -16,7 +16,16 @@ const FormEntityModal = () => {
 	}
 	return (
 		<BasicModal isOpen={open} close={closeModal}>
-			<FormEntity name={name} data={data} exit={closeModal} />
+			<Box
+				sx={{
+					width: {
+						xs: '300px',
+						sm: '300px',
+						md: '400px',
+					},
+				}}>
+				<FormEntity name={name} data={data} exit={closeModal} />
+			</Box>
 		</BasicModal>
 	);
 };

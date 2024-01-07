@@ -80,6 +80,15 @@ export class QuestionsService {
     categories: string[];
     count: number;
   }) {
+    /*если не указаны категории берем из всех*/
+    if (Array.isArray(categories) && categories.length === 0) {
+      const questions = await this.prisma.question.findMany({
+        include: {
+          categories: true,
+        },
+      });
+      return getRandom(questions, count);
+    }
     const groupedQuestions = await getQuestionsWithFilter.call(
       this,
       categories
@@ -150,8 +159,6 @@ export class QuestionsService {
               });
           })
         );
-      } else {
-        return [];
       }
     }
   }

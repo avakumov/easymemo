@@ -19,10 +19,6 @@ const router = createBrowserRouter(
 	[
 		{
 			path: '/',
-			element: <div>Main Page</div>,
-		},
-		{
-			path: '/practice',
 			element: (
 				<Auth>
 					<Box sx={{ display: 'flex' }}>
@@ -91,10 +87,10 @@ const router = createBrowserRouter(
 			path: '*',
 			element: <Page404 />,
 		},
-	]
-	// {
-	// 	basename: '/easymemo',
-	// }
+	],
+	{
+		basename: '/easymemo',
+	}
 );
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

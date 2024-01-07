@@ -6,6 +6,7 @@ import FormEntityModal from '../components/modals/FormEntityModal';
 import Questions from '../components/Questions/Questions';
 import Users from '../components/Users/Users';
 import { EntityName, EntityNames } from '../types';
+import Page404 from './404';
 
 export default function RecordsPage() {
 	const [params, setParams] = useSearchParams();
@@ -37,6 +38,6 @@ function Show({ entityName }: { entityName: EntityName | undefined | null | stri
 		case EntityNames.CATEGORY:
 			return <Categories />;
 		default:
-			return <Box>Main</Box>;
+			return <Page404 />;
 	}
 }

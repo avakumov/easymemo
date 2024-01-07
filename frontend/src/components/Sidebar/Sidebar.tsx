@@ -22,13 +22,8 @@ import { closeSidebar } from '../../utils';
 const menuItems = [
 	{
 		title: 'Practice',
-		path: '/practice',
+		path: '/',
 		icon: <KeyboardIcon />,
-		items: [
-			{ title: '10 questions', path: '/practice?count=10', icon: null },
-			{ title: '50 questions', path: '/practice?count=50', icon: null },
-			{ title: 'Error work', path: '/practice', icon: null },
-		],
 	},
 	{
 		title: 'Records',

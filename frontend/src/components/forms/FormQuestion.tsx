@@ -121,6 +121,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 					render={({ field }) => (
 						<Select
 							multiple
+							slotProps={{ listbox: { sx: { width: '100%' } } }}
 							{...field}
 							onChange={(_, newValue) => {
 								setValue('categories', newValue);

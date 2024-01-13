@@ -91,6 +91,7 @@ export default function PracticeFilter() {
 					render={({ field }) => (
 						<Select
 							variant='soft'
+							slotProps={{ listbox: { sx: { width: '100%' } } }}
 							{...field}
 							value={field.value ? field.value : undefined}
 							onChange={(_, newValue) => {

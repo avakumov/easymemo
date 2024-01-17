@@ -94,20 +94,20 @@ export default function Sidebar() {
 				height: '100dvh',
 				width: 'var(--Sidebar-width)',
 				top: 0,
-				p: 2,
+				p: 1,
 				flexShrink: 0,
 				display: 'flex',
 				flexDirection: 'column',
-				gap: 2,
-				borderRight: '1px solid',
+				gap: 1,
+				// borderRight: '1px solid',
 				borderColor: 'divider',
 			}}>
 			<GlobalStyles
 				styles={(theme) => ({
 					':root': {
-						'--Sidebar-width': '220px',
+						'--Sidebar-width': '160px',
 						[theme.breakpoints.up('lg')]: {
-							'--Sidebar-width': '240px',
+							'--Sidebar-width': '160px',
 						},
 					},
 				})}

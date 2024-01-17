@@ -5,7 +5,7 @@ const settings = {
 		MIN_TASK_COUNT: 1,
 	},
 	lists: {
-		PER_PAGE: 20,
+		PER_PAGE: 100,
 	},
 };
 

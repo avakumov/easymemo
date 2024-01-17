@@ -38,12 +38,12 @@ export default function Practice() {
 	}
 
 	return (
-		<Box>
+		<Box sx={{ maxWidth: '900px' }}>
 			<Box sx={{ display: 'flex', columnGap: '0.5rem', mb: '1rem', alignItems: 'center' }}>
 				<IconButton variant='soft' color='primary' onClick={openFilters} title='Open filters'>
 					<FilterAltIcon />
 				</IconButton>
-				<IconButton variant='soft' color='primary' onClick={replay} title='Update questions'>
+				<IconButton variant='outlined' color='primary' onClick={replay} title='Update questions'>
 					<ReplayIcon />
 				</IconButton>
 				<Typography level='title-md' sx={{ ml: 'auto' }}>

@@ -21,7 +21,13 @@ const router = createBrowserRouter(
 			path: '/',
 			element: (
 				<Auth>
-					<Box sx={{ display: 'flex' }}>
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: {
+								md: 'center',
+							},
+						}}>
 						<Header />
 						<Sidebar />
 						<Box
@@ -31,7 +37,6 @@ const router = createBrowserRouter(
 									xs: 'calc(var(--Header-height))',
 									sm: 'calc(var(--Header-height))',
 								},
-								width: '100%',
 							}}>
 							<PracticePage />
 						</Box>

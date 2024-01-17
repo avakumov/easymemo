@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/joy';
 
-export default function Page404() {
+export default function Error404() {
 	const navigate = useNavigate();
 	return (
 		<Box

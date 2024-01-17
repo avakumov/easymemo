@@ -1,4 +1,5 @@
 const settings = {
+	URL_PREFIX: '/easymemo',
 	practice: {
 		DEFAULT_TASK_COUNT: 10,
 		MAX_TASK_COUNT: 100,

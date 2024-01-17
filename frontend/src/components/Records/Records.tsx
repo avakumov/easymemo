@@ -1,14 +1,14 @@
 import { Box } from '@mui/joy';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Categories from '../components/Categories/Categories';
-import FormEntityModal from '../components/modals/FormEntityModal';
-import Questions from '../components/Questions/Questions';
-import Users from '../components/Users/Users';
-import { EntityName, EntityNames } from '../types';
-import Page404 from './404';
+import { EntityName, EntityNames } from '../../types';
+import Categories from '../Categories/Categories';
+import Error404 from '../Error404/Error404';
+import FormEntityModal from '../modals/FormEntityModal';
+import Questions from '../Questions/Questions';
+import Users from '../Users/Users';
 
-export default function RecordsPage() {
+export default function Records() {
 	const [params, setParams] = useSearchParams();
 	let name = params.get('show');
 
@@ -38,6 +38,6 @@ function Show({ entityName }: { entityName: EntityName | undefined | null | stri
 		case EntityNames.CATEGORY:
 			return <Categories />;
 		default:
-			return <Page404 />;
+			return <Error404 />;
 	}
 }

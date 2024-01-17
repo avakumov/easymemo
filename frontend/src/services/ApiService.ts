@@ -34,7 +34,7 @@ const api = createApi({
 	tagTypes: ['questions', 'users', 'categories', 'profile', 'practice'],
 	endpoints: (builder) => ({
 		checkAnwer: builder.mutation<
-			{ status: 'fail' | 'success'; correctAnswers: string[] },
+			{ status: 'fail' | 'success'; rightAnswers: string },
 			{ questionId: number; answer: string }
 		>({
 			query: (body) => ({
@@ -51,12 +51,16 @@ const api = createApi({
 			}),
 			providesTags: ['practice'],
 		}),
-		getQuestions: builder.query<{ questions: IQuestion[]; total: number }, { skip?: number; take?: number }>({
-			query: ({ skip, take }) => {
+		getQuestions: builder.query<
+			{ questions: IQuestion[]; total: number },
+			{ skip?: number; take?: number; search?: string }
+		>({
+			query: ({ skip, take, search }) => {
 				const skipParam = skip ? `skip=${skip}` : '';
 				const takeParam = take ? `take=${take}` : '';
+				const searchParam = take ? `search=${search}` : '';
 				return {
-					url: `/questions?${[skipParam, takeParam].join('&')}`,
+					url: `/questions?${[skipParam, takeParam, searchParam].join('&')}`,
 				};
 			},
 			providesTags: ['questions'],
@@ -82,14 +86,14 @@ const api = createApi({
 				body: { email, password },
 			}),
 		}),
-		createQuestion: builder.mutation<IQuestion, IQuestionForm>({
+		createQuestion: builder.mutation<IQuestion, IQuestion>({
 			query: (question) => ({
 				url: '/questions',
 				method: 'POST',
 				body: question,
 			}),
 		}),
-		updateQuestion: builder.mutation<IQuestion, IQuestionForm>({
+		updateQuestion: builder.mutation<IQuestion, IQuestion>({
 			query: (question) => ({
 				url: `/questions/${question.id}`,
 				method: 'PATCH',

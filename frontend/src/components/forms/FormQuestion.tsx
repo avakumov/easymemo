@@ -18,11 +18,11 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 			id: data?.id ?? undefined,
 			question: data?.question ?? '',
 			categories: Array.isArray(data?.categories) ? data?.categories.map((c) => c.id) : [],
-			correctAnswers: Array.isArray(data?.correctAnswers) ? data?.correctAnswers.map((a) => a) : [' '],
+			rightAnswers: data?.rightAnswers.split(' |-| ') ?? [' '],
 		},
 	});
 	const { fields, append, remove } = useFieldArray({
-		name: 'correctAnswers' as never,
+		name: 'rightAnswers' as never,
 		control,
 		rules: {
 			required: 'Please append at least 1 item',
@@ -32,8 +32,10 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 
 	const submit: SubmitHandler<IQuestionForm> = async (q) => {
 		try {
-			const operation = q.id ? updateQuestion : createQuestion;
-			const question = await operation(q).unwrap();
+			// q.rightAnswers = q.rightAnswers.join(' |-| ');
+			const prepQuestion = { ...q, rightAnswers: q.rightAnswers.join(' |-| ') };
+			const operation = prepQuestion.id ? updateQuestion : createQuestion;
+			const question = await operation(prepQuestion).unwrap();
 			//show success message
 			question.id && dispatch(showMessage({ message: 'Quesiton saved', type: 'success' }));
 
@@ -79,7 +81,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 					return (
 						<Controller
 							key={field.id}
-							name={`correctAnswers.${index}`}
+							name={`rightAnswers.${index}`}
 							control={control}
 							render={({ field }) => {
 								return (

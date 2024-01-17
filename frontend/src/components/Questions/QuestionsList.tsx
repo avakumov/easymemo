@@ -63,7 +63,7 @@ export default function QuestionsList({ questions, remove, edit }: QuestionsList
 							<Typography gutterBottom>{question.question}</Typography>
 
 							<Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-								{question.correctAnswers.map((a) => (
+								{question.rightAnswers.split(' |-| ').map((a) => (
 									<Sheet key={a} variant='soft' sx={{ p: '0.3rem', borderRadius: '0.3rem' }}>
 										{a}
 									</Sheet>

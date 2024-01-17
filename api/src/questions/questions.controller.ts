@@ -31,10 +31,13 @@ export class QuestionsController {
   }
 
   @Get()
-  async findAll(@Query() query: { skip?: number; take?: number }) {
+  async findAll(
+    @Query() query: { skip?: number; take?: number; search?: string }
+  ) {
     return this.questionsService.findAll({
       skip: Number(query.skip),
       take: Number(query.take),
+      search: query.search,
     });
   }
 

@@ -3,6 +3,7 @@ import { CreateQuestionDto } from "./dto/create-question.dto";
 import { PrismaService } from "src/prisma/prisma.service";
 import { REQUEST } from "@nestjs/core";
 import { RequestExtended } from "src/entities/request";
+import settings from "../../settings";
 
 @Injectable({ scope: Scope.REQUEST })
 export class QuestionsService {
@@ -15,7 +16,10 @@ export class QuestionsService {
     return this.prisma.question.create({
       data: {
         question: q.question,
-        correctAnswers: q.correctAnswers.map((q) => q.trim()),
+        rightAnswers: q.rightAnswers
+          .split(settings.separatorInDBString)
+          .map((q) => q.trim())
+          .join(settings.separatorInDBString),
         categories: {
           connect: q.categories.map((c) => ({ id: +c })) ?? [],
         },
@@ -42,15 +46,17 @@ export class QuestionsService {
       },
     });
     if (question) {
-      const correctAnswers = question.correctAnswers;
-      let isCorrect = false;
-      for (const correctAnswer of correctAnswers) {
-        if (answer.trim() === correctAnswer.trim()) {
-          isCorrect = true;
+      const rightAnswers = question.rightAnswers.split(
+        settings.separatorInDBString
+      );
+      let isRight = false;
+      for (const rightAnswer of rightAnswers) {
+        if (answer.trim() === rightAnswer.trim()) {
+          isRight = true;
           break;
         }
       }
-      const status = isCorrect ? "success" : "fail";
+      const status = isRight ? "success" : "fail";
 
       /*вносим логи*/
       await this.prisma.answer.create({
@@ -69,7 +75,7 @@ export class QuestionsService {
         },
       });
 
-      return { status, correctAnswers };
+      return { status, rightAnswers };
     }
   }
 
@@ -163,16 +169,38 @@ export class QuestionsService {
     }
   }
 
-  async findAll({ skip, take }: { skip?: number; take?: number }) {
+  async findAll({
+    skip,
+    take,
+    search,
+  }: {
+    skip?: number;
+    take?: number;
+    search?: string;
+  }) {
     const { userId, isAdmin } = this.request.user;
 
     const [questions, count] = await this.prisma.$transaction([
       this.prisma.question.findMany({
-        ...(take ? { take } : {}),
-        ...(skip ? { skip } : {}),
         where: {
           ...(isAdmin ? {} : { ownerId: userId }),
+          OR: [
+            {
+              question: {
+                contains: search,
+                mode: "insensitive",
+              },
+            },
+            {
+              rightAnswers: {
+                contains: search,
+                mode: "insensitive",
+              },
+            },
+          ],
         },
+        ...(take ? { take } : {}),
+        ...(skip ? { skip } : {}),
         include: {
           categories: true,
         },
@@ -180,8 +208,24 @@ export class QuestionsService {
           id: "desc",
         },
       }),
-      this.prisma.question.count(),
+
+      this.prisma.question.count({
+        where: {
+          AND: [
+            {
+              ...(isAdmin ? {} : { ownerId: userId }),
+            },
+            {
+              question: {
+                contains: search,
+                mode: "insensitive",
+              },
+            },
+          ],
+        },
+      }),
     ]);
+
     return {
       total: count,
       questions,
@@ -197,7 +241,10 @@ export class QuestionsService {
       where: { id },
       data: {
         question: q.question,
-        correctAnswers: q.correctAnswers.map((q) => q.trim()),
+        rightAnswers: q.rightAnswers
+          .split(settings.separatorInDBString)
+          .map((q) => q.trim())
+          .join(settings.separatorInDBString),
         categories: {
           set: q.categories?.map((c) => ({ id: +c })) ?? [],
         },

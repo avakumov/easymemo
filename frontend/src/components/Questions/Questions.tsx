@@ -1,6 +1,6 @@
 import api from '../../services/ApiService';
 import Loading from '../Loading/Loading';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { EntityNames, IQuestion } from '../../types';
 import { useCallback, useEffect, useState } from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -11,6 +11,8 @@ import QuestionsTable from './QuestionsTable';
 import QuestionsList from './QuestionsList';
 import Paginator from '../Paginator/Paginator';
 import settings from '../../settings';
+import { RootState } from '../../store/store';
+import BarActions from '../BarActions/BarActions';
 
 const per_page = settings.lists.PER_PAGE;
 
@@ -20,6 +22,7 @@ const Questions = () => {
 	const { data, error, isLoading } = api.useGetQuestionsQuery({
 		take: per_page,
 		skip: currentPage === 1 ? 0 : (currentPage - 1) * per_page,
+		search: useSelector((state: RootState) => state.search.commonTextSearch),
 	});
 	const [removeEntity] = api.useRemoveEntityMutation();
 
@@ -67,6 +70,7 @@ const Questions = () => {
 				onClick={() => dispatch(entityModalOpen({ name: EntityNames.QUESTION, open: true }))}>
 				<AddCircleOutlineIcon />
 			</IconButton>
+			<BarActions />
 			<Box id='start_list_questions'></Box>
 			<QuestionsTable questions={data.questions} remove={removeElementCallback} edit={editElement} />
 			<QuestionsList questions={data.questions} remove={removeElementCallback} edit={editElement} />

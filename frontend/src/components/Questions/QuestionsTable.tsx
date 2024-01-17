@@ -60,7 +60,7 @@ const TableRowMemo = memo(
 				<td>{row.question}</td>
 				<td>
 					<Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-						{row.correctAnswers.map((a) => (
+						{row.rightAnswers.split(' |-| ').map((a) => (
 							<Sheet key={a} variant='soft' sx={{ p: '0.3rem', borderRadius: '0.3rem' }}>
 								{a}
 							</Sheet>

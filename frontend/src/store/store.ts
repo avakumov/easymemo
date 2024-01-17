@@ -3,11 +3,13 @@ import api from '../services/ApiService';
 import { formEntityModalReducer } from './slices/FormEntityModalSlice';
 import { messageReducer } from './slices/messageSlice';
 import { practiceReducer } from './slices/practiceSlice';
+import { searchReducer } from './slices/searchSlice';
 
 const rootReducer = combineReducers({
 	formEntityModal: formEntityModalReducer,
 	message: messageReducer,
 	practice: practiceReducer,
+	search: searchReducer,
 	[api.reducerPath]: api.reducer,
 });
 

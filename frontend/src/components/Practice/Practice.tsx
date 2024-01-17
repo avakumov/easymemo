@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { openPracticeFilterModal } from '../../store/slices/practiceSlice';
 import { RootState } from '../../store/store';
 import api from '../../services/ApiService';
+import Search from '../Search/Search';
 const PracticeQuestionMemo = React.memo(PracticeQuestion);
 
 export default function Practice() {
@@ -46,6 +47,7 @@ export default function Practice() {
 				<IconButton variant='soft' color='primary' onClick={replay} title='Update questions'>
 					<ReplayIcon />
 				</IconButton>
+				<Search />
 				<Typography level='title-md' sx={{ ml: 'auto' }}>
 					{questions.reduce((acc, curr) => {
 						curr.status === 'success' && acc++;

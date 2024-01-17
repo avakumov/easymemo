@@ -15,7 +15,7 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 
 	const { handleSubmit, control, setValue, watch } = useForm<IQuestionForm>({
 		defaultValues: {
-			id: data?.id ?? undefined,
+			id: data?.id ?? 0,
 			question: data?.question ?? '',
 			categories: Array.isArray(data?.categories) ? data?.categories.map((c) => c.id) : [],
 			rightAnswers: data?.rightAnswers.split(' |-| ') ?? [' '],
@@ -32,12 +32,16 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 
 	const submit: SubmitHandler<IQuestionForm> = async (q) => {
 		try {
-			// q.rightAnswers = q.rightAnswers.join(' |-| ');
 			const prepQuestion = { ...q, rightAnswers: q.rightAnswers.join(' |-| ') };
-			const operation = prepQuestion.id ? updateQuestion : createQuestion;
-			const question = await operation(prepQuestion).unwrap();
+			let saveQuestion = null;
+			if (prepQuestion.id) {
+				saveQuestion = await updateQuestion(prepQuestion).unwrap();
+			} else {
+				saveQuestion = await createQuestion(prepQuestion).unwrap();
+			}
+
 			//show success message
-			question.id && dispatch(showMessage({ message: 'Quesiton saved', type: 'success' }));
+			saveQuestion?.id && dispatch(showMessage({ message: 'Quesiton saved', type: 'success' }));
 
 			//update table entities
 			dispatch(api.util.invalidateTags([EntityNames.QUESTION]));

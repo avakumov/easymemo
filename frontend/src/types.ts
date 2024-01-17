@@ -26,18 +26,37 @@ export interface ILoginAnswer {
 export interface IQuestion {
 	id: number;
 	description?: string;
+	categories: ICategory[];
 	question: string;
 	answer: string;
 	rightAnswers: string;
-	categories: ICategory[];
 }
 
-export type IQuestionForm = {
+export interface IQuestionModify {
+	id: number;
+	description?: string;
+	categories: number[];
+	question: string;
+	answer: string;
+	rightAnswers: string;
+}
+
+export interface IQuestionNew {
+	id: number;
+	description?: string;
+	categories: number[];
+	question: string;
+	answer: string;
+	rightAnswers: string;
+}
+
+export interface IQuestionForm {
+	id: number;
+	question: string;
 	categories: number[];
 	rightAnswers: string[];
-	id?: number;
-	question?: string;
-};
+	answer: string;
+}
 
 export interface IUser {
 	id: number;

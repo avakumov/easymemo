@@ -1,5 +1,15 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import { EntityName, ICategory, ILogin, ILoginAnswer, IProfile, IQuestion, IQuestionForm, IUser } from '../types';
+import {
+	EntityName,
+	ICategory,
+	ILogin,
+	ILoginAnswer,
+	IProfile,
+	IQuestion,
+	IQuestionModify,
+	IQuestionNew,
+	IUser,
+} from '../types';
 import { token } from './auth';
 
 const baseUrl = import.meta.env.PROD ? 'https://avakumov.ru/api' : 'http://localhost:8001/api';
@@ -86,14 +96,14 @@ const api = createApi({
 				body: { email, password },
 			}),
 		}),
-		createQuestion: builder.mutation<IQuestion, IQuestion>({
+		createQuestion: builder.mutation<IQuestion, IQuestionNew>({
 			query: (question) => ({
 				url: '/questions',
 				method: 'POST',
 				body: question,
 			}),
 		}),
-		updateQuestion: builder.mutation<IQuestion, IQuestion>({
+		updateQuestion: builder.mutation<IQuestion, IQuestionModify>({
 			query: (question) => ({
 				url: `/questions/${question.id}`,
 				method: 'PATCH',

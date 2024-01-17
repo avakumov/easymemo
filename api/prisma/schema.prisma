@@ -24,18 +24,17 @@ model User {
 }
 
 model Question {
-    id             Int        @id @default(autoincrement())
-    description    String?
-    question       String
-    correctAnswers String[]
-    rightAnswers   String? //разделитель правильных ответов хранятся в settings.separator
-    published      Boolean    @default(false)
-    createdAt      DateTime   @default(now())
-    updateAt       DateTime   @updatedAt
-    owner          User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-    ownerId        Int
-    categories     Category[]
-    answers        Answer[]
+    id           Int        @id @default(autoincrement())
+    description  String?
+    question     String
+    rightAnswers String? //разделитель правильных ответов хранятся в settings.separator
+    published    Boolean    @default(false)
+    createdAt    DateTime   @default(now())
+    updateAt     DateTime   @updatedAt
+    owner        User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId      Int
+    categories   Category[]
+    answers      Answer[]
 }
 
 model Category {

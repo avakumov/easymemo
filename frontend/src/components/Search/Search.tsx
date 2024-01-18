@@ -26,9 +26,10 @@ const Search = ({ sx }: { sx?: SxProps }) => {
 	}
 
 	function changeInput(e: React.ChangeEvent<HTMLInputElement>) {
-		const text = e.target.value;
-		dispatch(changeSearch(text));
-		highlight(document.body, [text]);
+		const str = e.target.value;
+		dispatch(changeSearch(str));
+		//выделяем найденное в тегe main
+		highlight('main', str);
 	}
 
 	return (

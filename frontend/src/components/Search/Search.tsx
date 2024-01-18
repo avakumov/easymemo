@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SxProps } from '@mui/joy/styles/types';
 
 const Search = ({ sx }: { sx: SxProps }) => {
+const Search = ({ sx }: { sx?: SxProps }) => {
 	const dispatch = useDispatch();
 	const [isOpen, setIsOpen] = useState(false);
 	const searchRef = useRef<HTMLInputElement>(null);

@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
-import { Box, IconButton, Sheet, Table } from '@mui/joy';
-
+import { Box, IconButton, Link, Sheet, Table } from '@mui/joy';
+import LinkIcon from '@mui/icons-material/Link';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { IQuestion } from '../../types';
@@ -17,11 +17,12 @@ export default function QuestionsTable({ questions, remove, edit }: QuestionsTab
 			<Table stickyHeader>
 				<thead>
 					<tr>
-						<th>id</th>
-						<th>Categories</th>
-						<th>Question</th>
-						<th>Answer</th>
-						<th>edit</th>
+						<th style={{ width: '5%' }}>id</th>
+						<th style={{ width: '10%' }}>Categories</th>
+						<th style={{ width: '35%' }}>Question</th>
+						<th style={{ width: '35%' }}>Answer</th>
+						<th style={{ width: '5%' }}>URL</th>
+						<th style={{ width: '10%' }}>edit</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -67,7 +68,16 @@ const TableRowMemo = memo(
 						))}
 					</Box>
 				</td>
-				<td align='center'>
+				<td>
+					{row.url ? (
+						<Link href={row.url} target='_blank' title={row.url}>
+							<LinkIcon></LinkIcon>
+						</Link>
+					) : (
+						'-'
+					)}
+				</td>
+				<td>
 					<IconButton
 						onClick={() => {
 							editElement(row);

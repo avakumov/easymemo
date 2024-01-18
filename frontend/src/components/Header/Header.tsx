@@ -18,7 +18,7 @@ export default function Header() {
 				width: '100vw',
 				height: 'var(--Header-height)',
 				zIndex: 9995,
-				p: 2,
+				p: 1,
 				gap: 1,
 				borderBottom: '1px solid',
 				borderColor: 'background.level1',

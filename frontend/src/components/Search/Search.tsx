@@ -33,7 +33,14 @@ const Search = ({ sx }: { sx?: SxProps }) => {
 	}
 
 	return (
-		<Box sx={sx}>
+		<Box
+			sx={{
+				maxWidth: {
+					xs: '200px',
+					sm: 'inherit',
+				},
+				...sx,
+			}}>
 			<Input
 				onChange={changeInput}
 				value={searchText}

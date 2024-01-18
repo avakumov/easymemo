@@ -7,9 +7,10 @@ import MenuButton from '@mui/joy/MenuButton';
 import MenuItem from '@mui/joy/MenuItem';
 import Dropdown from '@mui/joy/Dropdown';
 
+import LinkIcon from '@mui/icons-material/Link';
 import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
 import { IQuestion } from '../../types';
-import { Sheet } from '@mui/joy';
+import { Link, Sheet } from '@mui/joy';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
@@ -60,7 +61,9 @@ export default function QuestionsList({ questions, remove, edit }: QuestionsList
 							alignItems: 'start',
 						}}>
 						<Box sx={{ display: 'flex', gap: 0, flexDirection: 'column' }}>
-							<Typography gutterBottom>{question.question}</Typography>
+							<Box>
+								<Typography sx={{ mb: 1 }}>{question.question}</Typography>
+							</Box>
 
 							<Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
 								{question.rightAnswers.split(' |-| ').map((a) => (
@@ -78,7 +81,12 @@ export default function QuestionsList({ questions, remove, edit }: QuestionsList
 							</Box>
 						</Box>
 
-						<Box>
+						<Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, alignItems: 'center' }}>
+							{question.url ? (
+								<Link href={question.url} target='_blank' title={question.url}>
+									<LinkIcon />
+								</Link>
+							) : null}
 							<QuestionMenu removeItem={() => remove(question.id)} editItem={() => edit(question)} />
 						</Box>
 					</Box>

@@ -10,7 +10,6 @@ export default function BarActions({ sx }: { sx?: SxProps }) {
 				sx={{
 					display: 'flex',
 					gap: 1,
-					p: 1,
 				}}>
 				<Search sx={{ display: 'flex', gap: 1 }} />
 				<AddElement sx={{ ml: 'auto' }} />

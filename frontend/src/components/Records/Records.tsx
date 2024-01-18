@@ -2,6 +2,7 @@ import { Box } from '@mui/joy';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { EntityName, EntityNames } from '../../types';
+import BarActions from '../BarActions/BarActions';
 import Categories from '../Categories/Categories';
 import Error404 from '../Error404/Error404';
 import FormEntityModal from '../modals/FormEntityModal';
@@ -21,6 +22,7 @@ export default function Records() {
 	return (
 		<>
 			<Box sx={{ m: 1 }}>
+				<BarActions sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'end' }} />
 				<Show entityName={name} />
 			</Box>
 

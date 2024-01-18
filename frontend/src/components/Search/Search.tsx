@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 import { changeSearch } from '../../store/slices/searchSlice';
 import { RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
+import { SxProps } from '@mui/joy/styles/types';
 
-const Search = () => {
+const Search = ({ sx }: { sx: SxProps }) => {
 	const dispatch = useDispatch();
 	const [isOpen, setIsOpen] = useState(false);
 	const searchRef = useRef<HTMLInputElement>(null);
@@ -13,8 +14,10 @@ const Search = () => {
 	useEffect(() => {
 		if (isOpen && searchRef.current !== null) {
 			searchRef.current.focus();
+		} else {
+			dispatch(changeSearch(''));
 		}
-	}, [isOpen]);
+	}, [dispatch, isOpen]);
 
 	const searchText = useSelector((state: RootState) => state.search.commonTextSearch);
 
@@ -23,15 +26,11 @@ const Search = () => {
 	}
 
 	function changeInput(e: React.ChangeEvent<HTMLInputElement>) {
-		console.log(e.target.value);
 		dispatch(changeSearch(e.target.value));
 	}
 
 	return (
-		<Box sx={{ display: 'flex', gap: 1 }}>
-			<IconButton onClick={clickSearch}>
-				<SearchIcon />
-			</IconButton>
+		<Box sx={sx}>
 			<Input
 				onChange={changeInput}
 				value={searchText}
@@ -39,6 +38,9 @@ const Search = () => {
 				sx={{ display: isOpen ? 'flex' : 'none' }}
 				slotProps={{ input: { ref: searchRef, spellCheck: false } }}
 			/>
+			<IconButton onClick={clickSearch}>
+				<SearchIcon />
+			</IconButton>
 		</Box>
 	);
 };

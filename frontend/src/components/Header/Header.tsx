@@ -4,6 +4,7 @@ import Sheet from '@mui/joy/Sheet';
 import IconButton from '@mui/joy/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { toggleSidebar } from '../../utils';
+import BarActions from '../BarActions/BarActions';
 
 export default function Header() {
 	return (
@@ -36,6 +37,7 @@ export default function Header() {
 			<IconButton onClick={() => toggleSidebar()} variant='outlined' color='neutral' size='sm'>
 				<MenuIcon />
 			</IconButton>
+			<BarActions sx={{ display: { md: 'none' } }} />
 		</Sheet>
 	);
 }

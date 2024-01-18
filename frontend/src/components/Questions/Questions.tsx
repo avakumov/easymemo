@@ -3,8 +3,7 @@ import Loading from '../Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { EntityNames, IQuestion } from '../../types';
 import { useCallback, useEffect, useState } from 'react';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { Alert, Box, IconButton } from '@mui/joy';
+import { Alert, Box } from '@mui/joy';
 import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
 import { showMessage } from '../../store/slices/messageSlice';
 import QuestionsTable from './QuestionsTable';
@@ -12,7 +11,6 @@ import QuestionsList from './QuestionsList';
 import Paginator from '../Paginator/Paginator';
 import settings from '../../settings';
 import { RootState } from '../../store/store';
-import BarActions from '../BarActions/BarActions';
 
 const per_page = settings.lists.PER_PAGE;
 
@@ -63,14 +61,6 @@ const Questions = () => {
 
 	return (
 		<>
-			<IconButton
-				sx={{ position: 'fixed', right: '30px', top: '80px', zIndex: 1000 }}
-				variant='soft'
-				color='primary'
-				onClick={() => dispatch(entityModalOpen({ name: EntityNames.QUESTION, open: true }))}>
-				<AddCircleOutlineIcon />
-			</IconButton>
-			<BarActions />
 			<Box id='start_list_questions'></Box>
 			<QuestionsTable questions={data.questions} remove={removeElementCallback} edit={editElement} />
 			<QuestionsList questions={data.questions} remove={removeElementCallback} edit={editElement} />

@@ -5,12 +5,13 @@ import { changeSearch } from '../../store/slices/searchSlice';
 import { RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { SxProps } from '@mui/joy/styles/types';
+import { highlight } from '../../utils';
 
-const Search = ({ sx }: { sx: SxProps }) => {
 const Search = ({ sx }: { sx?: SxProps }) => {
 	const dispatch = useDispatch();
 	const [isOpen, setIsOpen] = useState(false);
 	const searchRef = useRef<HTMLInputElement>(null);
+	const searchText = useSelector((state: RootState) => state.search.commonTextSearch);
 
 	useEffect(() => {
 		if (isOpen && searchRef.current !== null) {
@@ -20,14 +21,14 @@ const Search = ({ sx }: { sx?: SxProps }) => {
 		}
 	}, [dispatch, isOpen]);
 
-	const searchText = useSelector((state: RootState) => state.search.commonTextSearch);
-
 	function clickSearch() {
 		setIsOpen(!isOpen);
 	}
 
 	function changeInput(e: React.ChangeEvent<HTMLInputElement>) {
-		dispatch(changeSearch(e.target.value));
+		const text = e.target.value;
+		dispatch(changeSearch(text));
+		highlight(document.body, [text]);
 	}
 
 	return (

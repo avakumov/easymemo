@@ -1,11 +1,9 @@
-import * as React from 'react';
-import Sheet from '@mui/joy/Sheet';
 import Search from '../Search/Search';
 import AddElement from '../AddElement/AddElement';
 import { SxProps } from '@mui/joy/styles/types';
 import { Box } from '@mui/joy';
 
-export default function BarActions({ sx }: { sx: SxProps }) {
+export default function BarActions({ sx }: { sx?: SxProps }) {
 	return (
 		<Box sx={sx}>
 			<Box

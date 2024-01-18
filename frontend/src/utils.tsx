@@ -84,6 +84,7 @@ export function highlight(selector: string, highlightText: string) {
 	// Find all text nodes in the main element.
 	//@ts-ignore
 	const treeWalker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT);
+
 	const allTextNodes = [];
 	let currentNode = treeWalker.nextNode();
 	while (currentNode) {
@@ -126,4 +127,13 @@ export function highlight(selector: string, highlightText: string) {
 	const highlight = new Highlight(...ranges.flat());
 	//@ts-ignore
 	CSS.highlights.set('search-result-highlight', highlight);
+}
+
+export function isURL(url: string | undefined): boolean {
+	if (!url) {
+		return false;
+	}
+	return /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
+		url
+	);
 }

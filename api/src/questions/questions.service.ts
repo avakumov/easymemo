@@ -16,6 +16,7 @@ export class QuestionsService {
     return this.prisma.question.create({
       data: {
         question: q.question,
+        url: q.url,
         rightAnswers: q.rightAnswers
           .split(settings.separatorInDBString)
           .map((q) => q.trim())
@@ -241,6 +242,7 @@ export class QuestionsService {
       where: { id },
       data: {
         question: q.question,
+        url: q.url,
         rightAnswers: q.rightAnswers
           .split(settings.separatorInDBString)
           .map((q) => q.trim())

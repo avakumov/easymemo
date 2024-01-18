@@ -8,4 +8,5 @@ export class CreateQuestionDto {
   ownerId: number;
   categories: number[];
   id: number;
+  url: string;
 }

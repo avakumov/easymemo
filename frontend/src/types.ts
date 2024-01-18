@@ -30,6 +30,7 @@ export interface IQuestion {
 	question: string;
 	answer: string;
 	rightAnswers: string;
+	url?: string;
 }
 
 export interface IQuestionModify {
@@ -39,6 +40,7 @@ export interface IQuestionModify {
 	question: string;
 	answer: string;
 	rightAnswers: string;
+	url?: string;
 }
 
 export interface IQuestionNew {
@@ -48,6 +50,7 @@ export interface IQuestionNew {
 	question: string;
 	answer: string;
 	rightAnswers: string;
+	url?: string;
 }
 
 export interface IQuestionForm {
@@ -56,6 +59,7 @@ export interface IQuestionForm {
 	categories: number[];
 	rightAnswers: string[];
 	answer: string;
+	url?: string;
 }
 
 export interface IUser {

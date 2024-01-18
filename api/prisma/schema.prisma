@@ -35,6 +35,7 @@ model Question {
     ownerId      Int
     categories   Category[]
     answers      Answer[]
+    url          String?
 }
 
 model Category {

@@ -6,6 +6,7 @@ import { Box, Button, FormControl, FormLabel, IconButton, Option, Select, Textar
 import { showMessage } from '../../store/slices/messageSlice';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { isURL } from '../../utils';
 
 export default function FormQuestion({ data, exit }: { exit: () => void; data?: IQuestion }) {
 	const [createQuestion] = api.useCreateQuestionMutation();
@@ -13,12 +14,19 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 	const { data: categories } = api.useGetCategoriesQuery();
 	const dispatch = useDispatch();
 
-	const { handleSubmit, control, setValue, watch } = useForm<IQuestionForm>({
+	const {
+		handleSubmit,
+		control,
+		setValue,
+		watch,
+		formState: { errors },
+	} = useForm<IQuestionForm>({
 		defaultValues: {
 			id: data?.id ?? 0,
 			question: data?.question ?? '',
 			categories: Array.isArray(data?.categories) ? data?.categories.map((c) => c.id) : [],
 			rightAnswers: data?.rightAnswers.split(' |-| ') ?? [' '],
+			url: data?.url ?? '',
 		},
 	});
 	const { fields, append, remove } = useFieldArray({
@@ -140,6 +148,32 @@ export default function FormQuestion({ data, exit }: { exit: () => void; data?: 
 								))}
 						</Select>
 					)}
+				/>
+				<Controller
+					name='url'
+					control={control}
+					rules={{
+						required: false,
+						validate: (value) => {
+							if (value === '') return true;
+							return isURL(value);
+						},
+					}}
+					render={({ field }) => {
+						// console.log(field);
+						return (
+							<FormControl>
+								<FormLabel>URL</FormLabel>
+								<Textarea
+									slotProps={{ textarea: { spellCheck: 'false', type: 'url' } }}
+									variant='soft'
+									placeholder='https://example.com'
+									error={errors.url ? true : false}
+									{...field}
+								/>
+							</FormControl>
+						);
+					}}
 				/>
 				<Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
 					<Button variant='soft' onClick={exit}>

@@ -6,6 +6,7 @@ import { RootState } from '../../store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { SxProps } from '@mui/joy/styles/types';
 import { highlight } from '../../utils';
+import { resetPage } from '../../store/slices/paginatorSlice';
 
 const Search = ({ sx }: { sx?: SxProps }) => {
 	const dispatch = useDispatch();
@@ -28,6 +29,8 @@ const Search = ({ sx }: { sx?: SxProps }) => {
 	function changeInput(e: React.ChangeEvent<HTMLInputElement>) {
 		const str = e.target.value;
 		dispatch(changeSearch(str));
+		//сбрасываем страницу на первую
+		dispatch(resetPage());
 		//выделяем найденное в тегe main
 		highlight('main', str);
 	}

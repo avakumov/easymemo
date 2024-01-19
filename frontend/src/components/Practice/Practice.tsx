@@ -47,7 +47,6 @@ export default function Practice() {
 				<IconButton variant='soft' color='primary' onClick={replay} title='Update questions'>
 					<ReplayIcon />
 				</IconButton>
-				<Search />
 				<Typography level='title-md' sx={{ ml: 'auto' }}>
 					{questions.reduce((acc, curr) => {
 						curr.status === 'success' && acc++;

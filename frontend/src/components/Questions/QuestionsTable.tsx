@@ -19,10 +19,10 @@ export default function QuestionsTable({ questions, remove, edit }: QuestionsTab
 					<tr>
 						<th style={{ width: '5%' }}>id</th>
 						<th style={{ width: '10%' }}>Categories</th>
-						<th style={{ width: '35%' }}>Question</th>
-						<th style={{ width: '35%' }}>Answer</th>
+						<th style={{ width: '45%' }}>Question</th>
+						<th style={{ width: '30%' }}>Answer</th>
 						<th style={{ width: '5%' }}>URL</th>
-						<th style={{ width: '10%' }}>edit</th>
+						<th style={{ width: '5%' }}>edit</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -62,7 +62,15 @@ const TableRowMemo = memo(
 				<td>
 					<Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
 						{row.rightAnswers.split(' |-| ').map((a) => (
-							<Sheet key={a} variant='soft' sx={{ p: '0.3rem', borderRadius: '0.3rem' }}>
+							<Sheet
+								key={a}
+								variant='soft'
+								title={a}
+								sx={{
+									p: '0.3rem',
+									borderRadius: '0.3rem',
+									overflowWrap: 'break-word',
+								}}>
 								{a}
 							</Sheet>
 						))}

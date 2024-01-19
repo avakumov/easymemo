@@ -21,7 +21,7 @@ export default function Records() {
 
 	return (
 		<>
-			<Box sx={{ m: 1 }}>
+			<Box sx={{ m: 1, width: '100%' }}>
 				<BarActions sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'end', p: 1 }} />
 				<Show entityName={name} />
 			</Box>

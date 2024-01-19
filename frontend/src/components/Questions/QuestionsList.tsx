@@ -60,14 +60,31 @@ export default function QuestionsList({ questions, remove, edit }: QuestionsList
 							justifyContent: 'space-between',
 							alignItems: 'start',
 						}}>
-						<Box sx={{ display: 'flex', gap: 0, flexDirection: 'column' }}>
+						<Box
+							sx={{
+								display: 'flex',
+								gap: 0,
+								flexDirection: 'column',
+							}}>
 							<Box>
 								<Typography sx={{ mb: 1 }}>{question.question}</Typography>
 							</Box>
 
-							<Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+							<Box
+								sx={{
+									display: 'flex',
+									flexDirection: 'column',
+									gap: '0.5rem',
+								}}>
 								{question.rightAnswers.split(' |-| ').map((a) => (
-									<Sheet key={a} variant='soft' sx={{ p: '0.3rem', borderRadius: '0.3rem' }}>
+									<Sheet
+										key={a}
+										variant='soft'
+										sx={{
+											p: '0.3rem',
+											borderRadius: '0.3rem',
+											overflowWrap: 'anywhere',
+										}}>
 										{a}
 									</Sheet>
 								))}

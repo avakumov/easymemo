@@ -1,6 +1,9 @@
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Box, IconButton } from '@mui/joy';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { setPage } from '../../store/slices/paginatorSlice';
 
 type PaginatorProps = {
 	setPage: (id: number) => void;
@@ -8,7 +11,23 @@ type PaginatorProps = {
 	currentPage: number;
 };
 const delta = 2;
-const Paginator = ({ setPage, pagesCount, currentPage }: PaginatorProps) => {
+
+export default function PaginatorContainer({ total }: { total: number }) {
+	const dispatch = useDispatch();
+
+	const { currentPage, perPage } = useSelector((state: RootState) => state.paginator);
+	return (
+		<Paginator
+			currentPage={currentPage}
+			pagesCount={Math.ceil(total / perPage)}
+			setPage={(page: number) => {
+				dispatch(setPage(page));
+			}}
+		/>
+	);
+}
+
+export function Paginator({ setPage, pagesCount, currentPage }: PaginatorProps) {
 	let minPage = currentPage - delta;
 	if (minPage < 1) {
 		minPage = 1;
@@ -86,6 +105,4 @@ const Paginator = ({ setPage, pagesCount, currentPage }: PaginatorProps) => {
 			</IconButton>
 		</Box>
 	);
-};
-
-export default Paginator;
+}

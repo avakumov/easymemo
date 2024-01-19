@@ -2,24 +2,21 @@ import api from '../../services/ApiService';
 import Loading from '../Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { EntityNames, IQuestion } from '../../types';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Alert, Box } from '@mui/joy';
 import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
 import { showMessage } from '../../store/slices/messageSlice';
 import QuestionsTable from './QuestionsTable';
 import QuestionsList from './QuestionsList';
 import Paginator from '../Paginator/Paginator';
-import settings from '../../settings';
 import { RootState } from '../../store/store';
-
-const per_page = settings.lists.PER_PAGE;
 
 const Questions = () => {
 	const dispatch = useDispatch();
-	const [currentPage, setCurrentPage] = useState(1);
+	const { currentPage, perPage } = useSelector((state: RootState) => state.paginator);
 	const { data, error, isLoading } = api.useGetQuestionsQuery({
-		take: per_page,
-		skip: currentPage === 1 ? 0 : (currentPage - 1) * per_page,
+		take: perPage,
+		skip: currentPage === 1 ? 0 : (currentPage - 1) * perPage,
 		search: useSelector((state: RootState) => state.search.commonTextSearch),
 	});
 	const [removeEntity] = api.useRemoveEntityMutation();
@@ -64,11 +61,7 @@ const Questions = () => {
 			<Box id='start_list_questions'></Box>
 			<QuestionsTable questions={data.questions} remove={removeElementCallback} edit={editElement} />
 			<QuestionsList questions={data.questions} remove={removeElementCallback} edit={editElement} />
-			<Paginator
-				currentPage={currentPage}
-				pagesCount={Math.ceil(data.total / per_page)}
-				setPage={setCurrentPage}
-			/>
+			<Paginator total={data.total} />
 		</>
 	);
 };

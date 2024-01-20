@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { openPracticeFilterModal } from '../../store/slices/practiceSlice';
 import { RootState } from '../../store/store';
 import api from '../../services/ApiService';
-import Search from '../Search/Search';
 const PracticeQuestionMemo = React.memo(PracticeQuestion);
 
 export default function Practice() {

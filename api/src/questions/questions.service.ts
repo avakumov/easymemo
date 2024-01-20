@@ -4,6 +4,8 @@ import { PrismaService } from "src/prisma/prisma.service";
 import { REQUEST } from "@nestjs/core";
 import { RequestExtended } from "src/entities/request";
 import settings from "../../settings";
+import { QuestionsFilter } from "src/types";
+import { removeDuplicatesById } from "src/utils";
 
 @Injectable({ scope: Scope.REQUEST })
 export class QuestionsService {
@@ -96,26 +98,16 @@ export class QuestionsService {
       });
       return getRandom(questions, count);
     }
-    const groupedQuestions = await getQuestionsWithFilter.call(
-      this,
-      categories
-    );
-
-    /*приводим к одноменому массиву*/
-    const questions = [].concat(...groupedQuestions);
-
-    //TODO refactor this for best performance
-    /*удаляем  дубликаты*/
-    const questionsWithoutDublicates = filterById(questions);
+    const questions = await this.getQuestionsWithFilter({ categories });
 
     /*удаляем правильные ответы*/
-    questionsWithoutDublicates.forEach((q) => {
-      delete q.answer;
+    questions.forEach((q) => {
+      delete q.rightAnswers;
     });
 
     //TODO refactor this for best performance
     /*выбираем необходимое количество*/
-    return getRandom(questionsWithoutDublicates, count);
+    return getRandom(questions, count);
 
     /*Для взятия случайных элементов в количестве count */
     function getRandom(arr: any[], count: number) {
@@ -133,40 +125,32 @@ export class QuestionsService {
       }
       return res;
     }
+  }
 
-    function filterById(arr: { id: number }[]) {
-      const withoutDublicates = [];
-      arr.forEach((q) => {
-        const findedId = withoutDublicates.find((e) => e.id === q.id);
-        if (!findedId) {
-          withoutDublicates.push(q);
-        }
-      });
-      return withoutDublicates;
-    }
-
-    async function getQuestionsWithFilter(categories: string[]) {
-      const { userId, isAdmin } = this.request.user;
-      if (Array.isArray(categories) && categories.length !== 0) {
-        return Promise.all(
-          categories.map(async (c: string): Promise<any> => {
-            return this.prisma.category
-              .findFirst({
-                where: {
-                  AND: [
-                    {
-                      name: { equals: c },
-                    },
-                    isAdmin ? {} : { ownerId: userId },
-                  ],
-                },
-              })
-              .questions({
-                include: { categories: true },
-              });
-          })
-        );
-      }
+  private async getQuestionsWithFilter(filter: { categories: string[] }) {
+    const { userId, isAdmin } = this.request.user;
+    const { categories } = filter;
+    if (Array.isArray(categories) && categories.length !== 0) {
+      const dirtyQuestions = await Promise.all(
+        categories.map(async (c: string): Promise<any> => {
+          return this.prisma.category
+            .findFirst({
+              where: {
+                AND: [
+                  {
+                    name: { equals: c },
+                  },
+                  isAdmin ? {} : { ownerId: userId },
+                ],
+              },
+            })
+            .questions({
+              include: { categories: true },
+            });
+        })
+      );
+      const questionsWithDublicates = dirtyQuestions.flat();
+      return removeDuplicatesById(questionsWithDublicates);
     }
   }
 
@@ -179,16 +163,29 @@ export class QuestionsService {
     skip?: number;
     take?: number;
     search?: string;
-    filter?: {
-      categories?: string[];
-    };
+    filter?: QuestionsFilter;
   }) {
     const { userId, isAdmin } = this.request.user;
+
+    //Если массив категорий пустой то считаем что фильтр выключен
+    const categoryFilterQuery =
+      filter.categories.length === 0
+        ? {}
+        : {
+            categories: {
+              some: {
+                name: {
+                  in: filter.categories,
+                },
+              },
+            },
+          };
 
     const [questions, count] = await this.prisma.$transaction([
       this.prisma.question.findMany({
         where: {
           ...(isAdmin ? {} : { ownerId: userId }),
+          ...categoryFilterQuery,
           OR: [
             {
               question: {
@@ -216,12 +213,17 @@ export class QuestionsService {
 
       this.prisma.question.count({
         where: {
-          AND: [
-            {
-              ...(isAdmin ? {} : { ownerId: userId }),
-            },
+          ...(isAdmin ? {} : { ownerId: userId }),
+          ...categoryFilterQuery,
+          OR: [
             {
               question: {
+                contains: search,
+                mode: "insensitive",
+              },
+            },
+            {
+              rightAnswers: {
                 contains: search,
                 mode: "insensitive",
               },

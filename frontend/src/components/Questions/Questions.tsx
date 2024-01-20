@@ -18,6 +18,7 @@ const Questions = () => {
 		take: perPage,
 		skip: currentPage === 1 ? 0 : (currentPage - 1) * perPage,
 		search: useSelector((state: RootState) => state.search.commonTextSearch),
+		filter: useSelector((state: RootState) => state.filters.questions.filter),
 	});
 	const [removeEntity] = api.useRemoveEntityMutation();
 

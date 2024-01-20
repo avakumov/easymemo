@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import api from '../services/ApiService';
+import { filtersReducer } from './slices/filtersSlice';
 import { formEntityModalReducer } from './slices/FormEntityModalSlice';
 import { messageReducer } from './slices/messageSlice';
 import { paginatorReducer } from './slices/paginatorSlice';
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
 	practice: practiceReducer,
 	search: searchReducer,
 	paginator: paginatorReducer,
+	filters: filtersReducer,
 	[api.reducerPath]: api.reducer,
 });
 

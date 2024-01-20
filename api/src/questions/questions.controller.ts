@@ -10,6 +10,7 @@ import {
 } from "@nestjs/common";
 import { QuestionsService } from "./questions.service";
 import { CreateQuestionDto } from "./dto/create-question.dto";
+import { QuestionsFilter } from "src/types";
 
 @Controller("questions")
 export class QuestionsController {
@@ -37,9 +38,7 @@ export class QuestionsController {
       skip?: number;
       take?: number;
       search?: string;
-      filter?: {
-        categories?: string[];
-      };
+      filter?: QuestionsFilter;
     }
   ) {
     return this.questionsService.find(body);

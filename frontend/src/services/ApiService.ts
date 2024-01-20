@@ -63,14 +63,13 @@ const api = createApi({
 		}),
 		getQuestions: builder.query<
 			{ questions: IQuestion[]; total: number },
-			{ skip?: number; take?: number; search?: string }
+			{ skip?: number; take?: number; search?: string; filter: string[] }
 		>({
-			query: ({ skip, take, search }) => {
-				const skipParam = skip ? `skip=${skip}` : '';
-				const takeParam = take ? `take=${take}` : '';
-				const searchParam = take ? `search=${search}` : '';
+			query: ({ skip, take, search, filter }) => {
 				return {
-					url: `/questions?${[skipParam, takeParam, searchParam].join('&')}`,
+					url: `/questions/find`,
+					method: 'POST',
+					body: { skip, take, search, filter },
 				};
 			},
 			providesTags: ['questions'],

@@ -170,14 +170,18 @@ export class QuestionsService {
     }
   }
 
-  async findAll({
+  async find({
     skip,
     take,
     search,
+    filter,
   }: {
     skip?: number;
     take?: number;
     search?: string;
+    filter?: {
+      categories?: string[];
+    };
   }) {
     const { userId, isAdmin } = this.request.user;
 

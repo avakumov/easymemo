@@ -30,15 +30,19 @@ export class QuestionsController {
     return this.questionsService.checkAnswer(body);
   }
 
-  @Get()
-  async findAll(
-    @Query() query: { skip?: number; take?: number; search?: string }
+  @Post("/find")
+  async find(
+    @Body()
+    body: {
+      skip?: number;
+      take?: number;
+      search?: string;
+      filter?: {
+        categories?: string[];
+      };
+    }
   ) {
-    return this.questionsService.findAll({
-      skip: Number(query.skip),
-      take: Number(query.take),
-      search: query.search,
-    });
+    return this.questionsService.find(body);
   }
 
   @Get(":id")

@@ -1,21 +1,28 @@
-import { Box, IconButton, Typography } from '@mui/joy';
-import React from 'react';
+import { Box } from '@mui/joy';
+import React, { useEffect } from 'react';
 import { usePratice } from '../../hooks/practice';
 import PracticeQuestion from '../PracticeQuestion/PracticeQuestion';
-
-import ReplayIcon from '@mui/icons-material/Replay';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { useDispatch, useSelector } from 'react-redux';
-import { openPracticeFilterModal } from '../../store/slices/practiceSlice';
 import { RootState } from '../../store/store';
-import api from '../../services/ApiService';
+import BarActions from '../BarActions/BarActions';
+import { setPracticeAllCount, setPracticeSuccessCount } from '../../store/slices/practiceSlice';
 const PracticeQuestionMemo = React.memo(PracticeQuestion);
 
 export default function Practice() {
-	const dispatch = useDispatch();
 	const filter = useSelector((state: RootState) => state.practice.filter);
+	const dispatch = useDispatch();
 
 	const { questions, next, checkAnswer, setActive } = usePratice(filter);
+
+	useEffect(() => {
+		const successCount = questions.reduce((acc, curr) => {
+			curr.status === 'success' && acc++;
+			return acc;
+		}, 0);
+		dispatch(setPracticeSuccessCount(successCount));
+		const allCount = questions.length;
+		dispatch(setPracticeAllCount(allCount));
+	}, [dispatch, questions]);
 
 	const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
 		if (e.key === 'Tab') {
@@ -29,31 +36,11 @@ export default function Practice() {
 		}
 	};
 
-	function replay() {
-		dispatch(api.util.invalidateTags(['practice']));
-	}
-
-	function openFilters() {
-		dispatch(openPracticeFilterModal());
-	}
-
 	return (
 		<Box sx={{ maxWidth: '900px', m: 1 }}>
-			<Box sx={{ display: 'flex', columnGap: '0.5rem', mb: '1rem', alignItems: 'center' }}>
-				<IconButton variant='soft' color='primary' onClick={openFilters} title='Open filters'>
-					<FilterAltIcon />
-				</IconButton>
-				<IconButton variant='soft' color='primary' onClick={replay} title='Update questions'>
-					<ReplayIcon />
-				</IconButton>
-				<Typography level='title-md' sx={{ ml: 'auto' }}>
-					{questions.reduce((acc, curr) => {
-						curr.status === 'success' && acc++;
-						return acc;
-					}, 0)}
-					/{questions.length}
-				</Typography>
-			</Box>
+			<BarActions
+				sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'end', p: 1, alignItems: 'center' }}
+			/>
 			<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }} onKeyDown={onKeyDown}>
 				{questions.map((q) => (
 					<PracticeQuestionMemo key={q.id} question={q} ref={q.ref} setActive={setActive} />

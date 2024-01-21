@@ -6,6 +6,8 @@ interface PracticeState {
 		count: number;
 		categories: string[];
 	};
+	successCount: number;
+	allCount: number;
 }
 
 const initialState: PracticeState = {
@@ -14,6 +16,8 @@ const initialState: PracticeState = {
 		count: 10,
 		categories: [],
 	},
+	successCount: 0,
+	allCount: 0,
 };
 
 export const practiceSlice = createSlice({
@@ -29,8 +33,20 @@ export const practiceSlice = createSlice({
 		setPracticeFilter(state, action: PayloadAction<Pick<PracticeState, 'filter'>>) {
 			state.filter = action.payload.filter;
 		},
+		setPracticeSuccessCount(state, action: PayloadAction<number>) {
+			state.successCount = action.payload;
+		},
+		setPracticeAllCount(state, action: PayloadAction<number>) {
+			state.allCount = action.payload;
+		},
 	},
 });
-export const { openPracticeFilterModal, closePracticeFilterModal, setPracticeFilter } = practiceSlice.actions;
+export const {
+	openPracticeFilterModal,
+	closePracticeFilterModal,
+	setPracticeFilter,
+	setPracticeSuccessCount,
+	setPracticeAllCount,
+} = practiceSlice.actions;
 
 export const practiceReducer = practiceSlice.reducer;

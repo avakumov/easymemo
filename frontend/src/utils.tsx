@@ -2,6 +2,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import CategoryIcon from '@mui/icons-material/Category';
 import { ReactNode } from 'react';
+import settings from './settings';
 
 const icons = new Map<string, ReactNode>([
 	['users', <GroupIcon sx={{ color: 'text.primary' }} />],
@@ -136,4 +137,9 @@ export function isURL(url: string | undefined): boolean {
 	return /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/.test(
 		url
 	);
+}
+
+export function removePrefixFromPath(path: string) {
+	const re = new RegExp(`^${settings.URL_PREFIX}`);
+	return path.replace(re, '');
 }

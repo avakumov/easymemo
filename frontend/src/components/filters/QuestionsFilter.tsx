@@ -1,7 +1,7 @@
 import api from '../../services/ApiService';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Button, Checkbox, Option, ListItem, Select, Sheet, Typography } from '@mui/joy';
+import { Box, Button, Checkbox, ListItem, Sheet, Typography } from '@mui/joy';
 import { RootState } from '../../store/store';
 import { Controller, useForm } from 'react-hook-form';
 import {
@@ -12,6 +12,7 @@ import {
 } from '../../store/slices/filtersSlice';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import { resetPage } from '../../store/slices/paginatorSlice';
 
 type FormType = Record<string, boolean | number>;
 
@@ -42,8 +43,14 @@ export default function QuestionsFilter() {
 			categories,
 		};
 		dispatch(setQuestionsFilter(filter));
+		dispatch(resetPage());
 		dispatch(closeQuestionsFilterModal());
 	};
+
+	function toggleFilterOn(state: boolean) {
+		dispatch(state ? disableQuestionsFilter() : enableQuestionsFilter());
+		dispatch(resetPage());
+	}
 
 	return (
 		<Sheet component='form' onSubmit={handleSubmit(submit)}>
@@ -53,7 +60,7 @@ export default function QuestionsFilter() {
 			<Box sx={{ mb: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 				<Button
 					variant='plain'
-					onClick={() => dispatch(enabledFilter ? disableQuestionsFilter() : enableQuestionsFilter())}
+					onClick={() => toggleFilterOn(enabledFilter)}
 					startDecorator={enabledFilter ? <FilterAltIcon /> : <FilterAltOffIcon />}>
 					{enabledFilter ? 'Switch off filter' : 'Switch on filter'}
 				</Button>

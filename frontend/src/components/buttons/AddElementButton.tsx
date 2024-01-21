@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 import { EntityNames } from '../../types';
 import { SxProps } from '@mui/joy/styles/types';
 
-export default function AddElement({ sx }: { sx: SxProps }) {
+export default function AddElementButton({ sx }: { sx: SxProps }) {
 	const [params] = useSearchParams();
 	const nameElement = params.get('show');
 	const dispatch = useDispatch();

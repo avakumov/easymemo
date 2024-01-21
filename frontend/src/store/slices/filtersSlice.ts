@@ -6,6 +6,7 @@ interface filtersState {
 			categories: string[];
 		};
 		isOpenModal: boolean;
+		enabled: boolean;
 	};
 }
 
@@ -15,6 +16,7 @@ const initialState: filtersState = {
 			categories: [],
 		},
 		isOpenModal: false,
+		enabled: false,
 	},
 };
 
@@ -34,8 +36,20 @@ export const filtersSlice = createSlice({
 		closeQuestionsFilterModal(state) {
 			state.questions.isOpenModal = false;
 		},
+		enableQuestionsFilter(state) {
+			state.questions.enabled = true;
+		},
+		disableQuestionsFilter(state) {
+			state.questions.enabled = false;
+		},
 	},
 });
-export const { setQuestionsFilter, openQuestionsFilterModal, closeQuestionsFilterModal } = filtersSlice.actions;
+export const {
+	setQuestionsFilter,
+	openQuestionsFilterModal,
+	closeQuestionsFilterModal,
+	disableQuestionsFilter,
+	enableQuestionsFilter,
+} = filtersSlice.actions;
 
 export const filtersReducer = filtersSlice.reducer;

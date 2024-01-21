@@ -1,7 +1,7 @@
 import Search from '../Search/Search';
 import { SxProps } from '@mui/joy/styles/types';
 import { Box } from '@mui/joy';
-import { QuestionsFilter } from '../buttons/Filters';
+import { QuestionsFilterButton } from '../buttons/FilterButtons';
 import AddElement from '../buttons/AddElement';
 
 export default function BarActions({ sx }: { sx?: SxProps }) {
@@ -13,7 +13,7 @@ export default function BarActions({ sx }: { sx?: SxProps }) {
 					gap: 1,
 				}}>
 				<Search sx={{ display: 'flex', gap: 1 }} />
-				<QuestionsFilter />
+				<QuestionsFilterButton />
 				<AddElement sx={{ ml: 'auto' }} />
 			</Box>
 		</Box>

@@ -14,11 +14,13 @@ import { RootState } from '../../store/store';
 const Questions = () => {
 	const dispatch = useDispatch();
 	const { currentPage, perPage } = useSelector((state: RootState) => state.paginator);
+	const enabledFilter = useSelector((state: RootState) => state.filters.questions.enabled);
+	const filter = useSelector((state: RootState) => state.filters.questions.filter);
 	const { data, error, isLoading } = api.useGetQuestionsQuery({
 		take: perPage,
 		skip: currentPage === 1 ? 0 : (currentPage - 1) * perPage,
 		search: useSelector((state: RootState) => state.search.commonTextSearch),
-		filter: useSelector((state: RootState) => state.filters.questions.filter),
+		filter: enabledFilter ? filter : null,
 	});
 	const [removeEntity] = api.useRemoveEntityMutation();
 

@@ -4,14 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Checkbox, Option, ListItem, Select, Sheet, Typography } from '@mui/joy';
 import { RootState } from '../../store/store';
 import { Controller, useForm } from 'react-hook-form';
-import { closePracticeFilterModal, setPracticeFilter } from '../../store/slices/practiceSlice';
-import { closeQuestionsFilterModal, setQuestionsFilter } from '../../store/slices/filtersSlice';
+import {
+	closeQuestionsFilterModal,
+	disableQuestionsFilter,
+	enableQuestionsFilter,
+	setQuestionsFilter,
+} from '../../store/slices/filtersSlice';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 
 type FormType = Record<string, boolean | number>;
 
 export default function QuestionsFilter() {
 	const dispatch = useDispatch();
 	const filter = useSelector((state: RootState) => state.filters.questions.filter);
+	const enabledFilter = useSelector((state: RootState) => state.filters.questions.enabled);
 	const { data: categories } = api.useGetCategoriesQuery();
 
 	const cats: Record<string, boolean> = {};
@@ -40,9 +47,17 @@ export default function QuestionsFilter() {
 
 	return (
 		<Sheet component='form' onSubmit={handleSubmit(submit)}>
-			<Typography level='title-lg' sx={{ mb: '2rem', textAlign: 'center' }}>
-				Filter by category
+			<Typography level='title-lg' sx={{ mb: '1rem', textAlign: 'center' }}>
+				Questions filter
 			</Typography>
+			<Box sx={{ mb: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+				<Button
+					variant='plain'
+					onClick={() => dispatch(enabledFilter ? disableQuestionsFilter() : enableQuestionsFilter())}
+					startDecorator={enabledFilter ? <FilterAltIcon /> : <FilterAltOffIcon />}>
+					{enabledFilter ? 'Switch off filter' : 'Switch on filter'}
+				</Button>
+			</Box>
 			<Typography level='body-lg' sx={{ mb: '2px', pl: '1rem' }}>
 				Categories
 			</Typography>
@@ -65,6 +80,7 @@ export default function QuestionsFilter() {
 										<Checkbox
 											{...field}
 											overlay
+											disabled={!enabledFilter}
 											disableIcon
 											variant='soft'
 											label={item.name}

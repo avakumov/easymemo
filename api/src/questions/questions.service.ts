@@ -167,19 +167,27 @@ export class QuestionsService {
   }) {
     const { userId, isAdmin } = this.request.user;
 
-    //Если массив категорий пустой то считаем что фильтр выключен
-    const categoryFilterQuery =
-      filter.categories.length === 0
-        ? {}
-        : {
-            categories: {
-              some: {
-                name: {
-                  in: filter.categories,
-                },
+    //Если filter null,undef - фильтр выключен
+    let categoryFilterQuery = {};
+    if (Array.isArray(filter?.categories)) {
+      if (filter.categories.length === 0) {
+        categoryFilterQuery = {
+          categories: {
+            none: {},
+          },
+        };
+      } else {
+        categoryFilterQuery = {
+          categories: {
+            some: {
+              name: {
+                in: filter.categories,
               },
             },
-          };
+          },
+        };
+      }
+    }
 
     const [questions, count] = await this.prisma.$transaction([
       this.prisma.question.findMany({

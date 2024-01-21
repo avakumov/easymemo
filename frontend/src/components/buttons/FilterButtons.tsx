@@ -1,18 +1,18 @@
 import { IconButton } from '@mui/joy';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import QuestionsFilterModal from '../modals/QuestionsFilterModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { openQuestionsFilterModal } from '../../store/slices/filtersSlice';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import { RootState } from '../../store/store';
 
-export function QuestionsFilter() {
+export function QuestionsFilterButton() {
 	const dispatch = useDispatch();
-	const { categories } = useSelector((state: RootState) => state.filters.questions.filter);
+	const filterEnabled = useSelector((state: RootState) => state.filters.questions.enabled);
 	return (
 		<>
 			<FilterButton
-				disabled={categories.length === 0}
+				disabled={!filterEnabled}
 				onClick={() => {
 					dispatch(openQuestionsFilterModal());
 				}}

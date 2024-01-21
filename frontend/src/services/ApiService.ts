@@ -63,7 +63,7 @@ const api = createApi({
 		}),
 		getQuestions: builder.query<
 			{ questions: IQuestion[]; total: number },
-			{ skip?: number; take?: number; search?: string; filter: { categories: string[] } }
+			{ skip?: number; take?: number; search?: string; filter: { categories: string[] } | null }
 		>({
 			query: ({ skip, take, search, filter }) => {
 				return {

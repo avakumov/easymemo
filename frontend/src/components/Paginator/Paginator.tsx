@@ -12,7 +12,7 @@ type PaginatorProps = {
 };
 const delta = 2;
 
-export default function PaginatorContainer({ total }: { total: number }) {
+export default function PaginatorContainer({ total, callback }: { total: number; callback: () => void }) {
 	const dispatch = useDispatch();
 
 	const { currentPage, perPage } = useSelector((state: RootState) => state.paginator);
@@ -22,6 +22,7 @@ export default function PaginatorContainer({ total }: { total: number }) {
 			pagesCount={Math.ceil(total / perPage)}
 			setPage={(page: number) => {
 				dispatch(setPage(page));
+				callback && callback();
 			}}
 		/>
 	);

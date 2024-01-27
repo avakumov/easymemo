@@ -36,14 +36,6 @@ const Questions = () => {
 		data?.total && dispatch(showMessage({ message: ` ${data?.total} total records`, type: 'info' }));
 	}, [data?.total, dispatch]);
 
-	//прокрутка в начало данных
-	useEffect(() => {
-		setTimeout(() => {
-			const start_list_questions = document.querySelector('#start_list_questions');
-			start_list_questions?.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'smooth' });
-		}, 200);
-	}, [data?.questions]);
-
 	async function removeElement(id: number) {
 		try {
 			const removedQuestion = await removeEntity({ entityName: EntityNames.QUESTION, id }).unwrap();
@@ -71,7 +63,16 @@ const Questions = () => {
 			<Box id='start_list_questions'></Box>
 			<QuestionsTable questions={data.questions} remove={removeElementCallback} edit={editElement} />
 			<QuestionsList questions={data.questions} remove={removeElementCallback} edit={editElement} />
-			<Paginator total={data.total} />
+			<Paginator
+				total={data.total}
+				callback={() => {
+					//прокрутка в начало данных
+					setTimeout(() => {
+						const start_list_questions = document.querySelector('#start_list_questions');
+						start_list_questions?.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'smooth' });
+					}, 200);
+				}}
+			/>
 		</>
 	);
 };

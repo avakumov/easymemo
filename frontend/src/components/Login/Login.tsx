@@ -1,8 +1,9 @@
 import { Box, Button, Container, Grid, Input, Link, Sheet, Typography } from '@mui/joy';
 import api from '../../services/ApiService';
 import { token } from '../../services/auth';
+import settings from '../../settings';
 
-export default function Login({ href }: { href: undefined | string }) {
+export default function Login({ href }: { href?: undefined | string }) {
 	const [login, status] = api.usePostLoginMutation();
 	const handleSubmit = async (event: any) => {
 		event.preventDefault();
@@ -55,7 +56,7 @@ export default function Login({ href }: { href: undefined | string }) {
 							<Link href='#'>Forgot password?</Link>
 						</Grid>
 						<Grid>
-							<Link href='#'>{'Register'}</Link>
+							<Link href={`${settings.URL_PREFIX}/registration`}>Registration</Link>
 						</Grid>
 					</Grid>
 				</Box>

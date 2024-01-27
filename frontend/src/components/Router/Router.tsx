@@ -5,6 +5,7 @@ import MainAuthLayout from '../layouts/MainAuthLayout';
 import PracticeFilterModal from '../modals/PracticeFilterModal';
 import Practice from '../Practice/Practice';
 import Records from '../Records/Records';
+import Registration from '../Registration/Registration';
 
 const router = createBrowserRouter(
 	[
@@ -28,6 +29,10 @@ const router = createBrowserRouter(
 		{
 			path: '/stats',
 			element: <MainAuthLayout>stats</MainAuthLayout>,
+		},
+		{
+			path: '/registration',
+			element: <Registration />,
 		},
 		{
 			path: '*',

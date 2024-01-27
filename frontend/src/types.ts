@@ -19,8 +19,25 @@ export interface ILogin {
 	password: string;
 }
 
+export interface IRegisterForm {
+	email: string;
+	password: string;
+	repeatPassword: string;
+	firstName: string;
+	lastName: string;
+}
+
+export type IRegister = Omit<IRegisterForm, 'repeatPassword'>;
+
 export interface ILoginAnswer {
 	access_token: string;
+}
+
+export interface IRegisterAnswer {
+	access_token?: string;
+	error?: {
+		message: string;
+	};
 }
 
 export interface IQuestion {

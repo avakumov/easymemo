@@ -143,3 +143,9 @@ export function removePrefixFromPath(path: string) {
 	const re = new RegExp(`^${settings.URL_PREFIX}`);
 	return path.replace(re, '');
 }
+
+export function isEmail(email: string) {
+	return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+		email
+	);
+}

@@ -8,6 +8,8 @@ import {
 	IQuestion,
 	IQuestionModify,
 	IQuestionNew,
+	IRegister,
+	IRegisterAnswer,
 	IUser,
 } from '../types';
 import { token } from './auth';
@@ -93,6 +95,13 @@ const api = createApi({
 				url: `auth/login`,
 				method: 'POST',
 				body: { email, password },
+			}),
+		}),
+		register: builder.mutation<IRegisterAnswer, IRegister>({
+			query: ({ email, password, firstName, lastName }) => ({
+				url: `auth/register`,
+				method: 'POST',
+				body: { email, password, firstName, lastName },
 			}),
 		}),
 		createQuestion: builder.mutation<IQuestion, IQuestionNew>({

@@ -1,5 +1,7 @@
 api/node_modules
 api/package-lock.json
+cli/node_modules
+cli/package-lock.json
 frontend/node_modules
 frontend/package-lock.json
 node_modules

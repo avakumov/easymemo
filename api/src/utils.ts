@@ -13,7 +13,7 @@ export function isIntersection(where: any[], what: any[]) {
 }
 
 export function removeDuplicatesById(arr: { id: number }[]) {
-  const withoutDublicates = [];
+  const withoutDublicates: { id: number }[] = [];
   arr.forEach((q) => {
     const findedId = withoutDublicates.find((e) => e.id === q.id);
     if (!findedId) {

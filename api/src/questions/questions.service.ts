@@ -4,7 +4,7 @@ import { PrismaService } from "src/prisma/prisma.service";
 import { REQUEST } from "@nestjs/core";
 import { RequestExtended } from "src/entities/request";
 import settings from "../../settings";
-import { QuestionsFilter } from "src/types";
+import { IQuestion, QuestionsFilter } from "src/types";
 import { removeDuplicatesById } from "src/utils";
 
 @Injectable({ scope: Scope.REQUEST })
@@ -49,9 +49,9 @@ export class QuestionsService {
       },
     });
     if (question) {
-      const rightAnswers = question.rightAnswers.split(
-        settings.separatorInDBString
-      );
+      const rightAnswers = question.rightAnswers
+        ? question.rightAnswers.split(settings.separatorInDBString)
+        : [];
       let isRight = false;
       for (const rightAnswer of rightAnswers) {
         if (answer.trim() === rightAnswer.trim()) {
@@ -101,17 +101,16 @@ export class QuestionsService {
     const questions = await this.getQuestionsWithFilter({ categories });
 
     /*удаляем правильные ответы*/
-    questions.forEach((q) => {
-      delete q.rightAnswers;
-    });
+    const questionsWithoutRightAnsters: Omit<IQuestion, "rightAnswers">[] =
+      questions.map((q) => ({ ...q, rightAnswers: undefined }));
 
     //TODO refactor this for best performance
     /*выбираем необходимое количество*/
-    return getRandom(questions, count);
+    return getRandom(questionsWithoutRightAnsters, count);
 
     /*Для взятия случайных элементов в количестве count */
     function getRandom(arr: any[], count: number) {
-      const res = [];
+      const res: any[] = [];
       if (Array.isArray(arr) && !isNaN(count)) {
         let len = arr.length;
         if (len < count) {
@@ -127,31 +126,33 @@ export class QuestionsService {
     }
   }
 
-  private async getQuestionsWithFilter(filter: { categories: string[] }) {
+  private async getQuestionsWithFilter(filter: {
+    categories: string[];
+  }): Promise<IQuestion[]> {
     const { userId, isAdmin } = this.request.user;
     const { categories } = filter;
-    if (Array.isArray(categories) && categories.length !== 0) {
-      const dirtyQuestions = await Promise.all(
-        categories.map(async (c: string): Promise<any> => {
-          return this.prisma.category
-            .findFirst({
-              where: {
-                AND: [
-                  {
-                    name: { equals: c },
-                  },
-                  isAdmin ? {} : { ownerId: userId },
-                ],
-              },
-            })
-            .questions({
-              include: { categories: true },
-            });
-        })
-      );
-      const questionsWithDublicates = dirtyQuestions.flat();
-      return removeDuplicatesById(questionsWithDublicates);
-    }
+    if (!Array.isArray(categories) || categories.length === 0) return [];
+    const dirtyQuestions = await Promise.all(
+      categories.map(async (c: string): Promise<any> => {
+        return this.prisma.category
+          .findFirst({
+            where: {
+              AND: [
+                {
+                  name: { equals: c },
+                },
+                isAdmin ? {} : { ownerId: userId },
+              ],
+            },
+          })
+          .questions({
+            include: { categories: true },
+          });
+      })
+    );
+    const questionsWithDublicates = dirtyQuestions.flat();
+    /* @ts-ignore */
+    return removeDuplicatesById(questionsWithDublicates);
   }
 
   async find({
@@ -170,7 +171,7 @@ export class QuestionsService {
     //Если filter null,undef - фильтр выключен
     let categoryFilterQuery = {};
     if (Array.isArray(filter?.categories)) {
-      if (filter.categories.length === 0) {
+      if (filter?.categories.length === 0) {
         categoryFilterQuery = {
           categories: {
             none: {},
@@ -181,7 +182,7 @@ export class QuestionsService {
           categories: {
             some: {
               name: {
-                in: filter.categories,
+                in: filter?.categories,
               },
             },
           },

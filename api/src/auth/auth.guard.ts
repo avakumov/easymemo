@@ -32,7 +32,7 @@ export class AuthGuard implements CanActivate {
     }
 
     //Проверка токена
-    let payload = null;
+    let payload = {};
     try {
       payload = await this.jwtService.verifyAsync(token, {
         secret: process.env.JWT_SECRET,
@@ -48,7 +48,7 @@ export class AuthGuard implements CanActivate {
       context.getClass(),
     ]);
     if (isAdmin) {
-      if (payload.isAdmin) {
+      if (payload["isAdmin"]) {
         return true;
       } else {
         throw new ForbiddenException();

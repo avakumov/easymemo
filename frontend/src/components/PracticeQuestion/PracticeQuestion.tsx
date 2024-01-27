@@ -67,8 +67,8 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 						<Sheet color='danger' sx={{ px: '0.5rem', borderRadius: '5px' }}>
 							{q.answer}
 						</Sheet>
-						{q.rightAnswers &&
-							q.rightAnswers.split(' |-| ').map((rightAnswer, index) => (
+						{Array.isArray(q.rightAnswers) &&
+							q.rightAnswers.map((rightAnswer, index) => (
 								<Sheet key={index} color='success' sx={{ px: '0.5rem', borderRadius: '5px' }}>
 									{rightAnswer}
 								</Sheet>

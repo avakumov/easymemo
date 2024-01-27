@@ -9,6 +9,6 @@ body {
 
 /* Необходимо для выделения текста при поиске. Использует компонент Search */
 ::highlight(search-result-highlight) {
-        background-color: yellow;
-        color: black;
+	background-color: yellow;
+	color: black;
 }

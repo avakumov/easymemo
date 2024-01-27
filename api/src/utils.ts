@@ -12,8 +12,9 @@ export function isIntersection(where: any[], what: any[]) {
   return false;
 }
 
-export function removeDuplicatesById(arr: { id: number }[]) {
-  const withoutDublicates: { id: number }[] = [];
+type removeDuplicatesByIdType = Array<{ id: number } & any>;
+export function removeDuplicatesById(arr: removeDuplicatesByIdType) {
+  const withoutDublicates: removeDuplicatesByIdType = [];
   arr.forEach((q) => {
     const findedId = withoutDublicates.find((e) => e.id === q.id);
     if (!findedId) {

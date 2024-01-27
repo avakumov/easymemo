@@ -151,7 +151,6 @@ export class QuestionsService {
       })
     );
     const questionsWithDublicates = dirtyQuestions.flat();
-    /* @ts-ignore */
     return removeDuplicatesById(questionsWithDublicates);
   }
 

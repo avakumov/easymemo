@@ -30,6 +30,13 @@ const Questions = () => {
 		},
 		[dispatch]
 	);
+
+	//показ сообщения о количестве найденных записей
+	useEffect(() => {
+		data?.total && dispatch(showMessage({ message: ` ${data?.total} total records`, type: 'info' }));
+	}, [data?.total, dispatch]);
+
+	//прокрутка в начало данных
 	useEffect(() => {
 		setTimeout(() => {
 			const start_list_questions = document.querySelector('#start_list_questions');

@@ -77,27 +77,28 @@ export default function QuestionsFilter() {
 						justifyContent: 'center',
 						'--ListItem-radius': '1rem',
 					}}>
-					{Array.isArray(categories) &&
-						categories.map((item) => (
-							<ListItem key={item.id} sx={{ py: '0.5rem', px: '1rem' }}>
-								<Controller
-									name={item.name}
-									control={control}
-									render={({ field }) => (
-										<Checkbox
-											{...field}
-											overlay
-											disabled={!enabledFilter}
-											disableIcon
-											variant='soft'
-											label={item.name}
-											checked={field.value ? true : false}
-											value={field.value ? '1' : '0'}
-										/>
-									)}
-								/>
-							</ListItem>
-						))}
+					{Array.isArray(categories) && categories.length
+						? categories.map((item) => (
+								<ListItem key={item.id} sx={{ py: '0.5rem', px: '1rem' }}>
+									<Controller
+										name={item.name}
+										control={control}
+										render={({ field }) => (
+											<Checkbox
+												{...field}
+												overlay
+												disabled={!enabledFilter}
+												disableIcon
+												variant='soft'
+												label={item.name}
+												checked={field.value ? true : false}
+												value={field.value ? '1' : '0'}
+											/>
+										)}
+									/>
+								</ListItem>
+						  ))
+						: 'Categories not found'}
 				</Box>
 			</Sheet>
 

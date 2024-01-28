@@ -4,8 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { REQUEST } from '@nestjs/core';
 import { RequestExtended } from 'src/entities/request';
 import settings from '../../settings';
-import { IQuestion, QuestionsFilter } from 'src/types';
-import { removeDuplicatesById } from 'src/utils';
+import { QuestionsFilter } from 'src/types';
 
 @Injectable({ scope: Scope.REQUEST })
 export class QuestionsService {
@@ -72,29 +71,21 @@ export class QuestionsService {
 	}
 
 	async practice({ categories, count }: { categories: string[]; count: number }) {
-		/*если не указаны категории берем из всех*/
-		if (Array.isArray(categories) && categories.length === 0) {
-			const questions = await this.prisma.question.findMany({
-				include: {
-					categories: true,
-				},
-			});
-			return getRandom(questions, count);
-		}
-		const questions = await this.getQuestionsWithFilter({ categories });
+		const { questions } = await this.find({ filter: { categories } });
 
 		/*удаляем правильные ответы*/
-		const questionsWithoutRightAnsters: Omit<IQuestion, 'rightAnswers'>[] = questions.map((q) => ({
-			...q,
-			rightAnswers: undefined,
-		}));
+		const questionsWithoutRightAnsters = questions.map((q) => {
+			/*@ts-ignore*/
+			delete q.rightAnswers;
+			return q;
+		});
 
 		//TODO refactor this for best performance
 		/*выбираем необходимое количество*/
 		return getRandom(questionsWithoutRightAnsters, count);
 
 		/*Для взятия случайных элементов в количестве count */
-		function getRandom(arr: any[], count: number) {
+		function getRandom(arr: Array<any>, count: number) {
 			const res: any[] = [];
 			if (Array.isArray(arr) && !isNaN(count)) {
 				let len = arr.length;
@@ -109,32 +100,6 @@ export class QuestionsService {
 			}
 			return res;
 		}
-	}
-
-	private async getQuestionsWithFilter(filter: { categories: string[] }): Promise<IQuestion[]> {
-		const { userId, isAdmin } = this.request.user;
-		const { categories } = filter;
-		if (!Array.isArray(categories) || categories.length === 0) return [];
-		const dirtyQuestions = await Promise.all(
-			categories.map(async (c: string): Promise<any> => {
-				return this.prisma.category
-					.findFirst({
-						where: {
-							AND: [
-								{
-									name: { equals: c },
-								},
-								isAdmin ? {} : { ownerId: userId },
-							],
-						},
-					})
-					.questions({
-						include: { categories: true },
-					});
-			})
-		);
-		const questionsWithDublicates = dirtyQuestions.flat();
-		return removeDuplicatesById(questionsWithDublicates);
 	}
 
 	async find({
@@ -177,20 +142,24 @@ export class QuestionsService {
 				where: {
 					...(isAdmin ? {} : { ownerId: userId }),
 					...categoryFilterQuery,
-					OR: [
-						{
-							question: {
-								contains: search,
-								mode: 'insensitive',
-							},
-						},
-						{
-							rightAnswers: {
-								contains: search,
-								mode: 'insensitive',
-							},
-						},
-					],
+					...(search
+						? {
+								OR: [
+									{
+										question: {
+											contains: search,
+											mode: 'insensitive',
+										},
+									},
+									{
+										rightAnswers: {
+											contains: search,
+											mode: 'insensitive',
+										},
+									},
+								],
+						  }
+						: {}),
 				},
 				...(take ? { take } : {}),
 				...(skip ? { skip } : {}),
@@ -206,20 +175,24 @@ export class QuestionsService {
 				where: {
 					...(isAdmin ? {} : { ownerId: userId }),
 					...categoryFilterQuery,
-					OR: [
-						{
-							question: {
-								contains: search,
-								mode: 'insensitive',
-							},
-						},
-						{
-							rightAnswers: {
-								contains: search,
-								mode: 'insensitive',
-							},
-						},
-					],
+					...(search
+						? {
+								OR: [
+									{
+										question: {
+											contains: search,
+											mode: 'insensitive',
+										},
+									},
+									{
+										rightAnswers: {
+											contains: search,
+											mode: 'insensitive',
+										},
+									},
+								],
+						  }
+						: {}),
 				},
 			}),
 		]);

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import Box from '@mui/joy/Box';
 import List from '@mui/joy/List';
@@ -18,25 +17,67 @@ import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import CategoryIcon from '@mui/icons-material/Category';
 import Profile from '../Profile/Profile';
 import { closeSidebar } from '../../utils';
+import api from '../../services/ApiService';
+import { useMemo, useState } from 'react';
 
-const menuItems = [
-	{
-		title: 'Practice',
-		path: '/',
-		icon: <KeyboardIcon />,
-	},
-	{
-		title: 'Records',
-		path: '/records',
-		icon: <ViewListIcon />,
-		items: [
-			{ title: 'Questions', path: '/records?show=questions', icon: <QuestionMarkIcon /> },
-			{ title: 'Categories', path: '/records?show=categories', icon: <CategoryIcon /> },
-			{ title: 'Users', path: '/records?show=users', icon: <GroupIcon /> },
-		],
-	},
-	{ title: 'Stats', path: '/stats', icon: <AutoGraphIcon /> },
-];
+function getMenuItems(role: string) {
+	type MenuItemType = {
+		title: string;
+		path: string;
+		icon: JSX.Element;
+		roles: string[];
+		items?: Array<MenuItemType>;
+	};
+
+	type MenuItemsType = Array<MenuItemType>;
+
+	const menuItems: MenuItemsType = [
+		{
+			title: 'Practice',
+			path: '/',
+			icon: <KeyboardIcon />,
+			roles: ['admin', 'user'],
+		},
+		{
+			title: 'Records',
+			path: '/records',
+			icon: <ViewListIcon />,
+			roles: ['admin', 'user'],
+			items: [
+				{
+					title: 'Questions',
+					path: '/records?show=questions',
+					icon: <QuestionMarkIcon />,
+					roles: ['admin', 'user'],
+				},
+				{
+					title: 'Categories',
+					path: '/records?show=categories',
+					icon: <CategoryIcon />,
+					roles: ['admin', 'user'],
+				},
+				{ title: 'Users', path: '/records?show=users', icon: <GroupIcon />, roles: ['admin'] },
+			],
+		},
+		{ title: 'Stats', path: '/stats', icon: <AutoGraphIcon />, roles: ['admin', 'user'] },
+	];
+
+	const includesRole = (item: { roles?: string[] }) => Array.isArray(item.roles) && item.roles.includes(role);
+
+	const filter = (arr: MenuItemsType) => {
+		return arr.reduce((acc: MenuItemsType, item) => {
+			const newItem = item;
+			if (Array.isArray(item.items)) {
+				newItem.items = filter(item.items);
+			}
+			if (includesRole(newItem)) {
+				acc.push(newItem);
+			}
+			return acc;
+		}, []);
+	};
+	return filter(menuItems);
+}
 
 function Toggler({
 	defaultExpanded = false,
@@ -50,9 +91,10 @@ function Toggler({
 		setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	}) => React.ReactNode;
 }) {
-	const [open, setOpen] = React.useState(defaultExpanded);
+	const [open, setOpen] = useState(defaultExpanded);
+
 	return (
-		<React.Fragment>
+		<>
 			{renderToggle({ open, setOpen })}
 			<Box
 				sx={{
@@ -65,7 +107,7 @@ function Toggler({
 				}}>
 				{children}
 			</Box>
-		</React.Fragment>
+		</>
 	);
 }
 
@@ -73,6 +115,13 @@ export default function Sidebar() {
 	const { pathname, search } = window.location;
 	const currentPath = pathname + search;
 	const navigate = useNavigate();
+
+	const { data: profile } = api.useGetProfileQuery();
+	const role = profile?.isAdmin ? 'admin' : 'user';
+	const menuItems = useMemo(() => {
+		return getMenuItems(role);
+	}, [role]);
+
 	const handleClickPage = (path: string) => {
 		const currentPath = window.location.pathname;
 		if (currentPath === path) return;

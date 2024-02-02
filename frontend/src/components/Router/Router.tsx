@@ -38,10 +38,10 @@ const router = createBrowserRouter(
 			path: '*',
 			element: <Error404 />,
 		},
-	],
-	{
-		basename: settings.URL_PREFIX,
-	}
+	]
+	// {
+	// 	basename: settings.URL_PREFIX,
+	// }
 );
 
 export default router;

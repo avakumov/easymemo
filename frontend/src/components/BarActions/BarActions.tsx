@@ -1,7 +1,6 @@
 import Search from '../Search/Search';
 import { SxProps } from '@mui/joy/styles/types';
 import { Box, Sheet, Typography, useTheme } from '@mui/joy';
-import { removePrefixFromPath } from '../../utils';
 import { useSearchParams } from 'react-router-dom';
 import { QuestionsFilterButton } from '../buttons/QuestionsFilterButton';
 import AddElementButton from '../buttons/AddElementButton';
@@ -13,9 +12,8 @@ import { openPracticeFilterModal } from '../../store/slices/practiceSlice';
 import { RootState } from '../../store/store';
 
 export default function BarActions({ sx }: { sx?: SxProps }) {
-	const { pathname } = window.location;
+	const { pathname: path } = window.location;
 	const [params] = useSearchParams();
-	const path = removePrefixFromPath(pathname);
 	const showParam = params.get('show');
 
 	return (

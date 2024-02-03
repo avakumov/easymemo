@@ -56,7 +56,7 @@ export default function Login({ href }: { href?: undefined | string }) {
 							<Link href='#'>Forgot password?</Link>
 						</Grid>
 						<Grid>
-							<Link href={`${settings.URL_PREFIX}/registration`}>Registration</Link>
+							<Link href={`/registration`}>Registration</Link>
 						</Grid>
 					</Grid>
 				</Box>

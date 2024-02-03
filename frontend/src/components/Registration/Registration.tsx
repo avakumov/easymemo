@@ -41,7 +41,7 @@ export default function Registration() {
 		}
 
 		access_token && token.saveToken(access_token);
-		window.location.href = `${settings.URL_PREFIX}`;
+		window.location.href = `/`;
 	};
 
 	return (
@@ -173,7 +173,7 @@ export default function Registration() {
 							<Link href='#'>Forgot password?</Link>
 						</Grid>
 						<Grid>
-							<Link href={settings.URL_PREFIX}>Login</Link>
+							<Link href='/'>Login</Link>
 						</Grid>
 					</Grid>
 				</Box>

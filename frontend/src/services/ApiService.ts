@@ -14,7 +14,7 @@ import {
 } from '../types';
 import { token } from './auth';
 
-const baseUrl = import.meta.env.PROD ? 'https://avakumov.ru/api' : 'http://localhost:8001/api';
+const baseUrl = import.meta.env.PROD ? 'https://easymemo.avakumov.ru/api' : 'http://localhost:8001/api';
 /*функция запроса с токеном*/
 const baseQuery = fetchBaseQuery({
 	baseUrl,

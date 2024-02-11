@@ -6,6 +6,7 @@ import { UsersModule } from 'src/users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
 import settings from '../../settings';
+
 @Module({
 	imports: [
 		UsersModule,

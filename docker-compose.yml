@@ -6,6 +6,10 @@ services:
     hostname: postgres
     image: postgres:13.5
     restart: always
+    depends_on:
+      - pgadmin
+      - api
+      - easymemo-front 
     env_file:
       - ./api/.env
     volumes:
@@ -19,8 +23,6 @@ services:
     container_name: pgadmin_easymemo
     image: dpage/pgadmin4
     restart: unless-stopped
-    depends_on:
-      - postgres
     env_file:
       - ./api/.env
     volumes:
@@ -34,8 +36,6 @@ services:
     image: nestjs-api
     hostname: api
     build: ./api
-    depends_on:
-      - postgres
     env_file:
       - ./api/.env
     ports:

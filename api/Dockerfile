@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 ENV NODE_ENV=prod
 
 COPY package*.json ./
-RUN npm i
+RUN npm ci
 COPY . .
 
 RUN npm run build

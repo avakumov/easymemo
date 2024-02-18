@@ -40,6 +40,8 @@ services:
       - ./api/.env
     ports:
       - 8001:8001
+    volumes:
+      - /home/avakdev/easymemo/files:/usr/src/app/uploads
     networks:
       - postgres-pgadmin
 

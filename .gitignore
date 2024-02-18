@@ -32,6 +32,7 @@ api/!.vscode/launch.json
 api/!.vscode/extensions.json
 api/.env
 api/src/test-api.http
+api/uploads
 
 frontend/logs
 frontend/*.log

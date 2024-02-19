@@ -103,3 +103,24 @@ export interface ICategoryForm {
 }
 
 export type IEntity = IQuestion | IUser | ICategory | undefined;
+
+export type ResponseSaveFileType = {
+	file: {
+		destination: string;
+		//"./uploads/audio"
+		encoding: string;
+		//"7bit"
+		fieldname: string;
+		//"file"
+		filename: string;
+		//"93156430-2fa3-4d04-8d8a-8cc2db6cbaf2.wav"
+		mimetype: string;
+		//"audio/wav"
+		originalname: string;
+		//"audio.wav"
+		path: string;
+		//"uploads/audio/93156430-2fa3-4d04-8d8a-8cc2db6cbaf2.wav"
+		size: number;
+		//292908
+	};
+};

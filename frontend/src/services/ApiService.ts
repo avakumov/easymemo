@@ -11,6 +11,7 @@ import {
 	IRegister,
 	IRegisterAnswer,
 	IUser,
+	ResponseSaveFileType,
 } from '../types';
 import { token } from './auth';
 
@@ -149,6 +150,13 @@ const api = createApi({
 				url: `/users/${pickedUser.id}`,
 				method: 'PATCH',
 				body: { themeInterface: pickedUser.themeInterface },
+			}),
+		}),
+		uploadAudio: builder.mutation<ResponseSaveFileType, FormData>({
+			query: (formData) => ({
+				url: '/files/upload/wav',
+				method: 'POST',
+				body: formData,
 			}),
 		}),
 	}),

@@ -19,6 +19,7 @@ import Profile from '../Profile/Profile';
 import { closeSidebar } from '../../utils';
 import api from '../../services/ApiService';
 import { useMemo, useState } from 'react';
+import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 
 function getMenuItems(role: string) {
 	type MenuItemType = {
@@ -60,6 +61,7 @@ function getMenuItems(role: string) {
 			],
 		},
 		{ title: 'Stats', path: '/stats', icon: <AutoGraphIcon />, roles: ['admin', 'user'] },
+		{ title: 'Audio records', path: '/audios', icon: <HeadsetMicIcon />, roles: ['admin', 'user'] },
 	];
 
 	const includesRole = (item: { roles?: string[] }) => Array.isArray(item.roles) && item.roles.includes(role);

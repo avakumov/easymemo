@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
+import AudioRecorder from '../AudioRecorder/AudioRecorder';
 import Error404 from '../Error404/Error404';
 import MainAuthLayout from '../layouts/MainAuthLayout';
 import PracticeFilterModal from '../modals/PracticeFilterModal';
@@ -27,6 +28,14 @@ const router = createBrowserRouter([
 	{
 		path: '/stats',
 		element: <MainAuthLayout>stats</MainAuthLayout>,
+	},
+	{
+		path: '/audios',
+		element: (
+			<MainAuthLayout>
+				<AudioRecorder />
+			</MainAuthLayout>
+		),
 	},
 	{
 		path: '/registration',

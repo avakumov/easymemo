@@ -30,12 +30,12 @@ export class FilesController {
 			}),
 		})
 	)
-	@Post('upload/mp3')
+	@Post('upload/wav')
 	uploadFileAndFailValidation(
 		@UploadedFile(
 			new ParseFilePipeBuilder()
 				.addFileTypeValidator({
-					fileType: 'audio/mpeg',
+					fileType: 'audio/wav',
 				})
 				.build()
 		)

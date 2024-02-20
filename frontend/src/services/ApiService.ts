@@ -154,7 +154,7 @@ const api = createApi({
 		}),
 		uploadAudio: builder.mutation<ResponseSaveFileType, FormData>({
 			query: (formData) => ({
-				url: '/files/upload/wav',
+				url: '/files/upload/mp3',
 				method: 'POST',
 				body: formData,
 			}),

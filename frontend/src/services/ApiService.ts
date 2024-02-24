@@ -37,6 +37,7 @@ const baseQueryWithLogout: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 		token.removeToken();
 		const url = localStorage.getItem('_url');
 		url && localStorage.removeItem('_url');
+		window.location.href = '/login';
 	}
 	return result;
 };

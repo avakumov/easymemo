@@ -13,7 +13,7 @@ export default function Login({ href }: { href?: undefined | string }) {
 		if (email && password && typeof email === 'string' && typeof password === 'string') {
 			const { access_token } = await login({ email, password }).unwrap();
 			access_token && token.saveToken(access_token);
-			window.location.href = href ?? '/practice';
+			window.location.href = href ?? '/';
 		}
 	};
 

@@ -1,7 +1,6 @@
-import { Box, Button, Container, Grid, Input, Link, Sheet, Typography } from '@mui/joy';
+import { Box, Button, Grid, Input, Link, Sheet, Typography } from '@mui/joy';
 import api from '../../services/ApiService';
 import { token } from '../../services/auth';
-import settings from '../../settings';
 
 export default function Login({ href }: { href?: undefined | string }) {
 	const [login, status] = api.usePostLoginMutation();

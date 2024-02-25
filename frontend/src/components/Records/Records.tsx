@@ -25,8 +25,6 @@ export default function Records() {
 				<BarActions sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'end', p: 1 }} />
 				<Show entityName={name} />
 			</Box>
-
-			<FormEntityModal />
 		</>
 	);
 }

@@ -20,6 +20,7 @@ import { closeSidebar } from '../../utils';
 import api from '../../services/ApiService';
 import { useMemo, useState } from 'react';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
+import SlideshowIcon from '@mui/icons-material/Slideshow';
 
 function getMenuItems(role: string) {
 	type MenuItemType = {
@@ -62,6 +63,7 @@ function getMenuItems(role: string) {
 		},
 		{ title: 'Stats', path: '/stats', icon: <AutoGraphIcon />, roles: ['admin', 'user'] },
 		{ title: 'Audio records', path: '/audios', icon: <HeadsetMicIcon />, roles: ['admin', 'user'] },
+		{ title: 'Slides', path: '/slides', icon: <SlideshowIcon />, roles: ['admin', 'user'] },
 	];
 
 	const includesRole = (item: { roles?: string[] }) => Array.isArray(item.roles) && item.roles.includes(role);

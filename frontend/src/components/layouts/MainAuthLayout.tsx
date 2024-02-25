@@ -16,7 +16,6 @@ const MainAuthLayout = ({ children }: { children: ReactNode }) => (
 						xs: 'calc(var(--Header-height))',
 						sm: 'calc(var(--Header-height))',
 					},
-					width: '100%',
 					display: 'flex',
 					justifyContent: 'center',
 				}}>

@@ -38,9 +38,14 @@ function Actions({ path, showParam }: { path: string; showParam: string | null }
 			return <ActionsCategories />;
 		}
 		return null;
-	} else {
+	}
+	if (path === '/') {
 		return <ActionsPractice />;
 	}
+	if (path === '/slides') {
+		return <ActionsQuestions />;
+	}
+	return null;
 }
 
 function ActionsPractice() {

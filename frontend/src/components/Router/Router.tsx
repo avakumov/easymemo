@@ -1,7 +1,9 @@
 import { Box } from '@mui/joy';
+import { ErrorBoundary } from 'react-error-boundary';
 import { createBrowserRouter } from 'react-router-dom';
 import AudioRecorder from '../AudioRecorder/AudioRecorder';
 import Error404 from '../Error404/Error404';
+import Fallback from '../Fallback/Fallback';
 import MainAuthLayout from '../layouts/MainAuthLayout';
 import Login from '../Login/Login';
 import FormEntityModal from '../modals/FormEntityModal';
@@ -15,63 +17,87 @@ const router = createBrowserRouter([
 	{
 		path: '/',
 		element: (
-			<MainAuthLayout>
-				<Practice />
-				<PracticeFilterModal />
-			</MainAuthLayout>
+			<ErrorBoundary FallbackComponent={Fallback}>
+				<MainAuthLayout>
+					<Practice />
+					<PracticeFilterModal />
+				</MainAuthLayout>
+			</ErrorBoundary>
 		),
 	},
 	{
 		path: '/records',
 		element: (
-			<MainAuthLayout>
-				<Records />
-				<FormEntityModal />
-			</MainAuthLayout>
+			<ErrorBoundary FallbackComponent={Fallback}>
+				<MainAuthLayout>
+					<Records />
+					<FormEntityModal />
+				</MainAuthLayout>
+			</ErrorBoundary>
 		),
 	},
 	{
 		path: '/stats',
-		element: <MainAuthLayout>stats</MainAuthLayout>,
+		element: (
+			<ErrorBoundary FallbackComponent={Fallback}>
+				<MainAuthLayout>stats</MainAuthLayout>
+			</ErrorBoundary>
+		),
 	},
 	{
 		path: '/audios',
 		element: (
-			<MainAuthLayout>
-				<AudioRecorder />
-			</MainAuthLayout>
+			<ErrorBoundary FallbackComponent={Fallback}>
+				<MainAuthLayout>
+					<AudioRecorder />
+				</MainAuthLayout>
+			</ErrorBoundary>
 		),
 	},
 	{
 		path: '/slides',
 		element: (
-			<MainAuthLayout>
-				<Box
-					sx={{
-						display: 'flex',
-						justifyContent: 'center',
-						gap: 2,
-						flexDirection: 'column',
-						height: 'calc(100vh - var(--Header-height))',
-					}}>
-					<Splider />
-				</Box>
+			<ErrorBoundary FallbackComponent={Fallback}>
+				<MainAuthLayout>
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: 'center',
+							gap: 2,
+							flexDirection: 'column',
+							height: 'calc(100vh - var(--Header-height))',
+						}}>
+						<Splider />
+					</Box>
 
-				<FormEntityModal />
-			</MainAuthLayout>
+					<FormEntityModal />
+				</MainAuthLayout>
+			</ErrorBoundary>
 		),
 	},
 	{
 		path: '/registration',
-		element: <Registration />,
+		element: (
+			<ErrorBoundary FallbackComponent={Fallback}>
+				<Registration />
+			</ErrorBoundary>
+		),
 	},
 	{
 		path: '/login',
-		element: <Login />,
+		element: (
+			<ErrorBoundary FallbackComponent={Fallback}>
+				<Login />
+			</ErrorBoundary>
+		),
 	},
 	{
 		path: '*',
-		element: <Error404 />,
+		element: (
+			<ErrorBoundary FallbackComponent={Fallback}>
+				<Error404 />
+			</ErrorBoundary>
+		),
 	},
 ]);
 

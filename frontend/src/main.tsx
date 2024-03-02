@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import Message from './components/Message/Message';
 import { CssVarsProvider } from '@mui/joy/styles';
-import { CssBaseline, Box } from '@mui/joy';
-import './index.css';
+import { CssBaseline } from '@mui/joy';
 import router from './components/Router/Router';
+import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>

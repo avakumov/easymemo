@@ -65,6 +65,13 @@ const api = createApi({
 			}),
 			providesTags: ['practice'],
 		}),
+		getQuestion: builder.query<IQuestion, number>({
+			query: (id) => ({
+				url: `/questions/${id}`,
+				params: {},
+			}),
+			providesTags: ['questions'],
+		}),
 		getQuestions: builder.query<
 			{ questions: IQuestion[]; total: number },
 			{ skip?: number; take?: number; search?: string; filter: { categories: string[] } | null }

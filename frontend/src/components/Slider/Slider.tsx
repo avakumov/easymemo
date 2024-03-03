@@ -1,4 +1,3 @@
-import React, { useCallback, useEffect } from 'react';
 // Default theme
 import '@splidejs/react-splide/css';
 // or other themes
@@ -14,46 +13,17 @@ import api from '../../services/ApiService';
 
 import LinkIcon from '@mui/icons-material/Link';
 import QuestionMenu from '../QuestionMenu/QuestionMenu';
-import { useDispatch, useSelector } from 'react-redux';
-import { showMessage } from '../../store/slices/messageSlice';
-import { EntityNames, IQuestion } from '../../types';
-import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 
 const Splider = () => {
 	const filter = useSelector((state: RootState) => state.filters.questions.filter);
-	const { data, error, isLoading } = api.useGetQuestionsQuery({ filter });
-
-	const dispatch = useDispatch();
-
-	const editElement = useCallback(
-		(question: IQuestion) => {
-			dispatch(entityModalOpen({ name: EntityNames.QUESTION, data: question, open: true }));
-		},
-		[dispatch]
-	);
-	const [removeEntity] = api.useRemoveEntityMutation();
-	const removeElementCallback = useCallback(removeElement, [dispatch, removeEntity]);
+	const { data } = api.useGetQuestionsQuery({ filter });
 
 	const theme = useTheme();
 	let isMobile = useMedia(`(max-width: ${theme.breakpoints.values.md}px)`);
 	const width = isMobile ? '100vw' : 'calc(100vw - var(--Sidebar-width))';
 
-	async function removeElement(id: number) {
-		try {
-			const removedQuestion = await removeEntity({ entityName: EntityNames.QUESTION, id }).unwrap();
-
-			if (removedQuestion.id) {
-				removedQuestion.id && dispatch(showMessage({ message: 'Quesiton removed', type: 'success' }));
-				dispatch(api.util.invalidateTags([EntityNames.QUESTION]));
-			} else {
-				dispatch(showMessage({ type: 'info', message: 'Что-то пошло не так' }));
-			}
-		} catch (e: any) {
-			console.log(e);
-			dispatch(showMessage({ type: 'error', message: e?.data?.message ?? 'Error on remove' }));
-		}
-	}
 	if (data?.questions.length === 0) {
 		return <Box sx={{ fontSize: '2rem' }}>Слайдов нет!</Box>;
 	}
@@ -97,10 +67,7 @@ const Splider = () => {
 							) : (
 								<Box></Box>
 							)}
-							<QuestionMenu
-								removeItem={() => removeElementCallback(question.id)}
-								editItem={() => editElement(question)}
-							/>
+							<QuestionMenu questionId={question.id} />
 						</Box>
 
 						<Box

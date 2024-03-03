@@ -6,7 +6,6 @@ import Error404 from '../Error404/Error404';
 import Fallback from '../Fallback/Fallback';
 import MainAuthLayout from '../layouts/MainAuthLayout';
 import Login from '../Login/Login';
-import FormEntityModal from '../modals/FormEntityModal';
 import PracticeFilterModal from '../modals/PracticeFilterModal';
 import Practice from '../Practice/Practice';
 import Records from '../Records/Records';
@@ -31,7 +30,6 @@ const router = createBrowserRouter([
 			<ErrorBoundary FallbackComponent={Fallback}>
 				<MainAuthLayout>
 					<Records />
-					<FormEntityModal />
 				</MainAuthLayout>
 			</ErrorBoundary>
 		),
@@ -69,8 +67,6 @@ const router = createBrowserRouter([
 						}}>
 						<Splider />
 					</Box>
-
-					<FormEntityModal />
 				</MainAuthLayout>
 			</ErrorBoundary>
 		),

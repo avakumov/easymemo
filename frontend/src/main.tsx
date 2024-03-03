@@ -9,6 +9,7 @@ import { CssVarsProvider } from '@mui/joy/styles';
 import { CssBaseline } from '@mui/joy';
 import router from './components/Router/Router';
 import './index.css';
+import FormEntityModal from './components/modals/FormEntityModal';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 				<CssBaseline />
 				<RouterProvider router={router} />
 				<Message />
+				<FormEntityModal />
 			</Provider>
 		</CssVarsProvider>
 	</React.StrictMode>

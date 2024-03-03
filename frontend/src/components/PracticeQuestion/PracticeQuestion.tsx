@@ -4,6 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { forwardRef, useEffect } from 'react';
 import { Box, Input, Sheet } from '@mui/joy';
 import { QuestionType } from '../../hooks/practice';
+import QuestionMenu from '../QuestionMenu/QuestionMenu';
 
 export interface QuestionProps {
 	question: QuestionType;
@@ -80,11 +81,14 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 					{Array.isArray(q.categories) ? q.categories.map((c) => <Box key={c.id}>{c.name}</Box>) : null}
 				</Box>
 			</Box>
-			<Box sx={{ width: '24px' }}>
-				{q.status === 'active' && <CircularProgress size='20px' sx={{ color: 'text.primary' }} />}
-				{q.status === 'success' && <DoneIcon />}
-				{q.status === 'fail' && <ErrorIcon sx={{ color: 'warning.main' }} />}
-				{/*{status === 'wait' && <ErrorIcon sx={{ color: 'warning.main' }} />}*/}
+			<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+				<Box sx={{ width: '24px' }}>
+					{q.status === 'active' && <CircularProgress size='20px' sx={{ color: 'text.primary' }} />}
+					{q.status === 'success' && <DoneIcon />}
+					{q.status === 'fail' && <ErrorIcon sx={{ color: 'warning.main' }} />}
+					{/*{status === 'wait' && <ErrorIcon sx={{ color: 'warning.main' }} />}*/}
+				</Box>
+				<QuestionMenu questionId={q.id} />
 			</Box>
 		</Sheet>
 	);

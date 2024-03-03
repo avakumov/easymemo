@@ -8,11 +8,9 @@ import QuestionMenu from '../QuestionMenu/QuestionMenu';
 
 type QuestionsListProps = {
 	questions: IQuestion[];
-	remove: (id: number) => void;
-	edit: (q: IQuestion) => void;
 };
 
-export default function QuestionsList({ questions, remove, edit }: QuestionsListProps) {
+export default function QuestionsList({ questions }: QuestionsListProps) {
 	return (
 		<Box sx={{ display: { xs: 'flex', sm: 'none' }, flexDirection: 'column' }}>
 			{questions.map((question) => (
@@ -67,7 +65,7 @@ export default function QuestionsList({ questions, remove, edit }: QuestionsList
 									<LinkIcon />
 								</Link>
 							) : null}
-							<QuestionMenu removeItem={() => remove(question.id)} editItem={() => edit(question)} />
+							<QuestionMenu questionId={question.id} />
 						</Box>
 					</Box>
 					<Divider orientation='horizontal' sx={{ m: 1 }} />

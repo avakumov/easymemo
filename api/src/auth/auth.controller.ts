@@ -26,7 +26,6 @@ export class AuthController {
 	@Get('profile')
 	async getProfile(@Request() req: RequestExtended) {
 		const userId = req.user?.userId;
-		console.log(req.user);
 		if (!userId) {
 			return { name: 'Guest' };
 		}

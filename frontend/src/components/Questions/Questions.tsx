@@ -1,10 +1,8 @@
 import api from '../../services/ApiService';
 import Loading from '../Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-import { EntityNames, IQuestion } from '../../types';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Alert, Box } from '@mui/joy';
-import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
 import { showMessage } from '../../store/slices/messageSlice';
 import QuestionsTable from './QuestionsTable';
 import QuestionsList from './QuestionsList';
@@ -22,36 +20,11 @@ const Questions = () => {
 		search: useSelector((state: RootState) => state.search.commonTextSearch),
 		filter: enabledFilter ? filter : null,
 	});
-	const [removeEntity] = api.useRemoveEntityMutation();
-
-	const editElement = useCallback(
-		(question: IQuestion) => {
-			dispatch(entityModalOpen({ name: EntityNames.QUESTION, data: question, open: true }));
-		},
-		[dispatch]
-	);
 
 	//показ сообщения о количестве найденных записей
 	useEffect(() => {
 		data?.total && dispatch(showMessage({ message: ` ${data?.total} total records`, type: 'info' }));
 	}, [data?.total, dispatch]);
-
-	async function removeElement(id: number) {
-		try {
-			const removedQuestion = await removeEntity({ entityName: EntityNames.QUESTION, id }).unwrap();
-
-			if (removedQuestion.id) {
-				removedQuestion.id && dispatch(showMessage({ message: 'Quesiton removed', type: 'success' }));
-				dispatch(api.util.invalidateTags([EntityNames.QUESTION]));
-			} else {
-				dispatch(showMessage({ type: 'info', message: 'Что-то пошло не так' }));
-			}
-		} catch (e: any) {
-			console.log(e);
-			dispatch(showMessage({ type: 'error', message: e?.data?.message ?? 'Error on remove' }));
-		}
-	}
-	const removeElementCallback = useCallback(removeElement, [dispatch, removeEntity]);
 
 	if (isLoading) return <Loading />;
 
@@ -61,8 +34,8 @@ const Questions = () => {
 	return (
 		<>
 			<Box id='start_list_questions'></Box>
-			<QuestionsTable questions={data.questions} remove={removeElementCallback} edit={editElement} />
-			<QuestionsList questions={data.questions} remove={removeElementCallback} edit={editElement} />
+			<QuestionsTable questions={data.questions} />
+			<QuestionsList questions={data.questions} />
 			<Paginator
 				total={data.total}
 				callback={() => {

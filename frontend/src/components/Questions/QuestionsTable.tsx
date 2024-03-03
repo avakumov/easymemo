@@ -1,17 +1,14 @@
 import { memo, useState } from 'react';
-import { Box, IconButton, Link, Sheet, Table } from '@mui/joy';
+import { Box, Link, Sheet, Table } from '@mui/joy';
 import LinkIcon from '@mui/icons-material/Link';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { IQuestion } from '../../types';
+import QuestionMenu from '../QuestionMenu/QuestionMenu';
 
 type QuestionsTableProps = {
 	questions: IQuestion[];
-	remove: (id: number) => void;
-	edit: (q: IQuestion) => void;
 };
 
-export default function QuestionsTable({ questions, remove, edit }: QuestionsTableProps) {
+export default function QuestionsTable({ questions }: QuestionsTableProps) {
 	return (
 		<Sheet variant='outlined' sx={{ display: { xs: 'none', sm: 'block' } }}>
 			<Table stickyHeader>
@@ -26,77 +23,55 @@ export default function QuestionsTable({ questions, remove, edit }: QuestionsTab
 					</tr>
 				</thead>
 				<tbody>
-					{Array.isArray(questions)
-						? questions.map((q) => (
-								<TableRowMemo key={q.id} row={q} removeElement={remove} editElement={edit} />
-						  ))
-						: null}
+					{Array.isArray(questions) ? questions.map((q) => <TableRowMemo key={q.id} row={q} />) : null}
 				</tbody>
 			</Table>
 		</Sheet>
 	);
 }
 
-const TableRowMemo = memo(
-	({
-		row,
-		removeElement,
-		editElement,
-	}: {
-		row: IQuestion;
-		removeElement: (id: number) => void;
-		editElement: (data: IQuestion) => void;
-	}) => {
-		const [selected, setSelected] = useState<boolean>(false);
-		return (
-			<Box
-				component='tr'
-				key={row.id}
-				sx={{ backgroundColor: (theme) => (selected ? theme.vars.palette.background.level2 : 'inherit') }}
-				onClick={() => {
-					setSelected(!selected);
-				}}>
-				<td>{row.id}</td>
-				<td>{row.categories?.map((c) => c.name).join(', ') ?? 'not found'}</td>
-				<td>{row.question}</td>
-				<td>
-					<Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-						{row.rightAnswers.split(' |-| ').map((a) => (
-							<Sheet
-								key={a}
-								variant='soft'
-								title={a}
-								sx={{
-									p: '0.3rem',
-									borderRadius: '0.3rem',
-									overflowWrap: 'break-word',
-								}}>
-								{a}
-							</Sheet>
-						))}
-					</Box>
-				</td>
-				<td>
-					{row.url ? (
-						<Link href={row.url} target='_blank' title={row.url}>
-							<LinkIcon></LinkIcon>
-						</Link>
-					) : (
-						'-'
-					)}
-				</td>
-				<td>
-					<IconButton
-						onClick={() => {
-							editElement(row);
-						}}>
-						<EditIcon fontSize='inherit' />
-					</IconButton>
-					<IconButton onClick={() => removeElement(row.id)}>
-						<DeleteOutlineIcon fontSize='inherit' />
-					</IconButton>
-				</td>
-			</Box>
-		);
-	}
-);
+const TableRowMemo = memo(({ row }: { row: IQuestion }) => {
+	const [selected, setSelected] = useState<boolean>(false);
+	return (
+		<Box
+			component='tr'
+			key={row.id}
+			sx={{ backgroundColor: (theme) => (selected ? theme.vars.palette.background.level2 : 'inherit') }}
+			onClick={() => {
+				setSelected(!selected);
+			}}>
+			<td>{row.id}</td>
+			<td>{row.categories?.map((c) => c.name).join(', ') ?? 'not found'}</td>
+			<td>{row.question}</td>
+			<td>
+				<Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+					{row.rightAnswers.split(' |-| ').map((a) => (
+						<Sheet
+							key={a}
+							variant='soft'
+							title={a}
+							sx={{
+								p: '0.3rem',
+								borderRadius: '0.3rem',
+								overflowWrap: 'break-word',
+							}}>
+							{a}
+						</Sheet>
+					))}
+				</Box>
+			</td>
+			<td>
+				{row.url ? (
+					<Link href={row.url} target='_blank' title={row.url}>
+						<LinkIcon></LinkIcon>
+					</Link>
+				) : (
+					'-'
+				)}
+			</td>
+			<td>
+				<QuestionMenu questionId={row.id} />
+			</td>
+		</Box>
+	);
+});

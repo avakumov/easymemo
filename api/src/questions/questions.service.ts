@@ -49,6 +49,9 @@ export class QuestionsService {
 			}
 			const status = isRight ? 'success' : 'fail';
 
+			const userId = this.request.user?.userId;
+			/*если пользователь не залогинен, то возвращаем статус и правильные ответы*/
+			if (!userId) return { status, rightAnswers };
 			/*вносим логи*/
 			await this.prisma.answer.create({
 				data: {
@@ -74,7 +77,7 @@ export class QuestionsService {
 		const { questions } = await this.find({ filter: { categories } });
 
 		/*удаляем правильные ответы*/
-		const questionsWithoutRightAnsters = questions.map((q) => {
+		const questionsWithoutRightAnswers = questions.map((q) => {
 			/*@ts-ignore*/
 			delete q.rightAnswers;
 			return q;
@@ -82,7 +85,7 @@ export class QuestionsService {
 
 		//TODO refactor this for best performance
 		/*выбираем необходимое количество*/
-		return getRandom(questionsWithoutRightAnsters, count);
+		return getRandom(questionsWithoutRightAnswers, count);
 
 		/*Для взятия случайных элементов в количестве count */
 		function getRandom(arr: Array<any>, count: number) {
@@ -113,7 +116,8 @@ export class QuestionsService {
 		search?: string;
 		filter?: QuestionsFilter;
 	}) {
-		const { userId, isAdmin } = this.request.user;
+		const userId = this.request.user?.userId;
+		const isAdmin = this.request.user?.isAdmin;
 
 		//Если filter null,undef - фильтр выключен
 		let categoryFilterQuery = {};
@@ -140,7 +144,7 @@ export class QuestionsService {
 		const [questions, count] = await this.prisma.$transaction([
 			this.prisma.question.findMany({
 				where: {
-					...(isAdmin ? {} : { ownerId: userId }),
+					...(isAdmin ? {} : userId ? { ownerId: userId } : { shared: true }),
 					...categoryFilterQuery,
 					...(search
 						? {
@@ -173,7 +177,7 @@ export class QuestionsService {
 
 			this.prisma.question.count({
 				where: {
-					...(isAdmin ? {} : { ownerId: userId }),
+					...(isAdmin ? {} : userId ? { ownerId: userId } : { shared: true }),
 					...categoryFilterQuery,
 					...(search
 						? {

@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Public } from 'src/auth/decorators';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -12,9 +13,16 @@ export class CategoriesController {
 		return this.categoriesService.create(category);
 	}
 
+	@Public()
 	@Get()
 	findAll() {
 		return this.categoriesService.findAll();
+	}
+
+	@Public()
+	@Get('/withquestions')
+	findWithQuestions() {
+		return this.categoriesService.findWithQuestions();
 	}
 
 	@Get(':id')

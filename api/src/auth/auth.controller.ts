@@ -22,12 +22,17 @@ export class AuthController {
 		return this.authService.register(registerDto);
 	}
 
+	@Public()
 	@Get('profile')
 	async getProfile(@Request() req: RequestExtended) {
-		const user = await this.userService.findOne({ id: req.user.userId });
-
-		return {
-			...user,
-		};
+		const userId = req.user?.userId;
+		console.log(req.user);
+		if (!userId) {
+			return { name: 'Guest' };
+		}
+		const user = await this.userService.findOne({ id: userId });
+		if (user) {
+			return user;
+		}
 	}
 }

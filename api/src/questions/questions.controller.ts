@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { QuestionsService } from './questions.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { QuestionsFilter } from 'src/types';
+import { Public } from 'src/auth/decorators';
 
 @Controller('questions')
 export class QuestionsController {
@@ -12,16 +13,19 @@ export class QuestionsController {
 		return this.questionsService.create(question);
 	}
 
+	@Public()
 	@Post('/practice')
 	async practice(@Body() body: { categories: string[]; count: number }) {
 		return this.questionsService.practice(body);
 	}
 
+	@Public()
 	@Post('/checkanswer')
 	answer(@Body() body: { questionId: number; answer: string }) {
 		return this.questionsService.checkAnswer(body);
 	}
 
+	@Public()
 	@Post('/find')
 	async find(
 		@Body()

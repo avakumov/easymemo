@@ -38,11 +38,27 @@ export class CategoriesService {
 	}
 
 	findAll() {
-		const { userId, isAdmin } = this.request.user;
-		const where = isAdmin ? null : { where: { ownerId: userId } };
+		const userId = this.request.user?.userId;
+		const isAdmin = this.request.user?.isAdmin;
 
 		return this.prisma.category.findMany({
-			...where,
+			where: {
+				...(isAdmin ? {} : userId ? { ownerId: userId } : { shared: true }),
+			},
+			orderBy: {
+				id: 'desc',
+			},
+		});
+	}
+
+	findWithQuestions() {
+		const userId = this.request.user?.userId;
+		const isAdmin = this.request.user?.isAdmin;
+
+		return this.prisma.category.findMany({
+			where: {
+				...(isAdmin ? {} : userId ? { ownerId: userId } : { shared: true }),
+			},
 			orderBy: {
 				id: 'desc',
 			},

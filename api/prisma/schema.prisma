@@ -36,6 +36,7 @@ model Question {
     categories   Category[]
     answers      Answer[]
     url          String?
+    shared       Boolean    @default(false)
 }
 
 model Category {

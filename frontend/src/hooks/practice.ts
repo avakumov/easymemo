@@ -4,8 +4,9 @@ import { useStateCallback } from '.';
 import api from '../services/ApiService';
 
 type UsePratice = {
-	categories: string[];
+	categories: string[] | null;
 	count: number;
+	enabled: boolean;
 };
 export type QuestionType = {
 	id: number;
@@ -21,7 +22,9 @@ export type QuestionType = {
 };
 
 export function usePratice(filter: UsePratice) {
-	const { data } = api.useGetPracticeQuery(filter);
+	let { categories, count, enabled } = filter;
+	if (!enabled) categories = null;
+	const { data } = api.useGetPracticeQuery({ categories, count });
 	const [checkAnswerBackend] = api.useCheckAnwerMutation();
 
 	const [questions, setQuestions] = useStateCallback<QuestionType[]>([]);

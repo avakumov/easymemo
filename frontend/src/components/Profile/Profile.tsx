@@ -8,7 +8,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import SettingsSystemDaydreamIcon from '@mui/icons-material/SettingsSystemDaydream';
 import { Dropdown, IconButton, ListDivider, Menu, MenuButton, MenuItem, Typography } from '@mui/joy';
 import ColorSchemeToggle from '../ColorSchemeToggle/ColorSchemeToggle';
-
+import { useNavigate } from 'react-router-dom';
 const themeValues = ['light', 'dark', 'system'];
 
 const themeIcons = new Map<string, ReactNode>([
@@ -23,6 +23,9 @@ function getIcon(themeName: string = 'system'): ReactNode {
 
 export default function Profile() {
 	const { data: profile } = api.useGetProfileQuery();
+	const isGuest = !profile || !profile.id;
+
+	const navigate = useNavigate();
 
 	return (
 		<Dropdown>
@@ -30,22 +33,35 @@ export default function Profile() {
 				<AccountBoxIcon />
 			</MenuButton>
 			<Menu size='sm' style={{ zIndex: 10000 }}>
-				<MenuItem disabled>{profile?.isAdmin ? 'Admin' : 'User'}</MenuItem>
-				<MenuItem disabled>{profile?.name}</MenuItem>
-				<MenuItem disabled>{profile?.email}</MenuItem>
-				<MenuItem>
-					<ColorSchemeToggle />
-					<Typography>theme</Typography>
-				</MenuItem>
-				<ListDivider />
-				<MenuItem
-					onClick={() => {
-						token.removeToken();
-						window.location.reload();
-					}}>
-					<LogoutIcon />
-					Logout
-				</MenuItem>
+				{isGuest ? (
+					<MenuItem
+						onClick={() => {
+							token.removeToken();
+							navigate('/login');
+						}}>
+						<LogoutIcon />
+						Login
+					</MenuItem>
+				) : (
+					<>
+						<MenuItem disabled>{profile?.isAdmin ? 'Admin' : 'User'}</MenuItem>
+						<MenuItem disabled>{profile?.name}</MenuItem>
+						<MenuItem disabled>{profile?.email}</MenuItem>
+						<MenuItem>
+							<ColorSchemeToggle />
+							<Typography>theme</Typography>
+						</MenuItem>
+						<ListDivider />
+						<MenuItem
+							onClick={() => {
+								token.removeToken();
+								window.location.reload();
+							}}>
+							<LogoutIcon />
+							Logout
+						</MenuItem>
+					</>
+				)}
 			</Menu>
 		</Dropdown>
 	);

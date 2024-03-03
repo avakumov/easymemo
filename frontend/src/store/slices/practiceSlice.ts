@@ -5,6 +5,7 @@ interface PracticeState {
 	filter: {
 		count: number;
 		categories: string[];
+		enabled: boolean;
 	};
 	successCount: number;
 	allCount: number;
@@ -15,6 +16,7 @@ const initialState: PracticeState = {
 	filter: {
 		count: 10,
 		categories: [],
+		enabled: false,
 	},
 	successCount: 0,
 	allCount: 0,
@@ -39,6 +41,12 @@ export const practiceSlice = createSlice({
 		setPracticeAllCount(state, action: PayloadAction<number>) {
 			state.allCount = action.payload;
 		},
+		enablePracticeFilter(state) {
+			state.filter.enabled = true;
+		},
+		disablePracticeFilter(state) {
+			state.filter.enabled = false;
+		},
 	},
 });
 export const {
@@ -47,6 +55,8 @@ export const {
 	setPracticeFilter,
 	setPracticeSuccessCount,
 	setPracticeAllCount,
+	enablePracticeFilter,
+	disablePracticeFilter,
 } = practiceSlice.actions;
 
 export const practiceReducer = practiceSlice.reducer;

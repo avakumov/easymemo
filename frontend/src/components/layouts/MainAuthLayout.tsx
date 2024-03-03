@@ -5,24 +5,23 @@ import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 
 const MainAuthLayout = ({ children }: { children: ReactNode }) => (
-	<Auth>
-		<Box sx={{ display: 'flex' }}>
-			<Header />
-			<Sidebar />
-			<Box
-				component='main'
-				sx={{
-					mt: {
-						xs: 'calc(var(--Header-height))',
-						sm: 'calc(var(--Header-height))',
-					},
-					display: 'flex',
-					justifyContent: 'center',
-				}}>
-				{children}
-			</Box>
+	<Box sx={{ display: 'flex' }}>
+		<Header />
+		<Sidebar />
+		<Box
+			component='main'
+			sx={{
+				mt: {
+					xs: 'calc(var(--Header-height))',
+					sm: 'calc(var(--Header-height))',
+				},
+				display: 'flex',
+				justifyContent: 'center',
+				width: '100%',
+			}}>
+			{children}
 		</Box>
-	</Auth>
+	</Box>
 );
 
 export default MainAuthLayout;

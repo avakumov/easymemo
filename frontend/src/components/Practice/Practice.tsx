@@ -37,7 +37,15 @@ export default function Practice() {
 	};
 
 	return (
-		<Box sx={{ maxWidth: '900px', m: 1 }}>
+		<Box
+			sx={{
+				maxWidth: '900px',
+				m: 1,
+
+				minWidth: {
+					md: 'calc(850px - var(--Sidebar-width))',
+				},
+			}}>
 			<BarActions
 				sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'end', p: 1, alignItems: 'center' }}
 			/>

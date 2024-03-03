@@ -57,7 +57,7 @@ const api = createApi({
 				body,
 			}),
 		}),
-		getPractice: builder.query<IQuestion[], { categories: string[]; count: number } | undefined>({
+		getPractice: builder.query<IQuestion[], { categories: string[] | null; count: number } | undefined>({
 			query: (filter) => ({
 				url: `/questions/practice`,
 				method: 'POST',
@@ -88,6 +88,13 @@ const api = createApi({
 		getCategories: builder.query<(ICategory & { _count: { questions: number } })[], void>({
 			query: () => ({
 				url: `/categories`,
+				params: {},
+			}),
+			providesTags: ['categories'],
+		}),
+		getCategoriesWithQuestions: builder.query<(ICategory & { _count: { questions: number } })[], void>({
+			query: () => ({
+				url: `/categories/withquestions`,
 				params: {},
 			}),
 			providesTags: ['categories'],

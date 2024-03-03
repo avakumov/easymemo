@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 // Default theme
-// import '@splidejs/react-splide/css';
+import '@splidejs/react-splide/css';
 // or other themes
 //import '@splidejs/react-splide/css/skyblue';
 //import '@splidejs/react-splide/css/sea-green';
@@ -28,7 +28,6 @@ const Splider = () => {
 
 	const editElement = useCallback(
 		(question: IQuestion) => {
-			debugger;
 			dispatch(entityModalOpen({ name: EntityNames.QUESTION, data: question, open: true }));
 		},
 		[dispatch]
@@ -55,6 +54,9 @@ const Splider = () => {
 			dispatch(showMessage({ type: 'error', message: e?.data?.message ?? 'Error on remove' }));
 		}
 	}
+	if (data?.questions.length === 0) {
+		return <Box sx={{ fontSize: '2rem' }}>Слайдов нет!</Box>;
+	}
 	return (
 		<Splide
 			options={{
@@ -63,9 +65,9 @@ const Splider = () => {
 				perPage: 1,
 				type: 'loop',
 				pagination: false,
-				arrows: false,
+				arrows: isMobile ? false : true,
 				width: width,
-
+				wheel: true,
 				height: 'calc(100vh - var(--Header-height))',
 			}}>
 			{data?.questions.map((question, index) => (
@@ -78,7 +80,7 @@ const Splider = () => {
 							flexDirection: 'column',
 							height: '100%',
 							fontSize: '1.5rem',
-							p: 2,
+							p: isMobile ? '1rem' : '4rem',
 							alignItems: 'start',
 						}}>
 						<Box

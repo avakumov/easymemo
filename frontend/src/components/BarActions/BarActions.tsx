@@ -52,6 +52,7 @@ function ActionsPractice() {
 	const dispatch = useDispatch();
 	const theme = useTheme();
 	const { successCount, allCount } = useSelector((state: RootState) => state.practice);
+	const filterEnabled = useSelector((state: RootState) => state.practice.filter.enabled);
 	return (
 		<>
 			<Sheet
@@ -67,7 +68,7 @@ function ActionsPractice() {
 				<Typography level='title-lg'>{`${successCount}/${allCount}`}</Typography>
 			</Sheet>
 			<ReplayButton onClick={() => dispatch(api.util.invalidateTags(['practice']))} />
-			<FilterButton onClick={() => dispatch(openPracticeFilterModal())} />
+			<FilterButton onClick={() => dispatch(openPracticeFilterModal())} disabled={!filterEnabled} />
 		</>
 	);
 }

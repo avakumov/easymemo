@@ -10,7 +10,7 @@ import { showMessage } from '../../store/slices/messageSlice';
 import { entityModalOpen } from '../../store/slices/FormEntityModalSlice';
 
 const Categories = () => {
-	const { data: categories, error, isLoading } = api.useGetCategoriesQuery();
+	const { data: categories, error, isLoading } = api.useGetCategoriesWithQuestionsQuery();
 	const [removeEntity] = api.useRemoveEntityMutation();
 	const dispatch = useDispatch();
 

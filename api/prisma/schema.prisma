@@ -48,6 +48,7 @@ model Category {
     owner       User       @relation(fields: [ownerId], references: [id], onDelete: Cascade)
     ownerId     Int        @default(1)
     questions   Question[]
+    shared      Boolean    @default(false)
 }
 
 model Answer {

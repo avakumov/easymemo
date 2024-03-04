@@ -208,7 +208,12 @@ export class QuestionsService {
 	}
 
 	findOne(id: number) {
-		return this.prisma.question.findUnique({ where: { id } });
+		return this.prisma.question.findUnique({
+			where: { id },
+			include: {
+				categories: true,
+			},
+		});
 	}
 
 	update(id: number, q: CreateQuestionDto) {

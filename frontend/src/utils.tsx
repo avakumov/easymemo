@@ -144,3 +144,11 @@ export function isEmail(email: string) {
 		email
 	);
 }
+
+export function toPositiveNumber(n: any) {
+	const parsed = Number.parseInt(n);
+	if (Number.isNaN(parsed)) {
+		return 1;
+	}
+	return parsed;
+}

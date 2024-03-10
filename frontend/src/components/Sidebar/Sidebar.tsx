@@ -10,7 +10,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useNavigate } from 'react-router-dom';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import KeyboardIcon from '@mui/icons-material/Keyboard';
-import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+// import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
 import GroupIcon from '@mui/icons-material/Group';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
@@ -21,11 +21,12 @@ import api from '../../services/ApiService';
 import { useMemo, useState } from 'react';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import SlideshowIcon from '@mui/icons-material/Slideshow';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
 function getMenuItems(role: string) {
 	type MenuItemType = {
 		title: string;
-		path: string;
+		path: string | null;
 		icon: JSX.Element;
 		roles: string[];
 		items?: Array<MenuItemType>;
@@ -42,26 +43,27 @@ function getMenuItems(role: string) {
 		},
 		{
 			title: 'Records',
-			path: '/records',
+			path: null,
 			icon: <ViewListIcon />,
 			roles: ['admin', 'user'],
 			items: [
 				{
 					title: 'Questions',
-					path: '/records?show=questions',
+					path: '/records/questions/1',
 					icon: <QuestionMarkIcon />,
 					roles: ['admin', 'user'],
 				},
 				{
 					title: 'Categories',
-					path: '/records?show=categories',
+					path: '/records/categories/1',
 					icon: <CategoryIcon />,
 					roles: ['admin', 'user'],
 				},
-				{ title: 'Users', path: '/records?show=users', icon: <GroupIcon />, roles: ['admin'] },
+				{ title: 'Users', path: '/records/users/1', icon: <GroupIcon />, roles: ['admin'] },
 			],
 		},
-		{ title: 'Stats', path: '/stats', icon: <AutoGraphIcon />, roles: ['admin', 'user'] },
+		{ title: 'Tasks', path: '/tasks', icon: <FormatListNumberedIcon />, roles: ['admin', 'user'] },
+		// { title: 'Stats', path: '/stats', icon: <AutoGraphIcon />, roles: ['admin', 'user'] },
 		{ title: 'Audio records', path: '/audios', icon: <HeadsetMicIcon />, roles: ['admin', 'user'] },
 		{ title: 'Slides', path: '/slides', icon: <SlideshowIcon />, roles: ['admin', 'user'] },
 	];
@@ -126,7 +128,8 @@ export default function Sidebar() {
 		return getMenuItems(role);
 	}, [role]);
 
-	const handleClickPage = (path: string) => {
+	const handleClickPage = (path: string | null) => {
+		if (!path) return;
 		const currentPath = window.location.pathname;
 		if (currentPath === path) return;
 		navigate(path, { replace: false });

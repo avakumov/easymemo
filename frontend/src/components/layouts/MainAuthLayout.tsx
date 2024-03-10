@@ -4,9 +4,9 @@ import Auth from '../Auth/Auth';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 
-const MainAuthLayout = ({ children }: { children: ReactNode }) => (
+const MainAuthLayout = ({ children, page }: { children: ReactNode; page?: string }) => (
 	<Box sx={{ display: 'flex' }}>
-		<Header />
+		<Header page={page} />
 		<Sidebar />
 		<Box
 			component='main'

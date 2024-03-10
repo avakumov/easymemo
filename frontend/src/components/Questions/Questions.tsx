@@ -8,12 +8,19 @@ import QuestionsTable from './QuestionsTable';
 import QuestionsList from './QuestionsList';
 import Paginator from '../Paginator/Paginator';
 import { RootState } from '../../store/store';
+import { useParams } from 'react-router-dom';
+import { toPositiveNumber } from '../../utils';
 
 const Questions = () => {
 	const dispatch = useDispatch();
-	const { currentPage, perPage } = useSelector((state: RootState) => state.paginator);
+
+	//получаем текущую страницу из параметров
+	const currentPage = toPositiveNumber(useParams().page);
+	//остальные переменные из redux state
+	const { perPage } = useSelector((state: RootState) => state.paginator);
 	const enabledFilter = useSelector((state: RootState) => state.filters.questions.enabled);
 	const filter = useSelector((state: RootState) => state.filters.questions.filter);
+
 	const { data, error, isLoading } = api.useGetQuestionsQuery({
 		take: perPage,
 		skip: currentPage === 1 ? 0 : (currentPage - 1) * perPage,

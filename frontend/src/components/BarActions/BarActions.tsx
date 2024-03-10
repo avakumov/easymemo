@@ -1,7 +1,6 @@
 import Search from '../Search/Search';
 import { SxProps } from '@mui/joy/styles/types';
 import { Box, Sheet, Typography, useTheme } from '@mui/joy';
-import { useSearchParams } from 'react-router-dom';
 import { QuestionsFilterButton } from '../buttons/QuestionsFilterButton';
 import AddElementButton from '../buttons/AddElementButton';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,12 +9,16 @@ import ReplayButton from '../buttons/ReplayButton';
 import FilterButton from '../buttons/FilterButton';
 import { openPracticeFilterModal } from '../../store/slices/practiceSlice';
 import { RootState } from '../../store/store';
+import { EntityNames } from '../../types';
 
-export default function BarActions({ sx }: { sx?: SxProps }) {
-	const { pathname: path } = window.location;
-	const [params] = useSearchParams();
-	const showParam = params.get('show');
+const mapActions = new Map([
+	['questions', <ActionsQuestions />],
+	['categories', <ActionsCategories />],
+	['practice', <ActionsPractice />],
+	['slides', <ActionsQuestions />],
+]);
 
+export default function BarActions({ sx, page }: { sx?: SxProps; page: string | undefined | null }) {
 	return (
 		<Box sx={sx}>
 			<Box
@@ -24,28 +27,10 @@ export default function BarActions({ sx }: { sx?: SxProps }) {
 					alingItems: 'center',
 					gap: 1,
 				}}>
-				<Actions path={path} showParam={showParam} />
+				{page ? mapActions.get(page) : null}
 			</Box>
 		</Box>
 	);
-}
-
-function Actions({ path, showParam }: { path: string; showParam: string | null }) {
-	if (path === '/records') {
-		if (showParam === 'questions') {
-			return <ActionsQuestions />;
-		} else if (showParam === 'categories') {
-			return <ActionsCategories />;
-		}
-		return null;
-	}
-	if (path === '/') {
-		return <ActionsPractice />;
-	}
-	if (path === '/slides') {
-		return <ActionsQuestions />;
-	}
-	return null;
 }
 
 function ActionsPractice() {
@@ -78,7 +63,7 @@ function ActionsQuestions() {
 		<>
 			<Search sx={{ display: 'flex', gap: 1 }} />
 			<QuestionsFilterButton />
-			<AddElementButton sx={{ ml: 'auto' }} />
+			<AddElementButton sx={{ ml: 'auto' }} nameElement={EntityNames.QUESTION} />
 		</>
 	);
 }
@@ -86,7 +71,7 @@ function ActionsQuestions() {
 function ActionsCategories() {
 	return (
 		<>
-			<AddElementButton sx={{ ml: 'auto' }} />
+			<AddElementButton sx={{ ml: 'auto' }} nameElement={EntityNames.CATEGORY} />
 		</>
 	);
 }

@@ -1,7 +1,9 @@
 import { Box } from '@mui/joy';
 import { ErrorBoundary } from 'react-error-boundary';
 import { createBrowserRouter } from 'react-router-dom';
+import { EntityNames } from '../../types';
 import AudioRecorder from '../AudioRecorder/AudioRecorder';
+import BarActions from '../BarActions/BarActions';
 import Error404 from '../Error404/Error404';
 import Fallback from '../Fallback/Fallback';
 import MainAuthLayout from '../layouts/MainAuthLayout';
@@ -17,7 +19,7 @@ const router = createBrowserRouter([
 		path: '/',
 		element: (
 			<ErrorBoundary FallbackComponent={Fallback}>
-				<MainAuthLayout>
+				<MainAuthLayout page='practice'>
 					<Practice />
 					<PracticeFilterModal />
 				</MainAuthLayout>
@@ -25,20 +27,40 @@ const router = createBrowserRouter([
 		),
 	},
 	{
-		path: '/records',
+		path: '/records/questions/:page',
 		element: (
 			<ErrorBoundary FallbackComponent={Fallback}>
-				<MainAuthLayout>
-					<Records />
+				<MainAuthLayout page='questions'>
+					<Records entityName={EntityNames.QUESTION} />
 				</MainAuthLayout>
 			</ErrorBoundary>
 		),
 	},
 	{
-		path: '/stats',
+		path: '/records/categories/:page',
 		element: (
 			<ErrorBoundary FallbackComponent={Fallback}>
-				<MainAuthLayout>stats</MainAuthLayout>
+				<MainAuthLayout page='categories'>
+					<Records entityName={EntityNames.CATEGORY} />
+				</MainAuthLayout>
+			</ErrorBoundary>
+		),
+	},
+	{
+		path: '/records/users/:page',
+		element: (
+			<ErrorBoundary FallbackComponent={Fallback}>
+				<MainAuthLayout page='users'>
+					<Records entityName={EntityNames.USER} />
+				</MainAuthLayout>
+			</ErrorBoundary>
+		),
+	},
+	{
+		path: '/tasks',
+		element: (
+			<ErrorBoundary FallbackComponent={Fallback}>
+				<MainAuthLayout>tasks</MainAuthLayout>
 			</ErrorBoundary>
 		),
 	},
@@ -56,7 +78,7 @@ const router = createBrowserRouter([
 		path: '/slides',
 		element: (
 			<ErrorBoundary FallbackComponent={Fallback}>
-				<MainAuthLayout>
+				<MainAuthLayout page='slides'>
 					<Box
 						sx={{
 							display: 'flex',

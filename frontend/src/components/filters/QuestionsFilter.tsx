@@ -12,12 +12,13 @@ import {
 } from '../../store/slices/filtersSlice';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import { resetPage } from '../../store/slices/paginatorSlice';
+import { useSetPage } from '../../hooks/setPage';
 
 type FormType = Record<string, boolean | number>;
 
 export default function QuestionsFilter() {
 	const dispatch = useDispatch();
+	const setPage = useSetPage();
 	const filter = useSelector((state: RootState) => state.filters.questions.filter);
 	const enabledFilter = useSelector((state: RootState) => state.filters.questions.enabled);
 	const { data: categories } = api.useGetCategoriesQuery();
@@ -43,13 +44,13 @@ export default function QuestionsFilter() {
 			categories,
 		};
 		dispatch(setQuestionsFilter(filter));
-		dispatch(resetPage());
+		setPage(1);
 		dispatch(closeQuestionsFilterModal());
 	};
 
 	function toggleFilterOn(state: boolean) {
 		dispatch(state ? disableQuestionsFilter() : enableQuestionsFilter());
-		dispatch(resetPage());
+		setPage(1);
 	}
 
 	return (

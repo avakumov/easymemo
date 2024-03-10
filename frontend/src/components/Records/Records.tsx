@@ -1,31 +1,17 @@
 import { Box } from '@mui/joy';
-import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { EntityName, EntityNames } from '../../types';
 import BarActions from '../BarActions/BarActions';
 import Categories from '../Categories/Categories';
 import Error404 from '../Error404/Error404';
-import FormEntityModal from '../modals/FormEntityModal';
 import Questions from '../Questions/Questions';
 import Users from '../Users/Users';
 
-export default function Records() {
-	const [params, setParams] = useSearchParams();
-	let name = params.get('show');
-
-	useEffect(() => {
-		if (!params.get('show')) {
-			setParams({ show: 'questions' });
-		}
-	}, [params, setParams]);
-
+export default function Records({ entityName }: { entityName: EntityName | undefined | string }) {
 	return (
-		<>
-			<Box sx={{ m: 1, width: '100%' }}>
-				<BarActions sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'end', p: 1 }} />
-				<Show entityName={name} />
-			</Box>
-		</>
+		<Box sx={{ m: 1, width: '100%' }}>
+			<BarActions sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'end', p: 1 }} page={entityName} />
+			<Show entityName={entityName} />
+		</Box>
 	);
 }
 

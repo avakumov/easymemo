@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { toggleSidebar } from '../../utils';
 import BarActions from '../BarActions/BarActions';
 
-export default function Header() {
+export default function Header({ page }: { page?: string }) {
 	return (
 		<Sheet
 			sx={{
@@ -37,7 +37,7 @@ export default function Header() {
 			<IconButton onClick={() => toggleSidebar()} variant='outlined' color='neutral' size='sm'>
 				<MenuIcon />
 			</IconButton>
-			<BarActions sx={{ display: { md: 'none' } }} />
+			<BarActions sx={{ display: { md: 'none' } }} page={page} />
 		</Sheet>
 	);
 }

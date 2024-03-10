@@ -1,9 +1,11 @@
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Box, IconButton } from '@mui/joy';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { setPage } from '../../store/slices/paginatorSlice';
+import { useParams } from 'react-router-dom';
+import { toPositiveNumber } from '../../utils';
+import { useSetPage } from '../../hooks/setPage';
 
 type PaginatorProps = {
 	setPage: (id: number) => void;
@@ -13,15 +15,18 @@ type PaginatorProps = {
 const delta = 2;
 
 export default function PaginatorContainer({ total, callback }: { total: number; callback: () => void }) {
-	const dispatch = useDispatch();
+	const { perPage } = useSelector((state: RootState) => state.paginator);
+	const params = useParams();
+	const setPage = useSetPage();
 
-	const { currentPage, perPage } = useSelector((state: RootState) => state.paginator);
+	const currentPage: number = toPositiveNumber(params.page);
+
 	return (
 		<Paginator
 			currentPage={currentPage}
 			pagesCount={Math.ceil(total / perPage)}
 			setPage={(page: number) => {
-				dispatch(setPage(page));
+				setPage(page);
 				callback && callback();
 			}}
 		/>

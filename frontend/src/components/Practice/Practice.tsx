@@ -47,6 +47,7 @@ export default function Practice() {
 				},
 			}}>
 			<BarActions
+				page={'practice'}
 				sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'end', p: 1, alignItems: 'center' }}
 			/>
 			<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }} onKeyDown={onKeyDown}>

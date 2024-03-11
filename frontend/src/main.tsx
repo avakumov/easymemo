@@ -10,10 +10,11 @@ import { CssBaseline } from '@mui/joy';
 import router from './components/Router/Router';
 import './index.css';
 import FormEntityModal from './components/modals/FormEntityModal';
+import theme from './stories/theme';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
-		<CssVarsProvider>
+		<CssVarsProvider theme={theme}>
 			<Provider store={store}>
 				<CssBaseline />
 				<RouterProvider router={router} />

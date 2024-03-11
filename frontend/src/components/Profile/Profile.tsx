@@ -29,7 +29,7 @@ export default function Profile() {
 
 	return (
 		<Dropdown>
-			<MenuButton slots={{ root: IconButton }} slotProps={{ root: { variant: 'soft' } }}>
+			<MenuButton slots={{ root: IconButton }} slotProps={{ root: { variant: 'soft', color: 'primary' } }}>
 				<AccountBoxIcon />
 			</MenuButton>
 			<Menu size='sm' style={{ zIndex: 10000 }}>

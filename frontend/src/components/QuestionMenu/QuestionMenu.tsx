@@ -51,13 +51,13 @@ function QuestionMenu({ questionId }: { questionId: number }) {
 			</MenuButton>
 			<Menu size='sm'>
 				<MenuItem>
-					<IconButton onClick={() => editElement(questionId)}>
+					<IconButton onClick={() => editElement(questionId)} color='primary'>
 						<EditIcon fontSize='inherit' />
 					</IconButton>
 				</MenuItem>
 				<Divider />
-				<MenuItem color='danger'>
-					<IconButton onClick={() => removeElementCallback(questionId)}>
+				<MenuItem>
+					<IconButton onClick={() => removeElementCallback(questionId)} color='danger'>
 						<DeleteOutlineIcon fontSize='inherit' />
 					</IconButton>
 				</MenuItem>

@@ -27,16 +27,12 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 		}
 	}, [ref, q.status]);
 
-	function getColor(status: QuestionType['status']): 'primary' | 'danger' | 'success' | 'warning' | 'neutral' {
+	function getColor(status: QuestionType['status']): 'danger' | 'success' | 'neutral' {
 		switch (status) {
-			case 'wait':
-				return 'primary';
 			case 'fail':
 				return 'danger';
 			case 'success':
 				return 'success';
-			case 'active':
-				return 'warning';
 			default:
 				return 'neutral';
 		}

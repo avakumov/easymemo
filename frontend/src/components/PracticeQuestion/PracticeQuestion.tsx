@@ -27,14 +27,14 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 		}
 	}, [ref, q.status]);
 
-	function getColor(status: QuestionType['status']): 'danger' | 'success' | 'neutral' {
+	function getColor(status: QuestionType['status']): 'danger' | 'success' | 'primary' {
 		switch (status) {
 			case 'fail':
 				return 'danger';
 			case 'success':
 				return 'success';
 			default:
-				return 'neutral';
+				return 'primary';
 		}
 	}
 
@@ -56,7 +56,7 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 				justifyContent: 'space-between',
 				width: '100%',
 			}}>
-			<Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+			<Box sx={{ display: 'flex', flexDirection: 'column', flexBasis: '100%' }}>
 				<Box sx={{ fontWeight: 'bold' }}>{q.question}</Box>
 				{q.status === 'active' && <Input error={false} variant='soft' fullWidth spellCheck={false} ref={ref} />}
 				{q.status === 'fail' && (
@@ -73,7 +73,7 @@ const PracticeQuestion = forwardRef<HTMLInputElement, QuestionProps>((props, ref
 					</Box>
 				)}
 				{q.status === 'success' && <Box>{q.answer}</Box>}
-				<Box sx={{ display: 'flex', fontSize: '0.7rem', gap: '0.7rem' }}>
+				<Box sx={{ display: 'flex', fontSize: '0.7rem', gap: '0.7rem', px: 1, py: 0.2, fontStyle: 'italic' }}>
 					{Array.isArray(q.categories) ? q.categories.map((c) => <Box key={c.id}>{c.name}</Box>) : null}
 				</Box>
 			</Box>

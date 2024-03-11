@@ -20,12 +20,14 @@ export default function QuestionsList({ questions }: QuestionsListProps) {
 							display: 'flex',
 							justifyContent: 'space-between',
 							alignItems: 'start',
+							pl: 1,
 						}}>
 						<Box
 							sx={{
 								display: 'flex',
 								gap: 0,
 								flexDirection: 'column',
+								flexBasis: '100%',
 							}}>
 							<Box>
 								<Typography sx={{ mb: 1 }}>{question.question}</Typography>
@@ -41,6 +43,7 @@ export default function QuestionsList({ questions }: QuestionsListProps) {
 									<Sheet
 										key={a}
 										variant='soft'
+										color='primary'
 										sx={{
 											p: '0.3rem',
 											borderRadius: '0.3rem',
@@ -50,7 +53,7 @@ export default function QuestionsList({ questions }: QuestionsListProps) {
 									</Sheet>
 								))}
 							</Box>
-							<Box sx={{ display: 'flex', gap: 1 }}>
+							<Box sx={{ display: 'flex', gap: 1, fontStyle: 'italic', px: 1, py: 0.5 }}>
 								{question.categories.map((category) => (
 									<Typography key={category.id} level='body-xs'>
 										{category.name}

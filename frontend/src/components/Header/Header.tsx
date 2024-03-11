@@ -34,7 +34,7 @@ export default function Header({ page }: { page?: string }) {
 					},
 				})}
 			/>
-			<IconButton onClick={() => toggleSidebar()} variant='outlined' color='neutral' size='sm'>
+			<IconButton onClick={() => toggleSidebar()} variant='soft' color='primary' size='sm'>
 				<MenuIcon />
 			</IconButton>
 			<BarActions sx={{ display: { md: 'none' } }} page={page} />

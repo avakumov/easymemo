@@ -1,19 +1,31 @@
 import DoneIcon from '@mui/icons-material/Done';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { Box, Input, Sheet } from '@mui/joy';
-import { QuestionType } from '../../hooks/practice';
 import QuestionMenu from '../QuestionMenu/QuestionMenu';
 import CancelIcon from '@mui/icons-material/Cancel';
+import {
+	changePracticeInput,
+	changePracticeQuestion,
+	nextPracticeQuestion,
+	setPracticeActive,
+	setPracticeCurrentCorrect,
+} from '../../store/slices/practiceSlice';
+import { useDispatch } from 'react-redux';
+import api from '../../services/ApiService';
+import { QuestionPracticeType } from '../../types';
 
 export interface QuestionProps {
-	question: QuestionType;
-	setActive: (id: number) => void;
-	changeInputHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	question: QuestionPracticeType;
 }
 
 const PracticeQuestion = (props: QuestionProps) => {
-	const { question: q, setActive, changeInputHandler } = props;
+	const { question: q } = props;
+	const dispatch = useDispatch();
+
+	const [checkAnswerBackend] = api.useCheckAnwerMutation();
+	const [checkCurrentAnswerBackend] = api.useCheckCurrentAnwerMutation();
+
 	const ref = useRef<HTMLInputElement>(null);
 	/*При установки элемента как активного - наводить фокус на его инпут*/
 	useEffect(() => {
@@ -22,7 +34,44 @@ const PracticeQuestion = (props: QuestionProps) => {
 		}
 	}, [ref, q.status]);
 
-	function getColor(status: QuestionType['status']): 'danger' | 'success' | 'primary' {
+	/*Проверяет текущий активный вопрос*/
+	async function checkAnswer(answer: string) {
+		//check from backend
+		const { status, rightAnswers } = await checkAnswerBackend({
+			questionId: q.id,
+			answer,
+		}).unwrap();
+		const question = { id: q.id, status, answer, rightAnswers };
+		dispatch(changePracticeQuestion(question));
+		dispatch(nextPracticeQuestion({}));
+	}
+
+	async function checkCurrentAnswer(answer: string) {
+		const { isRight } = await checkCurrentAnswerBackend({
+			questionId: q.id,
+			answer,
+		}).unwrap();
+		dispatch(setPracticeCurrentCorrect({ id: q.id, isCorrect: isRight }));
+	}
+
+	function changeInput(e: React.ChangeEvent<HTMLInputElement>) {
+		dispatch(changePracticeInput({ id: q.id, value: e.target.value }));
+		checkCurrentAnswer(e.target.value);
+	}
+
+	const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+		const target = e.target as HTMLInputElement;
+		if (e.key === 'Tab') {
+			e.preventDefault();
+			dispatch(nextPracticeQuestion({}));
+		}
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			checkAnswer(target.value);
+		}
+	};
+
+	function getColor(status: QuestionPracticeType['status']): 'danger' | 'success' | 'primary' {
 		switch (status) {
 			case 'fail':
 				return 'danger';
@@ -43,7 +92,7 @@ const PracticeQuestion = (props: QuestionProps) => {
 		return false;
 	}
 
-	function getColorInput(q: QuestionType) {
+	function getColorInput(q: QuestionPracticeType) {
 		const value = ref.current?.value;
 		if (q.isCurrentCorrect) {
 			return 'success';
@@ -60,7 +109,7 @@ const PracticeQuestion = (props: QuestionProps) => {
 			color={getColor(q.status)}
 			onClick={() => {
 				if (q.status === 'wait') {
-					setActive(q.id);
+					dispatch(setPracticeActive(q.id));
 				}
 			}}
 			sx={{
@@ -81,9 +130,10 @@ const PracticeQuestion = (props: QuestionProps) => {
 						fullWidth
 						spellCheck={false}
 						slotProps={{ input: { ref: ref } }}
+						onKeyDown={onKeyDown}
 						color={getColorInput(q)}
 						value={q.currentAnswer}
-						onChange={changeInputHandler}
+						onChange={changeInput}
 						sx={{
 							fontWeight: 'bold',
 						}}
@@ -124,4 +174,4 @@ const PracticeQuestion = (props: QuestionProps) => {
 	);
 };
 
-export default PracticeQuestion;
+export default memo(PracticeQuestion);

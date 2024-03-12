@@ -124,3 +124,17 @@ export type ResponseSaveFileType = {
 		//292908
 	};
 };
+
+export type QuestionPracticeType = {
+	id: number;
+	question: string;
+	status: 'active' | 'wait' | 'fail' | 'success';
+	categories: {
+		id: number;
+		name: string;
+	}[];
+	answer?: string;
+	rightAnswers?: string;
+	isCurrentCorrect: boolean;
+	currentAnswer?: string;
+};

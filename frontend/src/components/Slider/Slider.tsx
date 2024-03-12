@@ -51,13 +51,11 @@ const Splider = () => {
 							height: '100%',
 							fontSize: '1.5rem',
 							p: isMobile ? '1rem' : '4rem',
+							pt: isMobile ? '0.5rem' : '2rem',
 							alignItems: 'start',
 						}}>
 						<Box
 							sx={{
-								position: 'absolute',
-								right: '1rem',
-								top: '1rem',
 								display: 'flex',
 								justifyContent: 'space-between',
 								alignItems: 'center',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useStateCallback } from '.';
 import api from '../services/ApiService';
@@ -16,9 +16,10 @@ export type QuestionType = {
 		id: number;
 		name: string;
 	}[];
-	ref: React.RefObject<HTMLInputElement>;
 	answer?: string;
 	rightAnswers?: string;
+	isCurrentCorrect: boolean;
+	currentAnswer?: string;
 };
 
 export function usePratice(filter: UsePratice) {
@@ -26,6 +27,7 @@ export function usePratice(filter: UsePratice) {
 	if (!enabled) categories = null;
 	const { data } = api.useGetPracticeQuery({ categories, count });
 	const [checkAnswerBackend] = api.useCheckAnwerMutation();
+	const [checkCurrentAnswerBackend] = api.useCheckCurrentAnwerMutation();
 
 	const [questions, setQuestions] = useStateCallback<QuestionType[]>([]);
 
@@ -37,8 +39,9 @@ export function usePratice(filter: UsePratice) {
 					question: q.question,
 					status: index === 0 ? 'active' : 'wait',
 					categories: q.categories,
-					ref: React.createRef(),
 					answer: q.answer,
+					isCurrentCorrect: false,
+					currentAnswer: '',
 				}))
 			);
 		}
@@ -109,6 +112,29 @@ export function usePratice(filter: UsePratice) {
 
 		setQuestions([...questions]);
 	}
+	async function checkCurrentAnswer(answer: string) {
+		const activeQuestion = questions[getActiveIndex()];
+		const { isRight } = await checkCurrentAnswerBackend({
+			questionId: activeQuestion.id,
+			answer,
+		}).unwrap();
+		questions[getActiveIndex()].isCurrentCorrect = isRight;
+		setQuestions([...questions]);
+	}
 
-	return { questions, next, checkAnswer, setActive };
+	function changeInputHandler(e: React.ChangeEvent<HTMLInputElement>) {
+		const { value } = e.target;
+
+		questions[getActiveIndex()].currentAnswer = value;
+		setQuestions([...questions]);
+
+		//запрос на правильность ввода ответа
+		checkCurrentAnswer(value);
+	}
+
+	function getActiveIndex() {
+		return questions.findIndex((q) => q.status === 'active');
+	}
+
+	return { questions, next, checkAnswer, setActive, changeInputHandler };
 }

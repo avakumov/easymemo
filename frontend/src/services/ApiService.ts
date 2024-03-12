@@ -57,6 +57,13 @@ const api = createApi({
 				body,
 			}),
 		}),
+		checkCurrentAnwer: builder.mutation<{ isRight: boolean }, { questionId: number; answer: string }>({
+			query: (body) => ({
+				url: `questions/checkCurrentAnswer`,
+				method: 'POST',
+				body,
+			}),
+		}),
 		getPractice: builder.query<IQuestion[], { categories: string[] | null; count: number } | undefined>({
 			query: (filter) => ({
 				url: `/questions/practice`,

@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import BarActions from '../BarActions/BarActions';
 import { setPracticeAllCount, setPracticeSuccessCount } from '../../store/slices/practiceSlice';
+
 const PracticeQuestionMemo = React.memo(PracticeQuestion);
 
 export default function Practice() {
 	const filter = useSelector((state: RootState) => state.practice.filter);
 	const dispatch = useDispatch();
 
-	const { questions, next, checkAnswer, setActive } = usePratice(filter);
+	const { questions, next, checkAnswer, setActive, changeInputHandler } = usePratice(filter);
 
 	useEffect(() => {
 		const successCount = questions.reduce((acc, curr) => {
@@ -25,13 +26,13 @@ export default function Practice() {
 	}, [dispatch, questions]);
 
 	const onKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+		const target = e.target as HTMLInputElement;
 		if (e.key === 'Tab') {
 			e.preventDefault();
 			next();
 		}
 		if (e.key === 'Enter') {
 			e.preventDefault();
-			const target = e.target as HTMLInputElement;
 			checkAnswer(target.value);
 		}
 	};
@@ -52,7 +53,12 @@ export default function Practice() {
 			/>
 			<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }} onKeyDown={onKeyDown}>
 				{questions.map((q) => (
-					<PracticeQuestionMemo key={q.id} question={q} ref={q.ref} setActive={setActive} />
+					<PracticeQuestionMemo
+						key={q.id}
+						question={q}
+						setActive={setActive}
+						changeInputHandler={changeInputHandler}
+					/>
 				))}
 			</Box>
 		</Box>

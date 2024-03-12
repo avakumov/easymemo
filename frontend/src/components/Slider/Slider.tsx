@@ -55,6 +55,9 @@ const Splider = () => {
 						}}>
 						<Box
 							sx={{
+								position: 'absolute',
+								right: '1rem',
+								top: '1rem',
 								display: 'flex',
 								justifyContent: 'space-between',
 								alignItems: 'center',
@@ -92,6 +95,7 @@ const Splider = () => {
 									<Sheet
 										key={a}
 										variant='soft'
+										color='primary'
 										sx={{
 											p: '0.5rem',
 											typography: {
@@ -105,7 +109,7 @@ const Splider = () => {
 								))}
 							</Box>
 						</Box>
-						<Box sx={{ display: 'flex', gap: 1 }}>
+						<Box sx={{ display: 'flex', gap: 1, fontStyle: 'italic' }}>
 							{question.categories.map((category) => (
 								<Typography key={category.id} level='body-lg'>
 									{category.name}

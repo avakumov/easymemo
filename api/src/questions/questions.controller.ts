@@ -26,6 +26,12 @@ export class QuestionsController {
 	}
 
 	@Public()
+	@Post('/checkCurrentanswer')
+	checkCurrentAnswer(@Body() body: { questionId: number; answer: string }) {
+		return this.questionsService.checkCurrentAnswer(body);
+	}
+
+	@Public()
 	@Post('/find')
 	async find(
 		@Body()

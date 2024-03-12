@@ -73,6 +73,29 @@ export class QuestionsService {
 		}
 	}
 
+	/*Проверка текущего ответа на вопрос */
+	async checkCurrentAnswer({ questionId, answer }: { questionId: number; answer: string }) {
+		if (answer.trim() === '') return { isRight: false };
+
+		const question = await this.prisma.question.findUnique({
+			where: {
+				id: questionId,
+			},
+		});
+		if (question) {
+			const rightAnswers = question.rightAnswers ? question.rightAnswers.split(settings.separatorInDBString) : [];
+			let isRight = false;
+			for (const rightAnswer of rightAnswers) {
+				if (rightAnswer.trim().startsWith(answer.trim())) {
+					isRight = true;
+					break;
+				}
+			}
+			return { isRight };
+		}
+		throw new Error('Question not found');
+	}
+
 	async practice({ categories, count }: { categories: string[]; count: number }) {
 		const { questions } = await this.find({ filter: { categories } });
 

@@ -38,7 +38,6 @@ const Splider = () => {
 				arrows: isMobile ? false : true,
 				width: width,
 				wheel: true,
-				height: 'calc(100vh - var(--Header-height))',
 			}}>
 			{data?.questions.map((question, index) => (
 				<SplideSlide key={index}>
@@ -59,7 +58,6 @@ const Splider = () => {
 								display: 'flex',
 								justifyContent: 'space-between',
 								alignItems: 'center',
-								width: '100%',
 							}}>
 							{question.url ? (
 								<Link href={question.url} target='_blank' title={question.url}>

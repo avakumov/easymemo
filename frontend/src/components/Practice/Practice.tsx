@@ -37,8 +37,6 @@ export default function Practice() {
 		<Box
 			sx={{
 				maxWidth: '900px',
-				m: 1,
-
 				minWidth: {
 					md: 'calc(850px - var(--Sidebar-width))',
 				},

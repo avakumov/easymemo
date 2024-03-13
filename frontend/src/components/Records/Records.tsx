@@ -8,7 +8,7 @@ import Users from '../Users/Users';
 
 export default function Records({ entityName }: { entityName: EntityName | undefined | string }) {
 	return (
-		<Box sx={{ m: 1, width: '100%' }}>
+		<Box sx={{ width: '100%' }}>
 			<BarActions sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'end', p: 1 }} page={entityName} />
 			<Show entityName={entityName} />
 		</Box>

@@ -24,6 +24,7 @@ export default function PracticeFilter() {
 	const cats: Record<string, boolean> = {};
 	const defaultValues = {
 		count: filter.count,
+		// @ts-ignore TODO fix types
 		...filter.categories.reduce((acc, cur) => {
 			acc[cur as keyof typeof cats] = true;
 			return acc;

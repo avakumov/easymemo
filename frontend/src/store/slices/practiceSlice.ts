@@ -5,12 +5,12 @@ interface PracticeState {
 	openFilterModal: boolean;
 	filter: {
 		count: number;
-		categories: string[];
+		categories: string[] | null;
 		enabled: boolean;
 	};
 	successCount: number;
 	allCount: number;
-	questions: any[];
+	questions: QuestionPracticeType[];
 }
 
 const initialState: PracticeState = {

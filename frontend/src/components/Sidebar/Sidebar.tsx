@@ -22,6 +22,8 @@ import { useMemo, useState } from 'react';
 import HeadsetMicIcon from '@mui/icons-material/HeadsetMic';
 import SlideshowIcon from '@mui/icons-material/Slideshow';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import ArticleIcon from '@mui/icons-material/Article';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
 function getMenuItems(role: string) {
 	type MenuItemType = {
@@ -66,6 +68,8 @@ function getMenuItems(role: string) {
 		// { title: 'Stats', path: '/stats', icon: <AutoGraphIcon />, roles: ['admin', 'user'] },
 		{ title: 'Audio records', path: '/audios', icon: <HeadsetMicIcon />, roles: ['admin', 'user'] },
 		{ title: 'Slides', path: '/slides', icon: <SlideshowIcon />, roles: ['admin', 'user'] },
+		{ title: 'Posts', path: '/posts', icon: <ArticleIcon />, roles: ['admin', 'user'] },
+		{ title: 'Books', path: '/books', icon: <AutoStoriesIcon />, roles: ['admin', 'user'] },
 	];
 
 	const includesRole = (item: { roles?: string[] }) => Array.isArray(item.roles) && item.roles.includes(role);
@@ -237,6 +241,12 @@ export default function Sidebar() {
 														selected={currentPath === i.path}
 														onClick={() => {
 															handleClickPage(i.path);
+														}}
+														sx={{
+															'&.Mui-selected': {
+																backgroundColor: (theme) =>
+																	theme.vars.palette.primary.softBg,
+															},
 														}}>
 														{i.icon}
 														{i.title}
@@ -254,7 +264,12 @@ export default function Sidebar() {
 										onClick={() => {
 											handleClickPage(p.path);
 										}}
-										selected={pathname === p.path}>
+										selected={pathname === p.path}
+										sx={{
+											'&.Mui-selected': {
+												backgroundColor: (theme) => theme.vars.palette.primary.softBg,
+											},
+										}}>
 										{p.icon}
 										<ListItemContent>
 											<Typography level='title-sm'>{p.title}</Typography>

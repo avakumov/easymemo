@@ -11,9 +11,4 @@ export default defineConfig({
 	preview: {
 		port: 8000,
 	},
-	build: {
-		rollupOptions: {
-			external: ['react-markdown', 'remark-gfm', '@mdxeditor/editor'],
-		},
-	},
 });

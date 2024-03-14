@@ -6,6 +6,7 @@ import { messageReducer } from './slices/messageSlice';
 import { paginatorReducer } from './slices/paginatorSlice';
 import { practiceReducer } from './slices/practiceSlice';
 import { searchReducer } from './slices/searchSlice';
+import { pageContextReducer } from './slices/pageContextSlice';
 
 const rootReducer = combineReducers({
 	formEntityModal: formEntityModalReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
 	search: searchReducer,
 	paginator: paginatorReducer,
 	filters: filtersReducer,
+	pageContext: pageContextReducer,
 	[api.reducerPath]: api.reducer,
 });
 

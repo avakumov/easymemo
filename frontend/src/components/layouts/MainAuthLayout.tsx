@@ -1,10 +1,13 @@
 import { Box } from '@mui/joy';
 import { ReactNode } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 import Auth from '../Auth/Auth';
 import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 
-const MainAuthLayout = ({ children, page }: { children: ReactNode; page?: string }) => {
+const MainAuthLayout = ({ children }: { children: ReactNode }) => {
+	const page = useSelector((state: RootState) => state.pageContext.page);
 	function getPaddings(page: string | undefined): any {
 		switch (page) {
 			case 'slides':

@@ -37,6 +37,7 @@ const Splider = () => {
 				pagination: false,
 				arrows: isMobile ? false : true,
 				width: width,
+				height: 'calc(100vh - var(--Header-height)',
 				wheel: true,
 			}}>
 			{data?.questions.map((question, index) => (

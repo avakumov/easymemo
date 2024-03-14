@@ -1,5 +1,7 @@
 import { Box } from '@mui/joy';
+//@ts-ignore
 import Markdown from 'react-markdown';
+//@ts-ignore
 import remarkGfm from 'remark-gfm';
 import MarkdownEdit from '../MarkdownEdit/MarkdownEdit';
 

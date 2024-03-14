@@ -19,6 +19,7 @@ import {
 	InsertTable,
 	frontmatterPlugin,
 	InsertFrontmatter,
+	//@ts-ignore
 } from '@mdxeditor/editor';
 import { IconButton } from '@mui/joy';
 import SaveIcon from '@mui/icons-material/Save';
@@ -58,7 +59,7 @@ function App() {
 							<ConditionalContents
 								options={[
 									{
-										when: (editor) => editor?.editorType === 'codeblock',
+										when: (editor: any) => editor?.editorType === 'codeblock',
 										contents: () => <ChangeCodeMirrorLanguage />,
 									},
 									{

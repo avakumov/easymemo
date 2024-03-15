@@ -3,12 +3,8 @@ import {
 	ChangeCodeMirrorLanguage,
 	ConditionalContents,
 	InsertCodeBlock,
-	InsertSandpack,
-	SandpackConfig,
-	ShowSandpackInfo,
 	codeBlockPlugin,
 	codeMirrorPlugin,
-	sandpackPlugin,
 	toolbarPlugin,
 	listsPlugin,
 	headingsPlugin,
@@ -19,7 +15,6 @@ import {
 	InsertTable,
 	frontmatterPlugin,
 	InsertFrontmatter,
-	//@ts-ignore
 } from '@mdxeditor/editor';
 import { IconButton } from '@mui/joy';
 import SaveIcon from '@mui/icons-material/Save';

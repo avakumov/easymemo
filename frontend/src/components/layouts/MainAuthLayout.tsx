@@ -28,9 +28,10 @@ const MainAuthLayout = ({ children }: { children: ReactNode }) => {
 						sm: 'calc(var(--Header-height))',
 					},
 					display: 'flex',
-					justifyContent: 'center',
+					//justifyContent: 'center',
 					width: '100%',
 					p: getPaddings(page),
+					overflowX: 'auto',
 				}}>
 				{children}
 			</Box>

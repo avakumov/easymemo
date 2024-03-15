@@ -1,4 +1,3 @@
-import { Box } from '@mui/joy';
 import { lazy, ReactNode, Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { createBrowserRouter } from 'react-router-dom';
@@ -11,7 +10,6 @@ import Fallback from '../Fallback/Fallback';
 import MainAuthLayout from '../layouts/MainAuthLayout';
 import Loading from '../Loading/Loading';
 import Login from '../Login/Login';
-import MarkdownEdit from '../MarkdownEdit/MarkdownEdit';
 import PracticeFilterModal from '../modals/PracticeFilterModal';
 import PageContext from '../PageContext/PageContext';
 import Practice from '../Practice/Practice';
@@ -67,9 +65,13 @@ const routes: Route[] = [
 	{
 		name: 'posts',
 		path: '/posts',
-		element: <Posts />,
+		element: (
+			<Suspense fallback={<Loading />}>
+				<Posts />
+			</Suspense>
+		),
 		layout: MainAuthLayout,
-		context: { page: 'posts', suspense: true },
+		context: { page: 'posts' },
 	},
 	{
 		name: 'books',
@@ -119,24 +121,17 @@ const routes: Route[] = [
 	},
 ];
 
-const EmptyWrapper = ({ children }: { children: ReactNode }) => {
-	return <>{children}</>;
-};
-const SuspensePrepared = ({ children }: { children: ReactNode }) => {
-	return <Suspense fallback={<Loading />}>{children}</Suspense>;
-};
+const EmptyWrapper = ({ children }: { children: ReactNode }) => children;
+
 const router = createBrowserRouter(
 	routes.map((route) => {
 		const Layout = route.layout ?? EmptyWrapper;
-		const Suspense = route.context?.suspense ? SuspensePrepared : EmptyWrapper;
 		return {
 			path: route.path,
 			element: (
 				<ErrorBoundary FallbackComponent={Fallback}>
 					<PageContext context={route.context}>
-						<Layout>
-							<Suspense>{route.element}</Suspense>
-						</Layout>
+						<Layout>{route.element}</Layout>
 					</PageContext>
 				</ErrorBoundary>
 			),

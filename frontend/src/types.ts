@@ -141,5 +141,4 @@ export type QuestionPracticeType = {
 
 export type PageContextType = {
 	page: string; //название страницы
-	suspense?: boolean; //необходимо для обертки Suspense
 };

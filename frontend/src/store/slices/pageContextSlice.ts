@@ -11,7 +11,6 @@ export const pageContextSlice = createSlice({
 	reducers: {
 		changePageContext(state, action: PayloadAction<PageContextType>) {
 			state.page = action.payload.page;
-			state.suspense = action.payload.suspense;
 		},
 	},
 });

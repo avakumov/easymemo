@@ -78,8 +78,9 @@ export function toggleSidebar() {
 	}
 }
 
-export function highlight(selector: string, highlightText: string) {
-	const main = document.querySelector(selector);
+export function highlight(main: Element, highlightText: string) {
+	//const main = document.querySelector(selector);
+
 	const str = highlightText.toLowerCase();
 
 	// Find all text nodes in the main element.
@@ -151,4 +152,20 @@ export function toPositiveNumber(n: any) {
 		return 1;
 	}
 	return parsed;
+}
+
+export function debounce(mainFunction: (...args: any) => unknown, delay: number) {
+	// Declare a variable called 'timer' to store the timer ID
+	let timer: NodeJS.Timeout;
+
+	// Return an anonymous function that takes in any number of arguments
+	return function (...args: any[]) {
+		// Clear the previous timer to prevent the execution of 'mainFunction'
+		clearTimeout(timer);
+
+		// Set a new timer that will execute 'mainFunction' after the specified delay
+		timer = setTimeout(() => {
+			mainFunction(...args);
+		}, delay);
+	};
 }

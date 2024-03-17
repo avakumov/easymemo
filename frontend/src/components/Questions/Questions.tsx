@@ -24,7 +24,7 @@ const Questions = () => {
 	const { data, error, isLoading } = api.useGetQuestionsQuery({
 		take: perPage,
 		skip: currentPage === 1 ? 0 : (currentPage - 1) * perPage,
-		search: useSelector((state: RootState) => state.search.commonTextSearch),
+		search: useSelector((state: RootState) => state.search.searchText),
 		filter: enabledFilter ? filter : null,
 	});
 
@@ -47,10 +47,12 @@ const Questions = () => {
 				total={data.total}
 				callback={() => {
 					//прокрутка в начало данных
-					setTimeout(() => {
+					//TODO переделать
+					const scroll = () => {
 						const start_list_questions = document.querySelector('#start_list_questions');
 						start_list_questions?.scrollIntoView({ block: 'nearest', inline: 'start', behavior: 'smooth' });
-					}, 200);
+					};
+					setTimeout(scroll, 200);
 				}}
 			/>
 		</>

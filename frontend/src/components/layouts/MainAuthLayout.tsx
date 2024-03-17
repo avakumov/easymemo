@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import Auth from '../Auth/Auth';
 import Header from '../Header/Header';
+import HighlightSearch from '../HighlightSearch/HighlightSearch';
 import Sidebar from '../Sidebar/Sidebar';
 
 const MainAuthLayout = ({ children }: { children: ReactNode }) => {
@@ -28,12 +29,11 @@ const MainAuthLayout = ({ children }: { children: ReactNode }) => {
 						sm: 'calc(var(--Header-height))',
 					},
 					display: 'flex',
-					//justifyContent: 'center',
 					width: '100%',
 					p: getPaddings(page),
 					overflowX: 'auto',
 				}}>
-				{children}
+				<HighlightSearch>{children}</HighlightSearch>
 			</Box>
 		</Box>
 	);

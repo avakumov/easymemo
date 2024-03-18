@@ -95,7 +95,7 @@ export class QuestionsService {
 		}
 		throw new Error('Question not found');
 	}
-
+	//TODO migrate to question filter
 	async practice({ categories, count }: { categories: string[]; count: number }) {
 		const { questions } = await this.find({ filter: { categories } });
 
@@ -108,24 +108,16 @@ export class QuestionsService {
 
 		//TODO refactor this for best performance
 		/*выбираем необходимое количество*/
-		return getRandom(questionsWithoutRightAnswers, count);
+		return this.getRandom(questionsWithoutRightAnswers, count);
+	}
 
-		/*Для взятия случайных элементов в количестве count */
-		function getRandom(arr: Array<any>, count: number) {
-			const res: any[] = [];
-			if (Array.isArray(arr) && !isNaN(count)) {
-				let len = arr.length;
-				if (len < count) {
-					count = len;
-				}
-				for (let i = 0; i < count; i++) {
-					len = arr.length;
-					const randomIndex = Math.floor(Math.random() * len);
-					res.push(arr.splice(randomIndex, 1)[0]);
-				}
-			}
-			return res;
-		}
+	//TODO migrate to question filter
+	async typing({ categories, count }: { categories: string[]; count: number }) {
+		const { questions } = await this.find({ filter: { categories } });
+
+		//TODO refactor this for best performance
+		/*выбираем необходимое количество*/
+		return this.getRandom(questions, count);
 	}
 
 	async find({
@@ -266,5 +258,22 @@ export class QuestionsService {
 				id,
 			},
 		});
+	}
+
+	/*Для взятия случайных элементов в количестве count */
+	private getRandom(arr: Array<any>, count: number) {
+		const res: any[] = [];
+		if (Array.isArray(arr) && !isNaN(count)) {
+			let len = arr.length;
+			if (len < count) {
+				count = len;
+			}
+			for (let i = 0; i < count; i++) {
+				len = arr.length;
+				const randomIndex = Math.floor(Math.random() * len);
+				res.push(arr.splice(randomIndex, 1)[0]);
+			}
+		}
+		return res;
 	}
 }

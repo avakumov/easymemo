@@ -7,6 +7,7 @@ import BarActions from '../BarActions/BarActions';
 import Books from '../Books/Books';
 import Error404 from '../Error404/Error404';
 import Fallback from '../Fallback/Fallback';
+import Focus from '../Focus/Focus';
 import MainAuthLayout from '../layouts/MainAuthLayout';
 import Loading from '../Loading/Loading';
 import Login from '../Login/Login';
@@ -16,6 +17,7 @@ import Practice from '../Practice/Practice';
 import Records from '../Records/Records';
 import Registration from '../Registration/Registration';
 import Splider from '../Slider/Slider';
+import Typing from '../Typing/Typing';
 
 const Posts = lazy(() => import('../Posts/Posts'));
 
@@ -60,6 +62,17 @@ const routes: Route[] = [
 		element: <Records entityName={EntityNames.USER} />,
 		layout: MainAuthLayout,
 		context: { page: 'users' },
+	},
+	{
+		name: 'typing',
+		path: '/typing',
+		element: (
+			<Focus>
+				<Typing />
+			</Focus>
+		),
+		layout: MainAuthLayout,
+		context: { page: 'typing' },
 	},
 
 	{

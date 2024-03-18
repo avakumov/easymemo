@@ -45,7 +45,7 @@ const baseQueryWithLogout: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 const api = createApi({
 	reducerPath: 'mainApi',
 	baseQuery: baseQueryWithLogout,
-	tagTypes: ['questions', 'users', 'categories', 'profile', 'practice'],
+	tagTypes: ['questions', 'users', 'categories', 'profile', 'practice', 'typing'],
 	endpoints: (builder) => ({
 		checkAnwer: builder.mutation<
 			{ status: 'fail' | 'success'; rightAnswers: string },
@@ -71,6 +71,14 @@ const api = createApi({
 				body: filter,
 			}),
 			providesTags: ['practice'],
+		}),
+		getTyping: builder.query<IQuestion[], { categories: string[] | null; count: number } | undefined>({
+			query: (filter) => ({
+				url: `/questions/typing`,
+				method: 'POST',
+				body: filter,
+			}),
+			providesTags: ['typing'],
 		}),
 		getQuestion: builder.query<IQuestion, number>({
 			query: (id) => ({

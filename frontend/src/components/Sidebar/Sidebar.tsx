@@ -64,6 +64,7 @@ function getMenuItems(role: string) {
 				{ title: 'Users', path: '/records/users/1', icon: <GroupIcon />, roles: ['admin'] },
 			],
 		},
+		{ title: 'Typing', path: '/typing', icon: <KeyboardIcon />, roles: ['admin', 'user'] },
 		{ title: 'Tasks', path: '/tasks', icon: <FormatListNumberedIcon />, roles: ['admin', 'user'] },
 		// { title: 'Stats', path: '/stats', icon: <AutoGraphIcon />, roles: ['admin', 'user'] },
 		{ title: 'Audio records', path: '/audios', icon: <HeadsetMicIcon />, roles: ['admin', 'user'] },

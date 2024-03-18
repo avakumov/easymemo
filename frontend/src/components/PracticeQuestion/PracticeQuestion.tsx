@@ -120,6 +120,7 @@ const PracticeQuestion = (props: QuestionProps) => {
 				borderRadius: '10px',
 				justifyContent: 'space-between',
 				width: '100%',
+				minWidth: '330px',
 			}}>
 			<Box sx={{ display: 'flex', flexDirection: 'column', flexBasis: '100%' }}>
 				<Box sx={{ fontWeight: 'bold' }}>{q.question}</Box>

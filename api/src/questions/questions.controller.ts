@@ -20,6 +20,12 @@ export class QuestionsController {
 	}
 
 	@Public()
+	@Post('/typing')
+	async typing(@Body() body: { categories: string[]; count: number }) {
+		return this.questionsService.typing(body);
+	}
+
+	@Public()
 	@Post('/checkanswer')
 	answer(@Body() body: { questionId: number; answer: string }) {
 		return this.questionsService.checkAnswer(body);

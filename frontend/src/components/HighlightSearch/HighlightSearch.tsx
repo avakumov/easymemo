@@ -1,3 +1,4 @@
+import { Box } from '@mui/joy';
 import { ReactNode, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
@@ -17,7 +18,11 @@ const HighlightSearch = ({ children }: { children: ReactNode }) => {
 		return () => clearTimeout(timer);
 	});
 
-	return <div ref={ref}>{children}</div>;
+	return (
+		<Box sx={{ width: '100%', height: '100%', display: 'flex' }} ref={ref}>
+			{children}
+		</Box>
+	);
 };
 
 export default HighlightSearch;

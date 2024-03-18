@@ -9,12 +9,13 @@ import Sidebar from '../Sidebar/Sidebar';
 
 const MainAuthLayout = ({ children }: { children: ReactNode }) => {
 	const page = useSelector((state: RootState) => state.pageContext.page);
+
 	function getPaddings(page: string | undefined): any {
 		switch (page) {
 			case 'slides':
 				return 0;
 			default:
-				return { sm: 1, md: 2 };
+				return { xs: 1, md: 2 };
 		}
 	}
 	return (
@@ -30,6 +31,7 @@ const MainAuthLayout = ({ children }: { children: ReactNode }) => {
 					},
 					display: 'flex',
 					width: '100%',
+					height: '100%',
 					p: getPaddings(page),
 					overflowX: 'auto',
 				}}>

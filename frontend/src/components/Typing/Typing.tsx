@@ -95,12 +95,16 @@ export default function Typing({ focus }: TypingProps) {
 					minWidth: '360px',
 					maxWidth: '1000px',
 					fontFamily: 'monospace',
-					p: 3,
+					p: {
+						xs: 1,
+						md: 3,
+					},
 					borderRadius: '1rem',
 					filter: focus ? 'none' : 'blur(5px)',
 					fontWeight: 'bold',
 					borderColor: (theme: Theme) => theme.palette.primary.softBg,
 					borderWidth: 2,
+					wordBreak: 'break-all',
 				}}>
 				{Array.isArray(lines)
 					? lines.map((line, indexLine) => {

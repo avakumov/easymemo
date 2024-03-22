@@ -80,6 +80,8 @@ export default function Typing({ focus }: TypingProps) {
 		function reload() {
 			//invalidate
 			dispatch(api.util.invalidateTags(['typing']));
+			setCurrentPosition(0);
+			setCurrentLine(0);
 		}
 	}, [currentLine, currentPosition, dispatch, lines]);
 

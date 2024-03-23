@@ -3,13 +3,13 @@ import Loading from '../Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Alert, Box } from '@mui/joy';
-import { showMessage } from '../../store/slices/messageSlice';
 import QuestionsTable from './QuestionsTable';
 import QuestionsList from './QuestionsList';
 import Paginator from '../Paginator/Paginator';
 import { RootState } from '../../store/store';
 import { useParams } from 'react-router-dom';
 import { toPositiveNumber } from '../../utils';
+import { service } from '../../store/service';
 
 const Questions = () => {
 	const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const Questions = () => {
 
 	//показ сообщения о количестве найденных записей
 	useEffect(() => {
-		data?.total && dispatch(showMessage({ message: ` ${data?.total} total records`, type: 'info' }));
+		data?.total && service.showMessage(`${data?.total} total records`, 'info');
 	}, [data?.total, dispatch]);
 
 	if (isLoading) return <Loading />;

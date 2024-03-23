@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface MessageState {
+export type MessageTypes = 'error' | 'warning' | 'info' | 'success' | undefined;
+
+type MessageState = {
 	message: string;
-	type?: 'error' | 'warning' | 'info' | 'success';
+	type?: MessageTypes;
 	open: boolean;
-}
+};
 
 const initialState: MessageState = {
 	message: '',
@@ -28,6 +30,7 @@ export const messageSlice = createSlice({
 		},
 	},
 });
+
 export const { changeMessage, showMessage } = messageSlice.actions;
 
 export const messageReducer = messageSlice.reducer;

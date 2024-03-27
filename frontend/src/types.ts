@@ -2,6 +2,7 @@ export enum EntityNames {
 	USER = 'users',
 	CATEGORY = 'categories',
 	QUESTION = 'questions',
+	BOOKS = 'books',
 }
 export type EntityKey = keyof typeof EntityNames;
 export type EntityName = (typeof EntityNames)[EntityKey] | undefined | null;
@@ -17,6 +18,17 @@ export interface ICategory {
 export interface ILogin {
 	email: string;
 	password: string;
+}
+
+export interface IBookNew {
+	title: string;
+	image: string;
+}
+
+export interface IBook {
+	id: number;
+	title: string;
+	image: string;
 }
 
 export interface IRegisterForm {

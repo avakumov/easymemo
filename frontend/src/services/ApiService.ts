@@ -1,6 +1,8 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import {
 	EntityName,
+	IBook,
+	IBookNew,
 	ICategory,
 	ILogin,
 	ILoginAnswer,
@@ -140,6 +142,13 @@ const api = createApi({
 				url: '/questions',
 				method: 'POST',
 				body: question,
+			}),
+		}),
+		createBook: builder.mutation<IBook, IBookNew>({
+			query: (book) => ({
+				url: '/books',
+				method: 'POST',
+				body: book,
 			}),
 		}),
 		updateQuestion: builder.mutation<IQuestion, IQuestionModify>({

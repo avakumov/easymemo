@@ -6,6 +6,7 @@ import { Box } from '@mui/material';
 import FormQuestion from '../forms/FormQuestion';
 import FormCategory from '../forms/FormCategory';
 import { entityModalClose } from '../../store/slices/FormEntityModalSlice';
+import FormBook from '../forms/FormBook';
 
 const FormEntityModal = () => {
 	const { open, name, data } = useSelector((state: RootState) => state.formEntityModal);
@@ -44,6 +45,8 @@ function FormEntity({
 			return <FormQuestion data={data as IQuestion} exit={exit} />;
 		case EntityNames.CATEGORY:
 			return <FormCategory data={data as ICategory} exit={exit} />;
+		case EntityNames.BOOKS:
+			return <FormBook exit={exit} />;
 		default:
 			return <Box>Uncknown entity create</Box>;
 	}

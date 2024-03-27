@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import Auth from '../Auth/Auth';
+import BarActions from '../BarActions/BarActions';
 import Header from '../Header/Header';
 import HighlightSearch from '../HighlightSearch/HighlightSearch';
 import Sidebar from '../Sidebar/Sidebar';
@@ -22,20 +23,23 @@ const MainAuthLayout = ({ children }: { children: ReactNode }) => {
 		<Box sx={{ display: 'flex' }}>
 			<Header page={page} />
 			<Sidebar />
-			<Box
-				component='main'
-				sx={{
-					mt: {
-						xs: 'calc(var(--Header-height))',
-						sm: 'calc(var(--Header-height))',
-					},
-					display: 'flex',
-					width: '100%',
-					height: '100%',
-					p: getPaddings(page),
-					overflowX: 'auto',
-				}}>
-				<HighlightSearch>{children}</HighlightSearch>
+			<Box sx={{ display: 'flex', width: '100%', flexDirection: 'column' }}>
+				<BarActions sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'end', p: 1 }} page={page} />
+				<Box
+					component='main'
+					sx={{
+						mt: {
+							xs: 'calc(var(--Header-height))',
+							sm: 'calc(var(--Header-height))',
+						},
+						display: 'flex',
+						width: '100%',
+						height: '100%',
+						p: getPaddings(page),
+						overflowX: 'auto',
+					}}>
+					<HighlightSearch>{children}</HighlightSearch>
+				</Box>
 			</Box>
 		</Box>
 	);

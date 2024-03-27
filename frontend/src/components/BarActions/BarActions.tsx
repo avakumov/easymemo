@@ -16,6 +16,7 @@ const mapActions = new Map([
 	['categories', <ActionsCategories />],
 	['practice', <ActionsPractice />],
 	['slides', <ActionsQuestions />],
+	['books', <ActionsBooks />],
 ]);
 
 export default function BarActions({ sx, page }: { sx?: SxProps; page: string | undefined | null }) {
@@ -72,6 +73,14 @@ function ActionsCategories() {
 	return (
 		<>
 			<AddElementButton sx={{ ml: 'auto' }} nameElement={EntityNames.CATEGORY} />
+		</>
+	);
+}
+
+function ActionsBooks() {
+	return (
+		<>
+			<AddElementButton sx={{ ml: 'auto' }} nameElement={EntityNames.BOOKS} />
 		</>
 	);
 }

@@ -11,7 +11,10 @@ export default function AddElementButton({ sx, nameElement }: { sx: SxProps; nam
 	function addClick() {
 		if (!nameElement) return;
 		if (nameElement === EntityNames.QUESTION || nameElement === EntityNames.CATEGORY) {
-			dispatch(entityModalOpen({ name: nameElement, open: true }));
+			return dispatch(entityModalOpen({ name: nameElement, open: true }));
+		}
+		if (nameElement === EntityNames.BOOKS) {
+			return dispatch(entityModalOpen({ name: EntityNames.BOOKS, open: true }));
 		}
 	}
 

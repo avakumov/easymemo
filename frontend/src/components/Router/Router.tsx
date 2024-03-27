@@ -17,6 +17,7 @@ import Practice from '../Practice/Practice';
 import Records from '../Records/Records';
 import Registration from '../Registration/Registration';
 import Splider from '../Slider/Slider';
+import Tasks from '../Tasks/Tasks';
 import Typing from '../Typing/Typing';
 
 const Posts = lazy(() => import('../Posts/Posts'));
@@ -111,7 +112,7 @@ const routes: Route[] = [
 		name: 'tasks',
 		path: '/tasks',
 		layout: MainAuthLayout,
-		element: 'tasks',
+		element: <Tasks />,
 		context: { page: 'tasks' },
 	},
 	{

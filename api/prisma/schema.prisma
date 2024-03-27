@@ -18,6 +18,7 @@ model User {
     name           String?
     questions      Question[]
     categories     Category[]
+    books          Book[]
     answers        Answer[]
     isAdmin        Boolean    @default(false)
     themeInterface String     @default("system")
@@ -58,4 +59,12 @@ model Answer {
     questionId Int
     owner      User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
     ownerId    Int      @default(1)
+}
+
+model Book {
+    id      Int    @id @default(autoincrement())
+    title   String
+    image   String
+    owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId Int    @default(1)
 }

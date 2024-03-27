@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { AllConfigType } from './config/config.type';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
@@ -11,6 +12,10 @@ async function bootstrap() {
 	const config = new DocumentBuilder().setTitle('Easymemo').build();
 	const document = SwaggerModule.createDocument(app, config);
 	SwaggerModule.setup('api', app, document);
+
+	//use large body
+	app.use(bodyParser.json({ limit: '50mb' }));
+	app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 	app.enableCors();
 

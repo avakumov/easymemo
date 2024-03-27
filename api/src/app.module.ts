@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories.module';
 import { ConfigModule } from '@nestjs/config';
 import { FilesModule } from './files/files.module';
+import { BooksModule } from './books/books.module';
 import mailerConfig from './config/mailer.config';
 import appConfig from './config/app.config';
 import authConfig from './config/auth.config';
@@ -23,6 +24,7 @@ import authConfig from './config/auth.config';
 		AuthModule,
 		CategoriesModule,
 		FilesModule,
+		BooksModule,
 	],
 	controllers: [],
 	providers: [],

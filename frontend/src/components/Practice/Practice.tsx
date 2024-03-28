@@ -41,10 +41,6 @@ export default function Practice() {
 					md: 'calc(850px - var(--Sidebar-width))',
 				},
 			}}>
-			<BarActions
-				page={'practice'}
-				sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'end', p: 1, alignItems: 'center' }}
-			/>
 			<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
 				{questions.map((q) => (
 					<PracticeQuestion key={q.id} question={q} />

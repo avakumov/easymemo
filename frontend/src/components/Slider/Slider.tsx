@@ -23,6 +23,7 @@ const Splider = () => {
 	const theme = useTheme();
 	let isMobile = useMedia(`(max-width: ${theme.breakpoints.values.md}px)`);
 	const width = isMobile ? '100vw' : 'calc(100vw - var(--Sidebar-width))';
+	const height = isMobile ? 'calc(100vh - var(--Header-height) - 1rem)' : 'calc(100vh - 52px)';
 
 	if (data?.questions.length === 0) {
 		return <Box sx={{ fontSize: '2rem' }}>Слайдов нет!</Box>;
@@ -36,8 +37,8 @@ const Splider = () => {
 				type: 'loop',
 				pagination: false,
 				arrows: isMobile ? false : true,
-				width: width,
-				height: 'calc(100vh - var(--Header-height)',
+				width,
+				height,
 				wheel: true,
 			}}>
 			{data?.questions.map((question, index) => (

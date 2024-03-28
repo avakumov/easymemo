@@ -15,11 +15,14 @@ const mapActions = new Map([
 	['questions', <ActionsQuestions />],
 	['categories', <ActionsCategories />],
 	['practice', <ActionsPractice />],
-	['slides', <ActionsQuestions />],
+	['slides', <ActionsSlides />],
 	['books', <ActionsBooks />],
 ]);
 
 export default function BarActions({ sx, page }: { sx?: SxProps; page: string | undefined | null }) {
+	if (!page) return null;
+	const component = mapActions.get(page);
+	if (!component) return null;
 	return (
 		<Box sx={sx}>
 			<Box
@@ -28,7 +31,7 @@ export default function BarActions({ sx, page }: { sx?: SxProps; page: string | 
 					alingItems: 'center',
 					gap: 1,
 				}}>
-				{page ? mapActions.get(page) : null}
+				{component}
 			</Box>
 		</Box>
 	);
@@ -63,6 +66,14 @@ function ActionsQuestions() {
 	return (
 		<>
 			<Search sx={{ display: 'flex', gap: 1 }} />
+			<QuestionsFilterButton />
+			<AddElementButton sx={{ ml: 'auto' }} nameElement={EntityNames.QUESTION} />
+		</>
+	);
+}
+function ActionsSlides() {
+	return (
+		<>
 			<QuestionsFilterButton />
 			<AddElementButton sx={{ ml: 'auto' }} nameElement={EntityNames.QUESTION} />
 		</>

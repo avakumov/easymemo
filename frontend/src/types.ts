@@ -23,12 +23,16 @@ export interface ILogin {
 export interface IBookNew {
 	title: string;
 	image: string;
+	pdfFilename: string;
+	pdfFilePath: string;
 }
 
 export interface IBook {
 	id: number;
 	title: string;
 	image: string;
+	pdfFilename: string;
+	pdfFilePath: string;
 }
 
 export interface IRegisterForm {
@@ -153,4 +157,20 @@ export type QuestionPracticeType = {
 
 export type PageContextType = {
 	page: string; //название страницы
+};
+
+export type FileType = 'audio' | 'pdf';
+
+export type ServerError = {
+	status: number;
+	data: {
+		error: string;
+		message: string;
+		statusCode: number;
+	};
+};
+
+export type FetchError = {
+	error: string;
+	status: string;
 };

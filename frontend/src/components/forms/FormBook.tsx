@@ -8,8 +8,10 @@ import PdfjsLib from '../Pdfjs/Pdfjs';
 import { useDispatch } from 'react-redux';
 import { showMessage } from '../../store/slices/messageSlice';
 import api from '../../services/ApiService';
+import { EntityNames, IBook } from '../../types';
+import fileService from '../../services/fileService';
 
-const FormBook = ({ exit }: { exit: () => void }) => {
+const FormBook = ({ book, exit }: { exit: () => void; book?: IBook }) => {
 	const dispatch = useDispatch();
 	const [file, setFile] = useState<File | null>(null);
 	const canvas = useRef<HTMLCanvasElement>(null);
@@ -91,6 +93,10 @@ const FormBook = ({ exit }: { exit: () => void }) => {
 	}
 
 	async function saveHandler() {
+		if (!file) return;
+		const { data } = await fileService.saveFile({ file, type: 'pdf' });
+		if (!data) return;
+
 		//image base64 TODO save
 		const image = canvas.current?.toDataURL('image/png');
 		if (typeof image === 'undefined') {
@@ -100,6 +106,8 @@ const FormBook = ({ exit }: { exit: () => void }) => {
 		const newBook = {
 			image,
 			title,
+			pdfFilename: data.file.filename,
+			pdfFilePath: data.file.path,
 		};
 
 		try {
@@ -107,7 +115,8 @@ const FormBook = ({ exit }: { exit: () => void }) => {
 			//show success message
 			b.id && dispatch(showMessage({ message: 'Book saved', type: 'success' }));
 
-			//TODO invalidate books			dispatch(api.util.invalidateTags([EntityNames.CATEGORY]));
+			//TODO invalidate books
+			dispatch(api.util.invalidateTags([EntityNames.BOOKS]));
 		} catch (e) {
 			console.error('ошибка:', e);
 			dispatch(showMessage({ message: JSON.stringify(e), type: 'error' }));

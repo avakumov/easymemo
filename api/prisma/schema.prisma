@@ -62,9 +62,12 @@ model Answer {
 }
 
 model Book {
-    id      Int    @id @default(autoincrement())
-    title   String
-    image   String
-    owner   User   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-    ownerId Int    @default(1)
+    id          Int     @id @default(autoincrement())
+    title       String
+    image       String
+    owner       User    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId     Int     @default(1)
+    shared      Boolean @default(false)
+    pdfFilename String  @default("")
+    pdfFilePath String  @default("")
 }

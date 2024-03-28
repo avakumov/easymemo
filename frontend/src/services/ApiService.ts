@@ -1,4 +1,5 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
+import settings from '../settings';
 import {
 	EntityName,
 	IBook,
@@ -17,10 +18,9 @@ import {
 } from '../types';
 import { token } from './auth';
 
-const baseUrl = import.meta.env.PROD ? 'https://easymemo.avakumov.ru/api' : 'http://localhost:8001/api';
 /*функция запроса с токеном*/
 const baseQuery = fetchBaseQuery({
-	baseUrl,
+	baseUrl: settings.apiUrl,
 	prepareHeaders: (headers, query) => {
 		const jwtToken = token.getToken();
 		jwtToken && headers.set('authorization', 'Bearer ' + jwtToken);
@@ -47,7 +47,7 @@ const baseQueryWithLogout: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 const api = createApi({
 	reducerPath: 'mainApi',
 	baseQuery: baseQueryWithLogout,
-	tagTypes: ['questions', 'users', 'categories', 'profile', 'practice', 'typing'],
+	tagTypes: ['questions', 'users', 'categories', 'profile', 'practice', 'typing', 'books'],
 	endpoints: (builder) => ({
 		checkAnwer: builder.mutation<
 			{ status: 'fail' | 'success'; rightAnswers: string },
@@ -115,6 +115,13 @@ const api = createApi({
 				params: {},
 			}),
 			providesTags: ['categories'],
+		}),
+		getBooks: builder.query<IBook[], void>({
+			query: () => ({
+				url: `/books`,
+				params: {},
+			}),
+			providesTags: ['books'],
 		}),
 		getCategoriesWithQuestions: builder.query<(ICategory & { _count: { questions: number } })[], void>({
 			query: () => ({
@@ -194,6 +201,13 @@ const api = createApi({
 		uploadAudio: builder.mutation<ResponseSaveFileType, FormData>({
 			query: (formData) => ({
 				url: '/files/upload/mp3',
+				method: 'POST',
+				body: formData,
+			}),
+		}),
+		uploadPdfBook: builder.mutation<ResponseSaveFileType, FormData>({
+			query: (formData) => ({
+				url: '/files/upload/pdf',
 				method: 'POST',
 				body: formData,
 			}),

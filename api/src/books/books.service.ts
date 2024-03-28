@@ -18,12 +18,24 @@ export class BooksService {
 					},
 				},
 				image: book.image,
+				pdfFilename: book.pdfFilename,
+				pdfFilePath: book.pdfFilePath,
 			},
 		});
 	}
 
 	findAll() {
-		return `This action returns all books`;
+		const userId = this.request.user?.userId;
+		const isAdmin = this.request.user?.isAdmin;
+
+		return this.prisma.book.findMany({
+			where: {
+				...(isAdmin ? {} : userId ? { ownerId: userId } : { shared: true }),
+			},
+			orderBy: {
+				id: 'desc',
+			},
+		});
 	}
 
 	findOne(id: number) {

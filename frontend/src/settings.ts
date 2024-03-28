@@ -7,6 +7,8 @@ const settings = {
 	lists: {
 		PER_PAGE: 100,
 	},
+
+	apiUrl: import.meta.env.PROD ? 'https://easymemo.avakumov.ru/api' : 'http://localhost:8001/api',
 };
 
 export default settings;

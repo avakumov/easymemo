@@ -88,7 +88,15 @@ export default function Typing({ focus }: TypingProps) {
 	if (isLoading) return <Loading />;
 
 	return (
-		<Box sx={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
+		<Box
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				gap: 2,
+				width: '100%',
+				alignItems: 'center',
+			}}>
+			<Box sx={{ fontWeight: 'bold' }}>{questions?.[currentLine].question}?</Box>
 			<Sheet
 				variant='outlined'
 				sx={{
@@ -112,8 +120,10 @@ export default function Typing({ focus }: TypingProps) {
 					? lines.map((line, indexLine) => {
 							return (
 								<Tooltip
+									key={indexLine}
 									title={<Question question={questions![indexLine]} />}
 									variant='outlined'
+									style={{ zIndex: 999 }}
 									arrow
 									placement='bottom-start'>
 									<Box key={indexLine} sx={{ cursor: 'pointer', width: 'fit-content' }}>

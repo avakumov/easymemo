@@ -9,7 +9,7 @@ const Books = () => {
 	if (error) return <p>ERROR</p>;
 	if (!books || books.length === 0) return <p>Книг нет</p>;
 	return (
-		<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, width: '100%' }}>
+		<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, width: '100%', justifyContent: 'center' }}>
 			{books.map((book) => (
 				<BookCard key={book.id} book={book} />
 			))}

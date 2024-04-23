@@ -6,18 +6,16 @@ import LinearProgressWithLabel from '../progress/LinearProgressWithLabel';
 
 export default function BookCard({ book }: { book: IBook }) {
 	return (
-		<Card sx={{ width: '250px', height: '500px' }} variant='outlined' color='primary'>
-			<CardOverflow>
-				<AspectRatio ratio='1/1.41'>
-					<img src={book.image} loading='lazy' alt='' />
-				</AspectRatio>
-			</CardOverflow>
-			<CardOverflow>
-				<LinearProgressWithLabel />
-			</CardOverflow>
+		<Card sx={{ width: '250px', height: '490px', borderWidth: 1, boxShadow: 'md' }} variant='soft' color='primary'>
 			<Typography level='title-lg' title={book.title} noWrap={true}>
 				{book.title}
 			</Typography>
+			<CardOverflow>
+				<AspectRatio ratio='1/1.35' sx={{ borderRadius: 0 }}>
+					<img src={book.image} loading='lazy' alt='' />
+				</AspectRatio>
+			</CardOverflow>
+			<LinearProgressWithLabel />
 			<Box sx={{ display: 'flex', gap: 1.5, justifyContent: 'space-between' }}>
 				<Button
 					variant='soft'

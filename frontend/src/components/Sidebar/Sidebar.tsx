@@ -65,12 +65,12 @@ function getMenuItems(role: string) {
 			],
 		},
 		{ title: 'Typing', path: '/typing', icon: <KeyboardIcon />, roles: ['admin', 'user'] },
-		{ title: 'Tasks', path: '/tasks', icon: <FormatListNumberedIcon />, roles: ['admin', 'user'] },
+		{ title: 'Tasks devs', path: '/tasks', icon: <FormatListNumberedIcon />, roles: ['admin', 'user'] },
 		// { title: 'Stats', path: '/stats', icon: <AutoGraphIcon />, roles: ['admin', 'user'] },
-		{ title: 'Audio records', path: '/audios', icon: <HeadsetMicIcon />, roles: ['admin', 'user'] },
+		{ title: 'Audio records devs', path: '/audios', icon: <HeadsetMicIcon />, roles: ['admin', 'user'] },
 		{ title: 'Slides', path: '/slides', icon: <SlideshowIcon />, roles: ['admin', 'user'] },
-		{ title: 'Posts', path: '/posts', icon: <ArticleIcon />, roles: ['admin', 'user'] },
-		{ title: 'Books', path: '/books', icon: <AutoStoriesIcon />, roles: ['admin', 'user'] },
+		{ title: 'Posts devs', path: '/posts', icon: <ArticleIcon />, roles: ['admin', 'user'] },
+		{ title: 'Books devs', path: '/books', icon: <AutoStoriesIcon />, roles: ['admin', 'user'] },
 	];
 
 	const includesRole = (item: { roles?: string[] }) => Array.isArray(item.roles) && item.roles.includes(role);

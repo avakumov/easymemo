@@ -12,16 +12,18 @@ datasource db {
 }
 
 model User {
-    id             Int        @id @default(autoincrement())
-    email          String     @unique
+    id             Int           @id @default(autoincrement())
+    email          String        @unique
     password       String
     name           String?
     questions      Question[]
     categories     Category[]
+    tasks          Task[]
+    regularTasks   RegularTask[]
     books          Book[]
     answers        Answer[]
-    isAdmin        Boolean    @default(false)
-    themeInterface String     @default("system")
+    isAdmin        Boolean       @default(false)
+    themeInterface String        @default("system")
 }
 
 model Question {
@@ -70,4 +72,41 @@ model Book {
     shared      Boolean @default(false)
     pdfFilename String  @default("")
     pdfFilePath String  @default("")
+}
+
+model Task {
+    id             Int       @id @default(autoincrement())
+    name           String
+    description    String?
+    owner          User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId        Int       @default(1)
+    status         String    @default("todo")
+    duration       Int?
+    actualDuration Int?
+    complexity     Int       @default(3)
+    priority       Int       @default(1)
+    startDate      DateTime?
+    endDate        DateTime?
+}
+
+model RegularTask {
+    id          Int         @id @default(autoincrement())
+    name        String
+    description String?
+    owner       User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId     Int         @default(1)
+    status      String      @default("todo")
+    complexity  Int         @default(3)
+    priority    Int         @default(1)
+    MicroTasks  MicroTask[]
+}
+
+model MicroTask {
+    id             Int         @id @default(autoincrement())
+    owner          RegularTask @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+    ownerId        Int
+    status         String      @default("todo")
+    duration       Int?
+    actualDuration Int?
+    date           DateTime
 }

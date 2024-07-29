@@ -1,0 +1,13 @@
+-- AlterTable
+ALTER TABLE "MicroTask" ALTER COLUMN "duration" DROP NOT NULL,
+ALTER COLUMN "actualDuration" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "RegularTask" ALTER COLUMN "complexity" SET DEFAULT 3;
+
+-- AlterTable
+ALTER TABLE "Task" ALTER COLUMN "duration" DROP NOT NULL,
+ALTER COLUMN "actualDuration" DROP NOT NULL,
+ALTER COLUMN "complexity" SET DEFAULT 3,
+ALTER COLUMN "startDate" DROP NOT NULL,
+ALTER COLUMN "endDate" DROP NOT NULL;
